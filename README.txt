@@ -1,10 +1,13 @@
 GUMA a Free Software Educational Program for elementary school kids. Version 1.0
 
 What is GUMA?
-Guma is a ree Software Educational Program for elementary school kids, that helps thet to practice in arithmetic praxis of multiplication,adding and substraction
+Guma is a ree Software Educational Program for elementary school kids, that helps thet to practice in arithmetic praxis
+of multiplication,adding and substraction
 
 So how does help them?
-Is helps them by challenging them to solve random arithmetic praxis with random numbers. Also you can selext the number of the random of arithmetic praxis that you want to slove, the maximum value of a number that you want to participate in arithmetic praxis, and the type of arithmetic praxis that you ewant to practice.
+Is helps them by challenging them to solve random arithmetic praxis with random numbers. 
+Also you can selext the number of the random of arithmetic praxis that you want to slove, the maximum value of a number 
+that you want to participate in arithmetic praxis, and the type of arithmetic praxis that you want to practice.
 
 How can I excecute GUMA?
 a)Just go to the path where run.sh and guma.jar is located together with guma-1.0.jar.
