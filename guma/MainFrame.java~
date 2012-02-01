@@ -270,7 +270,7 @@ public class MainFrame extends JFrame implements ActionListener
 	public MainFrame()
 	{
 		/*Basic settings of the frame*/
-		super("GUMA: Μια  εκπαιδεθτική εφαρμογή  αριθμιτικής ελευθέρου λογισμικού");
+		super("GUMA: Μια εφαρμογή ελευθέρου λογισμικού εξάσκησης αριθμιτικών πράξεων για μαθητές δημοτικού");
 		setSize(330,200);
 		setResizable(true);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

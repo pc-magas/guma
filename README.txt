@@ -9,14 +9,30 @@ Is helps them by challenging them to solve random arithmetic praxis with random 
 Also you can selext the number of the random of arithmetic praxis that you want to slove, the maximum value of a number 
 that you want to participate in arithmetic praxis, and the type of arithmetic praxis that you want to practice.
 
-How can I excecute GUMA?
-a)Just go to the path where run.sh and guma.jar is located together with guma-1.0.jar.
+How can I compile:
 
+a)Go where is ther folder guma dy using comand line environment (terminal in Unix - like systems): 
 In UNIX like systems (eg Linux FreeBSD) you can do it with teminal command cd.
 
 b)If not (located together) bring them together under the same folder.
 
-c)Then run the script run.sh for linux (maybe and other Unix like systems) or run.bat for windows.
+c)Then type in terminal:
+	*) make to compile
+	*) make jar to make the excecutable jar
+	*) make run in order to excecute the compiled .class files
+	*) make clear to remove any .class files into file guma
+	*) make build to compile .java files, make the jar file and remove any .class files into folder guma.
+
+Also you can compile manually by typing in comand line environment (terminal in Unix-like systems):
+	*)javac guma/*.java
+And making the jar file with:
+	*)	jar cvfe ./guma-1.0.jar guma.Main guma/*
 
 Both Source code and binaries are inside the guma-1.0.jar file in the folder guma.
-Sourcecode have .java ending and binaries are these that do not have it.
+Sourcecode have .java ending and binaries are these that hame .class ending in their name.
+
+WARNING:
+In order to compile the files you need the latest Java jdk environment.
+http://www.oracle.com/technetwork/java/javase/downloads/index.html
+
+(Perhaps you need to configure the CLASSPATH environment variable in MS Windows systems.)
