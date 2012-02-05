@@ -202,6 +202,7 @@ public class MainFrame extends JFrame implements ActionListener
 					
 					}
 					paixnidi.save(f);
+					saved=true;
 				}
 				else
 				{
@@ -211,11 +212,11 @@ public class MainFrame extends JFrame implements ActionListener
 			}
 			catch(IOException e)
 			{
-				JOptionPane.showMessageDialog((Component)file,e.getMessage(),"Πρόβλημα με το αρχείο",	JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog((Component)file,e.getMessage(),"Πρόβλημα με το αρχείο",JOptionPane.ERROR_MESSAGE);
 			}
 			catch(ClassNotFoundException c)
 			{
-				JOptionPane.showMessageDialog((Component)file,c.getMessage(),"Πρόβλημα με το αρχείο",	JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog((Component)file,c.getMessage(),"Πρόβλημα με το αρχείο",JOptionPane.ERROR_MESSAGE);
 			}
 			
 		}
@@ -270,7 +271,7 @@ public class MainFrame extends JFrame implements ActionListener
 	public MainFrame()
 	{
 		/*Basic settings of the frame*/
-		super("GUMA: Μια εφαρμογή ελευθέρου λογισμικού εξάσκησης αριθμιτικών πράξεων για μαθητές δημοτικού");
+		super("GUMA: Μια  εκπαιδευτική εφαρμογή  αριθμιτικής ελευθέρου λογισμικού");
 		setSize(330,200);
 		setResizable(true);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -323,7 +324,7 @@ public class MainFrame extends JFrame implements ActionListener
 		
 		if(saveGameOption==option)//If we selected to save game
 		{
-			if(paixnidi!=null)
+			if(file!=null)
 			{
 				try
 				{
@@ -331,8 +332,12 @@ public class MainFrame extends JFrame implements ActionListener
 				}
 				catch(IOException x)
 				{
-					fileLoadAndSave(true);
+					JOptionPane.showMessageDialog((Component)option,x.getMessage(),"Πρόβλημα με το αρχείο",JOptionPane.ERROR_MESSAGE);
 				}
+			}
+			else
+			{
+				fileLoadAndSave(true);
 			}
 		}
 		else if(option==loadGameOption)//if we selected to load game
@@ -343,25 +348,6 @@ public class MainFrame extends JFrame implements ActionListener
 		else if(option==saveAs)
 		{
 			fileLoadAndSave(true);
-		}
-		else if(option==saveGameOption)
-		{
-			if(f==null)
-			{
-				fileLoadAndSave(true);	
-			}
-			else
-			{
-				try
-				{
-					paixnidi.save(f);
-				}
-				catch(IOException z)
-				{
-				JOptionPane.showMessageDialog((Component)this,z.getMessage(),"Πρόβλημα με το αρχείο",	JOptionPane.ERROR_MESSAGE);	
-				}
-
-			}
 		}
 		else if(option==newGameOption)//if we select to create a game
 		{
