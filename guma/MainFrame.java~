@@ -158,7 +158,7 @@ public class MainFrame extends JFrame implements ActionListener
 		file.setFileFilter(filter1);//Seting file filters
 
 
-		if(save==false)
+		if(save==false)//Select to save
 		{
 			file.setFileSelectionMode(JFileChooser.FILES_ONLY);
 			returnVal = file.showOpenDialog(this);
@@ -175,6 +175,7 @@ public class MainFrame extends JFrame implements ActionListener
 			/*Do save or load */
 			try
 			{
+				/*Select to save*/
 				if(save==true)
 				{
 					if( f.exists())
@@ -324,11 +325,12 @@ public class MainFrame extends JFrame implements ActionListener
 		
 		if(saveGameOption==option)//If we selected to save game
 		{
-			if(file!=null)
+			if(f!=null)
 			{
 				try
 				{
 					paixnidi.save(f);
+					saved=true;
 				}
 				catch(IOException x)
 				{
@@ -345,7 +347,7 @@ public class MainFrame extends JFrame implements ActionListener
 			fileLoadAndSave(false);
 			praxisLabel.setText(paixnidi.toString());
 		}
-		else if(option==saveAs)
+		else if(option==saveAs)//If we selected to change file
 		{
 			fileLoadAndSave(true);
 		}
@@ -359,7 +361,7 @@ public class MainFrame extends JFrame implements ActionListener
 				praxisLabel.setText(paixnidi.toString());
 			}
 		}
-		else if(option==nextPraxisButton)
+		else if(option==nextPraxisButton)//If we selected to move onj the next arithmetic praxis
 		{
 
 			try
@@ -378,7 +380,7 @@ public class MainFrame extends JFrame implements ActionListener
 									JOptionPane.ERROR_MESSAGE);
 				}
 			}
-			catch(NumberFormatException nfe)
+			catch(NumberFormatException nfe)//Not a number
 			{
 				JOptionPane.showMessageDialog((Component)resultField,
 								"Δεν δώσατε αριθμιτική τιμή στο αποτέλεσμα.\n"+
@@ -386,12 +388,12 @@ public class MainFrame extends JFrame implements ActionListener
 								"Προσπάθησε ξανα",
 								JOptionPane.ERROR_MESSAGE);
 			}
-			catch(TriesEndException tend)
+			catch(TriesEndException tend)//Tries Ended
 			{
 				JOptionPane.showMessageDialog((Component)resultField,tend.getMessage(),"Προσπάθησε ξανα",JOptionPane.ERROR_MESSAGE);
 				praxisLabel.setText(paixnidi.toString());
 			}
-			catch(GameOverException gend)
+			catch(GameOverException gend)//Game Ended
 			{
 				JOptionPane.showMessageDialog((Component)resultField,gend.getMessage(),"Τέλος Παιχνιδιού",JOptionPane.ERROR_MESSAGE);
 				nextPraxisButton.setEnabled(false);
@@ -399,10 +401,20 @@ public class MainFrame extends JFrame implements ActionListener
 				praxisLabel.setText("X*Y=");
 				saved=true;
 			}
+			saved=false;
 		}
-		else if(option==close)
+		else if(option==close)//Select to close
 		{
 			closeFrame();
 		}
+	}
+
+	/**
+	*T
+	*/
+	public static void main(String[] args)
+	{
+		MainFrame efarmogi=new MainFrame();
+		efarmogi.setVisible(true);
 	}
 }
