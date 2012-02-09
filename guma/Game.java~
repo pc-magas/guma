@@ -120,7 +120,7 @@ public class Game implements Serializable
 
 	public boolean checkApotelesma(int apotelesma) throws TriesEndException,GameOverException
 	{
-		if(p[praksisCounter].checkResult(apotelesma))/*If the gived result is correct*/
+		if(p[praksisCounter].checkresult(apotelesma))/*If the gived result is correct*/
 		{
 			score+=tries;/*Add tries to the score*/
 			tries=3;/*Resfresh the tries into 3 3*/
