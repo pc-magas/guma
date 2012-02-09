@@ -410,7 +410,7 @@ public class MainFrame extends JFrame implements ActionListener
 			}
 			catch(GameOverException gend)//Game Ended
 			{
-				JOptionPane.showMessageDialog((Component)resultField,gend.getMessage(),"Τέλος Παιχνιδιού",JOptionPane.INFORMATION_MESSAGE );
+				JOptionPane.showMessageDialog((Component)resultField,gend.getMessage(),"Τέλος Παιχνιδιού",null);
 				nextPraxisButton.setEnabled(false);
 				paixnidi=null;
 				praxisLabel.setText("X*Y=");
@@ -425,7 +425,7 @@ public class MainFrame extends JFrame implements ActionListener
 									"την άδεια GNU GPLv3\n\n"+
 									"Δημιουργός: Δεσύλλας Δημήτριος (pc_magas)\n"+
 									"email: pc_magas@yahoo.gr",
-									"Σχετικά:",JOptionPane.INFORMATION_MESSAGE);
+									"Σχετικά:",null);
 		}
 		else if(option==close)//Select to close
 		{
