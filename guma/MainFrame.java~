@@ -422,7 +422,7 @@ public class MainFrame extends JFrame implements ActionListener
 			JOptionPane.showMessageDialog((Component)about,
 					"GUMA: Εφαρμογή εκμάνθησης αριθμιτικών πράξεων για μαθητές δημοτικού\n\n"+
 									"To GUMA είναι project ελευθέρου λογισμικού ύπο"+
-									"την άδεια GNU GPLv3\n\n"+
+									" την άδεια GNU GPLv3\n\n"+
 									"Δημιουργός: Δεσύλλας Δημήτριος (pc_magas)\n"+
 									"email: pc_magas@yahoo.gr",
 									"Σχετικά:",JOptionPane.INFORMATION_MESSAGE);

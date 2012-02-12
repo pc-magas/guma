@@ -142,15 +142,22 @@ public class MainFrame extends JFrame implements ActionListener
 	{
 		public void insertUpdate(DocumentEvent e)
 		{
-			nextPraxisButton.setEnabled(true);
+			enableButton();
 		}
 		public void removeUpdate(DocumentEvent e)
 		{
-			nextPraxisButton.setEnabled(false);
+			enableButton();
 		} 
 		public void changedUpdate(DocumentEvent e)
 		{
-			nextPraxisButton.setEnabled(true);
+			enableButton();
+		}
+		private void enableButton()
+		{
+			if(paixnidi!=null)
+			{
+				nextPraxisButton.setEnabled(true);
+			}
 		} 
 	}
 
