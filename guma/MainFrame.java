@@ -374,7 +374,7 @@ public class MainFrame extends JFrame implements ActionListener
 		}
 		else if(option==newGameOption)//if we select to create a game
 		{
-			paixnidi=new SettingFrame().getGame((Component)newGameOption);
+			paixnidi= new SettingFrame().getGame((Component)newGameOption);
 			if(paixnidi!=null)
 			{
 				saveAs.setEnabled(true);

@@ -124,7 +124,7 @@ public class SettingFrame extends JPanel implements ItemListener
 				gameToCreate=new Game(pli8osModel.getNumber().intValue(),maxNumModel.getNumber().intValue(),p2);
 			}
 		}
-		else
+		else(returnVal==JOptionPane.CANCEL_OPTION)
 		{
 			 gameToCreate=null;
 		}
