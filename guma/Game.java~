@@ -92,46 +92,19 @@ public class Game implements Serializable
 		}
 		praksisCounter=p.length-1;
 	}
-
-	/**
-	*Creates a random arithmetic praxis
-	*/
-	private void nextPraxis() throws GameOverException
-	{
-		if(praksisCounter>=0)
-		{
-			System.out.println("praxisCounter before decrement"+praksisCounter);
-			praksisCounter--;
-			System.out.println("praxisCounter after decrement"+praksisCounter);
-		}
-		else
-		{
-			System.out.println("Throwing Exception");
-
-		}
-		
-		
-	}
 	
 	/**
 	*Checks if an arithmetis result is correct
 	*@param apotelesma The result that user gives to check if it is corrent
 	*/
 
-	public boolean checkApotelesma(int apotelesma) throws TriesEndException,GameOverException
+	public boolean checkApotelesma(int apotelesma) throws TriesEndException
 	{
 		if(p[praksisCounter].checkResult(apotelesma))/*If the gived result is correct*/
 		{
 			score+=tries;/*Add tries to the score*/
 			tries=3;/*Resfresh the tries into 3 */
-			try
-			{
-				nextPraxis();/*Create a next praxis*/
-			}
-			catch(GameOverException g)
-			{
-				throw g;
-			}
+			praksisCounter--;
 			return true;
 		}
 		else
@@ -139,7 +112,7 @@ public class Game implements Serializable
 			tries--;/*reduce tries*/
 			if(tries==0)/*No more tries*/
 			{
-				nextPraxis();/*Go to a next random arithmetic praxis*/
+				praksisCounter--;/*Go to a next random arithmetic praxis*/
 				tries=3;
 				throw new TriesEndException("Δώσατε Λάθος αποτέλεσμα 3 φορές.\n"+p[praksisCounter].toFullString()+"\nΤο πρόγραμμα μεταβαίνει στην επόμενη πράξη.");/*Throw the correct error*/
 			}

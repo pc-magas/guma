@@ -30,17 +30,6 @@ import guma.GameOverException;
 
 public class Game implements Serializable 
 {
-	
-
-	/**
-	*Craracter table that contains these characters:
-	*For adding contains character '+'
-	*For multiplication contains the number 'X'
-	*For subtraction contains the character '-'
-	*eg. If the user wants to have adding and multiplication the table contains {'+','X'}
-	*/
-
-	private char[] praxisType;
 
 	/**
 	*This variable counts the praxis the user has done. 

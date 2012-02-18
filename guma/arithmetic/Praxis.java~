@@ -62,7 +62,8 @@ public abstract class Praxis
 	
 	public Praxis(int telestis1, int telestis2)
 	{
-		setTelestes(telestis1,telestis2);
+		this.telestis1=telestis1;
+		this.telestis2=telestis2;
 	}
 	
 	/**
