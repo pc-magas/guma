@@ -101,9 +101,11 @@ public class Game implements Serializable
 			tries--;/*reduce tries*/
 			if(tries==0)/*No more tries*/
 			{
-				praksisCounter--;/*Go to a next random arithmetic praxis*/
 				tries=3;
-				throw new TriesEndException("Δώσατε Λάθος αποτέλεσμα 3 φορές.\n"+p[praksisCounter].toFullString()+"\nΤο πρόγραμμα μεταβαίνει στην επόμενη πράξη.");/*Throw the correct error*/
+				throw new TriesEndException("Δώσατε Λάθος αποτέλεσμα 3 φορές.\n"+p[praksisCounter--].toFullString()+"\nΤο πρόγραμμα μεταβαίνει στην επόμενη πράξη.");/*Throw the correct error*/
+				//praksisCounter--;/*Go to a next random arithmetic praxis*/
+
+				
 			}
 
 			return false;
@@ -191,7 +193,7 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 	/**
 	*Returns the current tries
 	*/
-	public long getTries()
+	public byte getTries()
 	{
 		return tries;
 	}

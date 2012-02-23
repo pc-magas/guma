@@ -69,7 +69,7 @@ public class SettingFrame extends JPanel implements ItemListener
 	/**
 	*JLabel that describes what we set with JSPinner maxNum
 	*/
-	private JLabel maxNumLabel=new JLabel("Μεγιστη τιμή όρου μιας πράξης:");
+	private JLabel maxNumLabel=new JLabel("Μεγιστη τιμή όπου θα είναι ως όρος σε μια πράξη:");
 	
 	
 	/**
