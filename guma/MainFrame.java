@@ -209,7 +209,7 @@ public class MainFrame extends JFrame implements ActionListener
 								JOptionPane.ERROR_MESSAGE);
 							return;
 						}
-						else if(option==JOptionPane.YES_OPTION)
+						else
 						{
 							JOptionPane.showMessageDialog((Component)file
 									,"Το αρχείο όπου επιλέξατε ΘΑ αντικατασταθεί",

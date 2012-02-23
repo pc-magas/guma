@@ -21,11 +21,11 @@
 package guma.arithmetic;
 
 import java.util.Random;
-
+import java.io.Serializable;
 /**
 *A class that simulates a basic Arithmetic Praxis
 */
-public abstract class Praxis
+public abstract class Praxis implements Serializable 
 {
 	/**
 	*The first operator of an arithmatic praxis. In case of substraction can be the second operator.
