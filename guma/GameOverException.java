@@ -20,14 +20,14 @@ package guma;
 
 import java.lang.Exception;
 /**
-*Αυτή η κλάση χρησιμέυει σαν διαχείρηστης όταν τερματίσει ένα παιχνίδι 
+*This class it thrown when the game ends 
 */
 public class GameOverException extends RuntimeException
 {
 	
 	/**
-	*Κλάση Δημιουργός του Exception
-	*@param message Το μύνημα όπου θα μας δίνει η e.getMessage()
+	*Constructor method
+	*@param message The messege we get from getMessage()
 	*/
 	public GameOverException(String message)
 	{

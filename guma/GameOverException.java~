@@ -20,16 +20,16 @@ package guma;
 
 import java.lang.Exception;
 /**
-*This exception is thrown when you have npo more tries
+*Αυτή η κλάση χρησιμέυει σαν διαχείρηστης όταν τερματίσει ένα παιχνίδι 
 */
-public class TriesEndException extends RuntimeException
+public class GameOverException extends RuntimeException
 {
 	
 	/**
-	*Creator method
-	*@param message The Messege we ger from getMessage()
+	*Κλάση Δημιουργός του Exception
+	*@param message Το μύνημα όπου θα μας δίνει η e.getMessage()
 	*/
-	public TriesEndException(String message)
+	public GameOverException(String message)
 	{
 		super(message);
 	}

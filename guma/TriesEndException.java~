@@ -27,7 +27,7 @@ public class TriesEndException extends RuntimeException
 	
 	/**
 	*Creator method
-	*@param message The Messege we ger from getMessage()
+	*@param message The Messege we ger from e.getMessage()
 	*/
 	public TriesEndException(String message)
 	{
