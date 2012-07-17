@@ -16,7 +16,7 @@
 *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *Contact with me by main at these addresses: pc_magas@yahoo.gr
 */
-package guma;
+package guma.core;
 
 import java.lang.Exception;
 /**

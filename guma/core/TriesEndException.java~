@@ -16,20 +16,20 @@
 *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *Contact with me by main at these addresses: pc_magas@yahoo.gr
 */
-package guma.core;
+package guma;
 
 import java.lang.Exception;
 /**
-*This class it thrown when the game ends 
+*This exception is thrown when you have npo more tries
 */
-public class GameOverException extends RuntimeException
+public class TriesEndException extends RuntimeException
 {
 	
 	/**
-	*Constructor method
-	*@param message The messege we get from getMessage()
+	*Creator method
+	*@param message The Messege we ger from getMessage()
 	*/
-	public GameOverException(String message)
+	public TriesEndException(String message)
 	{
 		super(message);
 	}
