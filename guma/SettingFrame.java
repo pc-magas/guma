@@ -22,7 +22,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-
+import guma.core.*;
+import guma.arithmetic.Praxis;
 /**
 *This class allows me to set the settings of a new Game
 */
@@ -45,6 +46,11 @@ public class SettingFrame extends JPanel implements ItemListener
 	private JCheckBox pollaplasiasmosCheck = new JCheckBox("Πολλαπλασιασμός");
 
 	/**
+	*
+	*/
+	private JCheckBox divisionCheck=new JCheckBox("Διαίρεση");
+
+	/**
 	*Label that describes what we choose with the JCheckloxes
 	*/
 	private JLabel praxisTypeLabel=new JLabel("Επιλέξτε είδος πράξεων");
@@ -64,7 +70,7 @@ public class SettingFrame extends JPanel implements ItemListener
 	/**
 	*JSpinner for selecting the maximum number that can participate in a praxis (except from result)
 	*/
-	private JSpinner maxNum=new JSpinner(new SpinnerNumberModel(1,1,99,1));		
+	private JSpinner maxNum=new JSpinner(new SpinnerNumberModel(2,2,99,1));		
 	
 	/**
 	*JLabel that describes what we set with JSPinner maxNum
@@ -89,7 +95,7 @@ public class SettingFrame extends JPanel implements ItemListener
 	*/	
 	public Game getGame(Component parent)
 	{
-		String[] options={"OK","Cancel"};
+		String[] options={"OK","Ακύρωση"};
 
 		int returnVal=JOptionPane.showOptionDialog((Component)parent,this,"Επιλογές Παιχνιδιού",
 							JOptionPane.OK_CANCEL_OPTION,
@@ -167,12 +173,13 @@ public class SettingFrame extends JPanel implements ItemListener
 			addComponent(pros8esiCheck,gridbag,c);
 			addComponent(afairesiCheck,gridbag,c);
 			addComponent(pollaplasiasmosCheck,gridbag,c);
+			addComponent(divisionCheck,gridbag,c);
 
 			/*Adding Listenners to the checkboxes*/
 			pros8esiCheck.addItemListener(this);
 			afairesiCheck.addItemListener(this);
 			pollaplasiasmosCheck.addItemListener(this);
-		
+			divisionCheck.addItemListener(this);
 	}
 	
 	/**
@@ -193,15 +200,19 @@ public class SettingFrame extends JPanel implements ItemListener
 		/*We find out what type is selected*/
 		if(source==pros8esiCheck)
 		{
-			praxis='+';
+			praxis=Praxis.ADDING;
 		}
 		else if(source==afairesiCheck)
 		{
-			praxis='-';
+			praxis=Praxis.SUBSTRACTION;
+		}
+		else if(source==divisionCheck)
+		{
+			praxis=Praxis.DIVISION;
 		}
 		else
 		{
-			praxis='X';
+			praxis=Praxis.MULTIPLICATION;
 		}
 
 		/*If Selected or Deselected item what to do*/

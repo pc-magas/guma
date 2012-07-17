@@ -66,6 +66,6 @@ public class Multiplication extends Praxis
 	*/
 	protected void doPraxis()
 	{
-		apotelesma=getTelestis1()*getTelestis2();
+		apotelesma[0]=getTelestis1()*getTelestis2();
 	}	
 }

@@ -65,6 +65,6 @@ public class Prosthesis extends Praxis
 	*/
 	protected void doPraxis()
 	{
-		super.apotelesma=super.getTelestis1()+super.getTelestis2();
+		super.apotelesma[0]=super.getTelestis1()+super.getTelestis2();
 	}	
 }

@@ -19,6 +19,8 @@
 
 package guma;
 import guma.*;
+import guma.core.*;
+import guma.arithmetic.Praxis;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -85,7 +87,7 @@ public class MainFrame extends JFrame implements ActionListener
 	/**
 	*Button for closing the window
 	*/
-	private JButton close=new JButton("Close");
+	private JButton close=new JButton("Κλείσιμο");
 
 	/**
 	*Layout that use the Jpanels
@@ -121,6 +123,11 @@ public class MainFrame extends JFrame implements ActionListener
 	*File that game is saved
 	*/
 	private File f=null;
+
+	/**
+	*That shows the remaining arithmetic Operations
+	*/
+	private JLabel remaining=new JLabel("Πράξεις:0/0 ");
 
 	/**
 	*Inner class that handles what to do when the window closes
@@ -305,6 +312,7 @@ public class MainFrame extends JFrame implements ActionListener
 		fileMenu.add(saveGameOption);
 		fileMenu.add(saveAs);
 	
+		add(remaining,BorderLayout.NORTH);
 		/*Adding "Help" menu Option*/
 		help.add(about);		
 	
@@ -379,7 +387,12 @@ public class MainFrame extends JFrame implements ActionListener
 			{
 				saveAs.setEnabled(true);
 				saveGameOption.setEnabled(true);
-				praxisLabel.setText(paixnidi.toString());
+				String s=paixnidi.toString();
+				if(s!=null)
+				{
+					praxisLabel.setText(paixnidi.toString());
+				}
+				remaining.setText("Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum());
 			}
 		}
 		else if(option==nextPraxisButton)//If we selected to move onj the next arithmetic praxis
@@ -387,19 +400,58 @@ public class MainFrame extends JFrame implements ActionListener
 
 			try
 			{
-				//We get the result as string and we cheack it if ti is correct
-				if(paixnidi.checkApotelesma( Integer.parseInt( resultField.getText() ) ) )
+				int[] results= new int[paixnidi.getCurrentPraxis().getResults()];
+				results[0]=Integer.parseInt( resultField.getText() );
+				boolean ok=false;
+				if(results.length>1)
 				{
-					praxisLabel.setText(paixnidi.toString());
-					saved=false;
+					String praxisResults=(String)JOptionPane.showInputDialog(resultField,"Η διαίρεση αυτή έχει Υπόλοιπο"+
+													"\nΠαρακαλώ εισάγεται το υπόλοιπο",
+													"Απαιτείται υπόλοιπό",
+													JOptionPane.PLAIN_MESSAGE);
+					results[1]=Integer.parseInt(praxisResults);
 				}
-				else
+				
+				//We get the result as string and we cheack it if ti is correct
+				while(!ok)
 				{
-					JOptionPane.showMessageDialog((Component)resultField,
-							"Λάθος αποτέλεσμα!\nEναπομένουσες προσπάθειες: "+
-								paixnidi.getTries(),
-								"Προσπάθησε ξανα",
-									JOptionPane.ERROR_MESSAGE);
+				
+					if(paixnidi.checkApotelesma(results))
+					{
+						praxisLabel.setText(paixnidi.toString());
+						saved=false;
+						ok=true;
+					remaining.setText("Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum());
+					}
+					else
+					{
+						
+							int pos=paixnidi.getWrongResultPos();
+							if(pos==Praxis.MODULO_POS)
+							{
+								JOptionPane.showMessageDialog((Component)resultField,
+										"Λάθος τιμή υπολοίπου\nEναπομένουσες προσπάθειες: "+
+											paixnidi.getTries(),
+											"Προσπάθησε ξανα",
+												JOptionPane.ERROR_MESSAGE);
+							String praxisResults=
+						(String)JOptionPane.showInputDialog(resultField,"Η διαίρεση αυτή έχει Υπόλοιπο"+
+													"\nΠαρακαλώ"+ 													"εισάγεται το υπόλοιπο",
+												"Απαιτείται υπόλοιπό",
+													JOptionPane.PLAIN_MESSAGE);
+								results[1]=Integer.parseInt(praxisResults);
+							
+						}
+						else
+						{
+							JOptionPane.showMessageDialog((Component)resultField,
+									"Λάθος αποτέλεσμα!\nEναπομένουσες προσπάθειες: "+
+										paixnidi.getTries(),
+										"Προσπάθησε ξανα",
+											JOptionPane.ERROR_MESSAGE);
+							ok=true;
+						}
+					}
 				}
 			}
 			catch(NumberFormatException nfe)//Not a number
@@ -420,7 +472,7 @@ public class MainFrame extends JFrame implements ActionListener
 				JOptionPane.showMessageDialog((Component)resultField,gend.getMessage(),"Τέλος Παιχνιδιού",JOptionPane.INFORMATION_MESSAGE );
 				nextPraxisButton.setEnabled(false);
 				paixnidi=null;
-				praxisLabel.setText("X*Y=");
+				praxisLabel.setText("x*y=");
 				saved=true;
 			}
 		}
@@ -440,12 +492,4 @@ public class MainFrame extends JFrame implements ActionListener
 		}
 	}
 
-	/**
-	*T
-	*/
-	public static void main(String[] args)
-	{
-		MainFrame efarmogi=new MainFrame();
-		efarmogi.setVisible(true);
-	}
 }

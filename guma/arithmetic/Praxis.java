@@ -22,6 +22,8 @@ package guma.arithmetic;
 
 import java.util.Random;
 import java.io.Serializable;
+import java.util.Arrays;
+
 /**
 *A class that simulates a basic Arithmetic Praxis
 */
@@ -37,10 +39,41 @@ public abstract class Praxis implements Serializable
 	private int telestis2;
 
 	/**
-	*The result of an arithmetic praxis
+	*The results of an arithmetic praxis
 	*/
-	protected int apotelesma;
+	protected int[] apotelesma=new int[2];
 
+	/**
+	This variable helps us to count how many resurs are required in order to check oif this arithmetic praxis is correct
+	*/
+
+	protected int results=1;
+
+	/**
+	*The symbol of ADDING
+	*/
+	public static final char ADDING='+';
+	
+	/**
+	*The symbol of Substraction
+	*/
+	public static final char SUBSTRACTION='-';
+
+	/**
+	*The symbol of multiplication
+	*/
+	public static final char MULTIPLICATION='*';
+
+	/**
+	*The symbol of division
+	*/
+	public static final char DIVISION='/';
+
+	/**
+	*Modulo Position
+	*/
+	public static final int MODULO_POS=1;
+	
 	/**
 	*Constructor method that creates a random arithmetic praxis eg 2+2
 	*@param maxNum: The maximum value that can have a number as Operator.
@@ -49,11 +82,24 @@ public abstract class Praxis implements Serializable
 	public Praxis(int maxNum)
 	{
 		Random r=new Random();
-		telestis1=r.nextInt(maxNum);
-		telestis2=r.nextInt(maxNum);
-		doPraxis();
+		apotelesma=new int[results];
+		setTelestes(r.nextInt(maxNum),r.nextInt(maxNum));
 	}
 
+	/**
+	*Constructor method that creates a random arithmetic praxis eg. 2+2,5-3,12/3 etc etc
+	*The operators will get values : minNum<=operator<=maxNum
+	*@param maxNum: The maximum value that can have a number as operator.
+	*@param minNUM: The minumum value that can have a number as operator.
+ 	*/
+
+	public Praxis(int maxNum,int minNum,int results)
+	{
+		Random r=new Random();
+		setTelestes(r.nextInt(maxNum-minNum-1)+1,r.nextInt(maxNum-minNum-1)+1);
+		this.results=results;
+	}
+	
 	/**
 	*Constructor methos that creates a basic arithmetic praxis with operetors telestis1 and telestis2
 	*@param telestis1: The first operator of an arithmetic praxis
@@ -69,9 +115,26 @@ public abstract class Praxis implements Serializable
 	*Compares and tells us if thew giver result is correct
 	*@param apotelesma: The result that we want to check if it is correct
 	*/
-	public boolean checkResult(int apotelesma)
+	public boolean checkResult(int[] apotelesma)
 	{
-		return this.apotelesma==apotelesma?true:false;
+		
+		return (getWrongResult(apotelesma)<0)?true:false;
+	}
+
+	/**
+	*Returns the position of the wrong result
+	*@param apotelesma: The results that we want to search the wrong one
+	*/
+	public int getWrongResult(int[] apotelesma)
+	{
+		for(int i=0;i<results;i++)
+		{
+			if(this.apotelesma[i]!=apotelesma[i])
+			{
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	/**
@@ -107,16 +170,23 @@ public abstract class Praxis implements Serializable
 	*/
 	public int getApotelesma()
 	{
-		return apotelesma;
+		return apotelesma[0];
 	}
 	
+	/**
+	*Getting the results of the Game 
+	*/
+	public int[] getResultsVal()
+	{
+		 return Arrays.copyOf(apotelesma,apotelesma.length);
+	}
+
 	/**
 	*We check if an arithmetic praxis equals with an another one
 	*/
 	public boolean equals(Praxis other)
 	{
-		if(((telestis1==other.getTelestis1())&& (telestis2==other.getTelestis2()))||
-		   ((telestis2==other.getTelestis1())&&(telestis1==other.getTelestis2())))
+		if(((telestis1==other.getTelestis1())&& (telestis2==other.getTelestis2())) && apotelesma[0]==other.getApotelesma())
 		{
 			return true;
 		}
@@ -126,6 +196,15 @@ public abstract class Praxis implements Serializable
 		}
 	}
 
+	/**
+	*This method returns the number ot the results required
+	*/
+
+	public int getResults()
+	{
+		return results;
+	}
+	
 	/**
 	*This method executes the arithmetic praxis 
 	*/
@@ -138,7 +217,6 @@ public abstract class Praxis implements Serializable
 
 	/**
 	*Returns a string form of the praxis Including the result
-	*/	
+	*/
 	public abstract String toFullString();
-	
 }

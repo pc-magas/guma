@@ -1,19 +1,26 @@
-VERSION=1.5
+VERSION=1.6
+SOURCE=guma
 
-guma/MainFrame.class: guma/MainFrame.java
-	javac guma/*/*.java && javac guma/*.java
+guma: guma/Main.java arithmetic core
+	javac ${SOURCE}/*.java
 
-run: guma/MainFrame.class
-	java guma.MainFrame
+arithmetic:
+	javac ${SOURCE}/arithmetic/*.java
+
+core: 
+	javac ${SOURCE}/core/*.java
+
+run: guma guma/Main.class
+	java guma.Main
 
 jar: 
-	jar cvfe ./guma-${VERSION}.jar guma.MainFrame guma/*
+	jar cvfe ./guma-${VERSION}.jar guma.Main guma/*
 
 clean:
-	rm -fr guma/*.class && rm -fr guma/*/*.class
+	rm -fr guma/*.class && rm -fr guma/*/*.class && rm -fr guma/*/*/*.class
 
 javadoc:
 	mkdir -p javadoc/guma && javadoc guma/* && mv ./*.html javadoc && mv guma/*.html javadoc/guma && mv *.css javadoc
 
-build:
-	make && make jar && rm -fr guma/*.class
+build: guma jar clean
+

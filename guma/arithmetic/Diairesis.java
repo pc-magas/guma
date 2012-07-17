@@ -16,36 +16,47 @@
 *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 *Contact with me by main at thes address: pc_magas@yahoo.gr
 */
-
 package guma.arithmetic;
-
-/**
-*Class that simulates substraction between integers
-*/
-public class Afairesis extends Praxis
+import java.util.Random;
+public class Diairesis extends Praxis
 {
+
+	/**
+	*Helpful variable in order to generate a random diairesis
+	*/
+	private Random r=new Random();
 	
 	/**
-	*Constructor methos that Creates a random Sustraction arithmetic praxis
+	*Constructor methos that Creates a random Division arithmetic praxis
 	*@param maxNum: The maximum number that can have an arithmetic praxis
 	*/
-	public Afairesis(int maxNum)
+	public Diairesis(int maxNum)
 	{
-		super(maxNum);
+		super(maxNum,1,2);
+
+		if(!hasModulo())
+		{
+			results--;
+		}
 	}
-	
+
 	/**
-	*Constructor method that creates the arithmetis praxis telestis1 - telestis2 or telestis2-telestis1
+	*Constructor method that creates the arithmetis praxis telestis1/telestis2 or telestis2/telestis1
 	*@param telestis1: The first operator of an arithmetic praxis
 	*@param telestis2: The seciond operator on an arithmetic praxis
 	*/
-	public Afairesis(int telestis1, int telestis2)
+	public Diairesis(int telestis1,int telestis2)
 	{
 		super(telestis1,telestis2);
+
+		if(!hasModulo())
+		{
+			results--;
+		}
 	}
 
 	/**
-	*Returns a string form of the prosthesis
+	*Returns a string form of the division
 	*/
 	public String toString()
 	{
@@ -53,22 +64,23 @@ public class Afairesis extends Praxis
 		int telestis2=getTelestis2();
 		
 		/*Example:
-		*If telestis1=3 and telestis2=5 then the following code shows "5-3"
-		*If telestis1=7 and telestis2=3 then the following code shows "7-3"
+		*If telestis1=3 and telestis2=5 then the following code shows "5/3="
+		*If telestis1=7 and telestis2=3 then the following code shows "7/3="
 		*(The greatest number goes to the front)
 		*/
-		return (telestis1>telestis2)?(String.valueOf(telestis1)+" - "+String.valueOf(telestis2)+" ="):
-			(String.valueOf(telestis2)+" - "+String.valueOf(telestis1)+" =");
+		return (telestis1>telestis2)?(String.valueOf(telestis1)+" / "+String.valueOf(telestis2)+" ="):
+			(String.valueOf(telestis2)+" / "+String.valueOf(telestis1)+" =");
 	}
 
 	/**
-	*Returns a sting form of the prosthaisis including the result
+	*Returns a sting form of the division including the result
 	*/
 	public String toFullString()
 	{
-		return (toString()+' '+String.valueOf(apotelesma));
+		return (toString()+' '+apotelesma[0]+' '+"Υπόλοιπο Διαίρεσης:"+' '+apotelesma[1]);
 	}
 
+	
 	/**
 	*@override
 	*This method executes the arithmetic praxis 
@@ -77,9 +89,18 @@ public class Afairesis extends Praxis
 	{
 		int telestis1=getTelestis1();
 		int telestis2=getTelestis2();
+		
+		this.apotelesma[0]= telestis1>telestis2 ? telestis1/telestis2: telestis2/telestis1;
 
-		apotelesma[0]= telestis1>telestis2 ? telestis1-telestis2 : telestis2-telestis1;
+		this.apotelesma[1]= telestis1>telestis2 ? telestis1%telestis2 : telestis2%telestis1;
 		
 	}
-		
+
+	/**
+	*Returns true if the modulo of this Division is 0 else it returns true
+	*/
+	public boolean hasModulo()
+	{
+		return (apotelesma[1]==0)?false:true;
+	}
 }
