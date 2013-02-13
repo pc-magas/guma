@@ -21,20 +21,32 @@ package guma.core;
 
 import guma.arithmetic.*;
 import java.util.Random;
-import java.io.*;
 import java.lang.*;
+
+import java.io.*;
+import java.io.IOException;
+import java.io.File;
 import guma.core.GameOverException;
 import guma.core.TriesEndException;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.*;
+
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.DocumentBuilder;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
+
 /**
 *Basic Game Class
 *@author Dimitrios Desyllas
 */
 
-public class Game implements Serializable 
+public class Game
 {
 
 	/**
-	*This variable counts the praxis the user has done. 
+	*This variable counts the operations that the user solved, regardless if he gave the correct answer or not. 
 	*/
 
 	private int praksisCounter=0;
@@ -106,6 +118,23 @@ public class Game implements Serializable
 			}
 		}
 		praksisCounter=p.length-1;
+	}
+
+	/**
+	*Constryuctor method thar creates a Game from Seperate elements
+	*@param p An array of Praxis
+	*@param praxisCounter Counter of remaining praxis
+	*@param wrongResultPos position of wrong result
+	*@param tries the remaining tries
+	*@param score the current score 
+	*/
+	public Game(Praxis[] p,int praxisCounter,int wrongResultPos,byte tries, long score)
+	{
+		System.arraycopy(p,0,this.p,0,p.length);
+		this.praksisCounter=praxisCounter;
+		this.wrongResultPos=wrongResultPos;
+		this.tries=tries;
+		this.score=score;
 	}
 	
 	/**
@@ -204,11 +233,20 @@ public class Game implements Serializable
 		{
 			f.delete();
 		}		
+		
 		try
 		{
-			ObjectOutputStream file=new ObjectOutputStream(new BufferedOutputStream((new FileOutputStream(f))));
-			file.writeObject(this);/*Save file*/
-			file.close();
+			PrintWriter out = new PrintWriter(new FileWriter(f));
+
+			out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+			out.println("<game tries=\""+tries+"\""+" score=\""+score+"\""+" wrongResultPos=\""+wrongResultPos+"\">");
+			for(int i=0;i<p.length;i++)
+			{
+				out.println("<praxis>"+p[i]+"</praxis>");
+			}
+
+			out.println("</game>");
+			out.close();
 		}
 		catch(IOException e)/*Error Ocurred*/
 		{
@@ -226,22 +264,61 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 	public static Game load(File f) throws IOException,ClassNotFoundException
 	{
 		Game g=null;/*Class to return*/
+		int praxisCounter=0;
+		long score=0;
+ 		byte tries=3;
+		Praxis[] p=null;
+		int wrongResultPos=0;	
+
 		try
 		{
-			ObjectInputStream file=new ObjectInputStream(new BufferedInputStream((new FileInputStream(f))));
-			g=(Game)file.readObject();/*Read file*/
-			file.close();
-			return g;
+			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+           		DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+           		Document doc = docBuilder.parse(f);
+			doc.getDocumentElement().normalize();
+
+			NodeList nList = doc.getElementsByTagName("game");
+ 			if(nList != null && nList.getLength() > 0)
+			{
+				for (int temp = 0; temp < nList.getLength(); temp++) 
+				{
+					Node nNode = nList.item(temp);
+					
+					if (nNode.getNodeType() == Node.ELEMENT_NODE)
+					{
+ 						Element eElement = (Element) nNode;
+	
+						tries=Byte.parseByte(eElement.getAttribute("tries"));
+						praxisCounter=Integer.parseInt(eElement.getAttribute("praxisCounter"));
+						score=Long.parseLong(eElement.getAttribute("score"));
+						wrongResultPos=Integer.parseInt(eElement.getAttribute("wrongResultPos"));
+						NodeList praxisList=eElement.getElementsByTagName("praxis");
+						
+						p=new Praxis[praxisList.getLength()];
+
+						for(int i=0;i<praxisList.getLength();i++)
+						{
+							
+							String tempS2[]=praxisList.item(i).getTextContent().split(" ");
+							p[i]= Praxis.makePraxis(tempS2[1].charAt(0),Integer.parseInt(tempS2[0]),Integer.parseInt(tempS2[2]));
+						}
+                    				
+					}
+					g=new Game(p,praxisCounter,wrongResultPos,tries,score);
+				}
+			}
+
 		}
-		catch(ClassNotFoundException c)/*If file does not contain correct data*/
+		catch(DOMException d)
 		{
-			throw new ClassNotFoundException("Το αρχειο δεν περιέχει δεδομένα του σωστού τύπου. \n Μπορείτε να δοκιμάσετε να φορτώσετε ένα άλλο αρχείο");
+			throw new ClassNotFoundException("Το αρχείο δεν περιέχει σωστά δεδομένα");
 		}
-		catch(IOException e)/*If a file IO error occured*/
+		catch(Exception e)/*If a file IO error occured*/
 		{
 			throw new 
 IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν είναι δυνατόν να αναγνωστεί. \n Μπορείτε να δοκιμάσετε με ένα άλλο αρχείο");
 		}
+		return g;
 
 	}
 	
