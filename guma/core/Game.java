@@ -130,7 +130,7 @@ public class Game
 	*/
 	public Game(Praxis[] p,int praxisCounter,int wrongResultPos,byte tries, long score)
 	{
-		System.arraycopy(p,0,this.p,0,p.length);
+		this.p=p;
 		this.praksisCounter=praxisCounter;
 		this.wrongResultPos=wrongResultPos;
 		this.tries=tries;
@@ -239,7 +239,7 @@ public class Game
 			PrintWriter out = new PrintWriter(new FileWriter(f));
 
 			out.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-			out.println("<game tries=\""+tries+"\""+" score=\""+score+"\""+" wrongResultPos=\""+wrongResultPos+"\">");
+			out.println("<game tries=\""+tries+"\""+" score=\""+score+"\""+" praxisCounter=\""+praksisCounter+"\" wrongResultPos=\""+wrongResultPos+"\">");
 			for(int i=0;i<p.length;i++)
 			{
 				out.println("<praxis>"+p[i]+"</praxis>");
@@ -263,7 +263,6 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 
 	public static Game load(File f) throws IOException,ClassNotFoundException
 	{
-		Game g=null;/*Class to return*/
 		int praxisCounter=0;
 		long score=0;
  		byte tries=3;
@@ -292,19 +291,30 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 						praxisCounter=Integer.parseInt(eElement.getAttribute("praxisCounter"));
 						score=Long.parseLong(eElement.getAttribute("score"));
 						wrongResultPos=Integer.parseInt(eElement.getAttribute("wrongResultPos"));
+						
 						NodeList praxisList=eElement.getElementsByTagName("praxis");
 						
+						System.out.println("Value= "+tries);
+			
 						p=new Praxis[praxisList.getLength()];
+
+						if(p==null)
+						{
+							throw new ClassNotFoundException("Το αρχείο δεν περιέχει σωστά δεδομένα");
+						}
 
 						for(int i=0;i<praxisList.getLength();i++)
 						{
 							
 							String tempS2[]=praxisList.item(i).getTextContent().split(" ");
 							p[i]= Praxis.makePraxis(tempS2[1].charAt(0),Integer.parseInt(tempS2[0]),Integer.parseInt(tempS2[2]));
+							if(p[i]==null)
+							{
+								throw new ClassNotFoundException("Το αρχείο δεν περιέχει σωστά δεδομένα");
+							}
 						}
                     				
 					}
-					g=new Game(p,praxisCounter,wrongResultPos,tries,score);
 				}
 			}
 
@@ -315,10 +325,11 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 		}
 		catch(Exception e)/*If a file IO error occured*/
 		{
+			e.printStackTrace();
 			throw new 
 IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν είναι δυνατόν να αναγνωστεί. \n Μπορείτε να δοκιμάσετε με ένα άλλο αρχείο");
 		}
-		return g;
+		return new Game(p,praxisCounter,wrongResultPos,tries,score);
 
 	}
 	
