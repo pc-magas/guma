@@ -54,6 +54,13 @@ public abstract class GameController
 	public UIStatus takeResult(int apotelesma)
 	{
 		UIStatus current=new UIStatus();
+		int results;
+		boolean ok;
+
+		if(paixnidi!=null)
+		{
+			
+		}
 		
 		return current;
 	}
@@ -62,6 +69,11 @@ public abstract class GameController
 	*In some arithmetic operations especially into Division
 	*So it provides you a way to get the extra result. 
 	*/
-	public abstract int getExtraResult();
+	protected abstract int getExtraResult();
+
+	/**
+	*Method that shows to the user an error message
+	*/
+	protected abstract void displayError(String title, String message);
 	
 }
