@@ -84,27 +84,13 @@ public class Game
 		Random r=new Random();
 		for(int i=0;i<p.length;i++)
 		{
-			do{
-				switch(praxisType[r.nextInt(praxisType.length)])
-				{
-					case Praxis.ADDING: 
-					p[i]=new Prosthesis(maxNum+1);	
-					break;
-					case Praxis.SUBSTRACTION:
-					p[i]=new Afairesis(maxNum+1);
-					break;
-
-					case Praxis.DIVISION:
-					p[i]=new Diairesis(maxNum+1);
-					break;
-
-					case Praxis.MULTIPLICATION:
-					p[i]=new Multiplication(maxNum+1);
-				}
+			do
+			{
+				p[i]=Praxis.makePraxis(praxisType[r.nextInt(praxisType.length)],maxNum+1);	
 			}
 			while(p[i]==null);
 
-			/*Stirring the praxis matrix*/
+			/*Stirring the praxis matrix for maximum randomness*/
 			int times=r.nextInt(100);
 	
 			for(int j=0;j<times;j++)
