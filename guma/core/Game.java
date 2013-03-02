@@ -237,7 +237,7 @@ public class Game
 		catch(IOException e)/*Error Ocurred*/
 		{
 			throw new 
-IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν είναι δυνατόν να αποθηκεύσεται στον κατάλογο:\n"+f.getAbsolutePath()+"\n Μπορείτε να δοκιμάσετε με ένα άλλο αρχείο η να ρυθμίσεται τα δικαιόματα στον κατάλογο αυτό");/*Shows the Correct message as an exception*/
+IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν είναι δυνατόν να αποθηκεύσεται στον κατάλογο:\n"+f.getAbsolutePath()+"\n Μπορείτε να δοκιμάσετε με ένα άλλο αρχείο η να ρυθμίσετε τα δικαιόματα στον κατάλογο αυτό");/*Shows the Correct message as an exception*/
 
 		}
 	}
@@ -336,14 +336,28 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 		return tries;
 	}
 
+	/**
+	*Returning the number of arithmetic operations
+	*/
 	public int getPraxisNum()
 	{
 		return p.length;
 	}
 
+	/**
+	*Returning the number of remaining arithmetic operetions
+	*/
 	public int getRemainingPraxis()
 	{
 		return p.length-praksisCounter;
+	}
+
+	/**
+	*Division may need 2 results so with this method we get how many results we need
+	*/
+	public int getResultsNum()
+	{
+		return this.getCurrentPraxis().getResults();
 	}
 
 }

@@ -400,7 +400,7 @@ public class MainFrame extends JFrame implements ActionListener
 
 			try
 			{
-				int[] results= new int[paixnidi.getCurrentPraxis().getResults()];
+				int[] results= new int[paixnidi.getResultsNum()];
 				results[0]=Integer.parseInt( resultField.getText() );
 				boolean ok=false;
 				if(results.length>1)
