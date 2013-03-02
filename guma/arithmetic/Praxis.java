@@ -219,4 +219,57 @@ public abstract class Praxis implements Serializable
 	*Returns a string form of the praxis Including the result
 	*/
 	public abstract String toFullString();
+
+	/**
+	*Create the correct type of arithmetic Operation
+	*@param praxistype: This param tells us what kind of arithmetic Operation you want to have
+	*@param telestis1: This param tells you the first numper that will participate into this Operation
+	*@param telestis2: This param tells you the second number that will participate into this Operation
+	*/
+	public static Praxis makePraxis(char praxisType,int telestis1, int telestis2)
+	{
+		Praxis p=null;
+		switch(praxisType)
+		{
+			case Praxis.ADDING: 
+			p=new Prosthesis(telestis1,telestis2);	
+			break;
+			case Praxis.SUBSTRACTION:
+			p=new Afairesis(telestis1,telestis2);
+			break;
+			case Praxis.DIVISION:
+			p=new Diairesis(telestis1,telestis2);
+			break;
+			case Praxis.MULTIPLICATION:
+			p=new Multiplication(telestis1,telestis2);
+		}
+		return p;
+	}
+
+	/**
+	*Create the correct type of arithmetic Operation
+	*@param praxistype: This param tells us what kind of arithmetic Operation you want to have
+	*@param telestis1: This param tells you the first numbers that will participate into this Operation
+	*/
+	public static Praxis makePraxis(char praxisType,int maxNum)
+	{
+		Praxis p=null;
+		switch(praxisType)
+		{
+			case Praxis.ADDING: 
+				p=new Prosthesis(maxNum+1);	
+				break;
+			case Praxis.SUBSTRACTION:
+				p=new Afairesis(maxNum+1);
+				break;
+
+			case Praxis.DIVISION:
+				p=new Diairesis(maxNum+1);
+				break;
+
+			case Praxis.MULTIPLICATION:
+				p=new Multiplication(maxNum+1);
+		}
+		return p;
+	}
 }
