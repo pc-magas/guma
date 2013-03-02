@@ -1,7 +1,7 @@
 VERSION=1.6
 SOURCE=guma
 
-guma: guma/Main.java arithmetic core
+guma: guma/Main.java arithmetic core ui
 	javac ${SOURCE}/*.java
 
 arithmetic:
@@ -9,6 +9,10 @@ arithmetic:
 
 core: 
 	javac ${SOURCE}/core/*.java
+
+ui:
+	javac ${SOURCE}/ui/*.java
+
 
 run: guma guma/Main.class
 	java guma.Main
