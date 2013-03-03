@@ -34,6 +34,11 @@ public abstract class GameController
 	private Game paixnidi=null;
 
 	/**
+	*User interface status
+	*/
+	UIStatus current=new UIStatus();
+	
+	/**
 	*Method that creates a new game
 	*@override
 	*/
@@ -53,7 +58,6 @@ public abstract class GameController
 	*/
 	public UIStatus takeResult(int apotelesma)
 	{
-		UIStatus current=new UIStatus();
 		int results[]=new int[paixnidi.getResultsNum()];
 		boolean ok=false;
 
@@ -71,8 +75,7 @@ public abstract class GameController
 				
 					if(paixnidi.checkApotelesma(results))
 					{
-						praxisLabel.setText(paixnidi.toString());
-						saved=false;
+						current.praxisValue=paixnidi.toString();
 						ok=true;
 						current.praxisRemainingDisplay="Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum();
 					}
