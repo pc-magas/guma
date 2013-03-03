@@ -140,6 +140,7 @@ public class Game
 			score+=tries;/*Add tries to the score*/
 			tries=3;
 			praksisCounter--;
+
 		}
 		else
 		{
@@ -161,6 +162,7 @@ public class Game
 				
 			}
 		}
+		saved=false;
 		return wrongResultPos<0?true:false;
 	}
 
@@ -237,6 +239,7 @@ public class Game
 			}
 
 			out.println("</game>");
+			saved=true;
 			out.close();
 		}
 		catch(IOException e)/*Error Ocurred*/
@@ -365,4 +368,11 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 		return this.getCurrentPraxis().getResults();
 	}
 
+	/**
+	*Function that tells you if the game is saved or not
+	*/
+	public boolean isSaved()
+	{
+		return saved;
+	}
 }
