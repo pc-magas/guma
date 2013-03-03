@@ -72,6 +72,11 @@ public class Game
 	private int wrongResultPos;	
 
 	/**
+	*Shows if game saved or not
+	*/
+	private boolean saved=false;
+
+	/**
 	*Creator method
 	*@param pli8os The number of arithmetic praxis that a game should have.
 	*@param maxNum The maximum value that can have a number as Operator.

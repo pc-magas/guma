@@ -54,12 +54,62 @@ public abstract class GameController
 	public UIStatus takeResult(int apotelesma)
 	{
 		UIStatus current=new UIStatus();
-		int results;
-		boolean ok;
+		int results[]=new int[paixnidi.getResultsNum()];
+		boolean ok=false;
 
 		if(paixnidi!=null)
 		{
-			
+			try
+			{
+				results[0]=apotelesma;
+				if(results.length>1)
+				{
+					results[1]=getExtraResult();
+				}
+				while(!ok)
+				{
+				
+					if(paixnidi.checkApotelesma(results))
+					{
+						praxisLabel.setText(paixnidi.toString());
+						saved=false;
+						ok=true;
+						current.praxisRemainingDisplay="Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum();
+					}
+					else
+					{
+						
+							int pos=paixnidi.getWrongResultPos();
+							if(pos==Praxis.MODULO_POS)
+							{
+								displayError("Προσπάθησε ξανα","Λάθος τιμή υπολοίπου\nEναπομένουσες προσπάθειες: "
+												+paixnidi.getTries());
+								results[1]=getExtraResult();
+							
+							}
+							else
+							{
+									displayError("Προσπάθησε ξανα","Λάθος αποτέλεσμα!\nEναπομένουσες προσπάθειες: "
+														+paixnidi.getTries());
+								ok=true;
+							}
+					}
+				}
+			}
+			catch(TriesEndException tend)//Tries Ended
+			{
+				displayError("Προσπάθησε ξανα",tend.getMessage());
+				current.praxisValue=paixnidi.toString());
+			}
+			catch(GameOverException gend)//Game Ended
+			{
+				displayMessage(gend.getMessage(),"Τέλος Παιχνιδιού");
+				current.nextOperationActivated=false;
+				paixnidi=null;
+				current.praxisValue="x*y=";
+				current.save=false;
+				current.saveAs=false;
+			}
 		}
 		
 		return current;
@@ -75,5 +125,10 @@ public abstract class GameController
 	*Method that shows to the user an error message
 	*/
 	protected abstract void displayError(String title, String message);
-	
+
+	/**
+	*Displays a Message
+	*/
+	protected abstract void displayMessage(String title, String message);
+
 }

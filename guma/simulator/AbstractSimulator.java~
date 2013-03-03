@@ -1,0 +1,47 @@
+/**
+*	GUMA a simple math game for elementary school students
+*	Copyright (C) 2011-1012  Dimitrios Desyllas (pc_magas)
+*
+*    This program is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    This program is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*Contact with me by main at this address: pc_magas@yahoo.gr
+*/
+package guma.simulator;
+
+/**
+*An arithmetic Operation Simulator. This class is an abstract arithmetic operation simulator that will do step by step 
+*an arithmetic operation.
+*@author pc_magas
+*/
+public class AbstractSimulator
+{
+
+	/**
+	*Stores the first number that will participate into emulation with seperated digits 
+	*/
+	private byte[] telestis1;
+	
+	/**
+	*Stores the second number that will participate into emulation with seperated digits
+	*/
+	private byte[] telestis2;
+
+	/**
+	*Stores the final result that will come during the emulation.
+	*/	
+	private byte[] finalResult;
+
+	public static byte[] seperateDigits
+	
+		
+}
