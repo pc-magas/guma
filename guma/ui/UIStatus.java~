@@ -47,7 +47,7 @@ public class UIStatus
 	/**
 	*Tells if save as option (if needed) will be activated.
 	*/
-	public boolean saveAs=false;
+	public boolean saveAs=true;
 
 	/**
 	*Tells if save option (if needed) will be activated.

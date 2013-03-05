@@ -1,0 +1,203 @@
+/**
+*GUMA a simple math game for elementary school students
+*	Copyright (C) 2012-2013  Dimitrios Desyllas (pc_magas)
+*
+*    This program is free software: you can redistribute it and/or modify
+*    it under the terms of the GNU General Public License as published by
+*    the Free Software Foundation, either version 3 of the License, or
+*    (at your option) any later version.
+*
+*    This program is distributed in the hope that it will be useful,
+*    but WITHOUT ANY WARRANTY; without even the implied warranty of
+*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*    GNU General Public License for more details.
+*
+*    You should have received a copy of the GNU General Public License
+*    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*Contact with me by main at this address: pc_magas@yahoo.gr
+*/
+
+package guma.core;
+
+import guma.core.*;
+import guma.arithmetic.Praxis;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.event.*;
+
+
+/**
+*Controller that allow you to communicate with Game
+*@author pc_magas
+*/
+public class GameController implements ActionListenner
+{
+	
+	/**
+	*Label that displays into gui the praxis
+	*/
+	public JLabel praxisLabel=new JLabel("x+y=");
+	
+	/**
+	*TextField that we put into the result of the displayed praxis
+	*/
+	public JTextField resultField=new JTextField(4);
+
+	/**
+	*The main game class
+	*/
+	private Game paixnidi=null;
+	
+	/**
+	*Button for checking result and going to next arithmetic operation
+	*/
+	public JButton nextPraxisButton=new JButton("Επόμενη Πράξη>>");
+	
+	/**
+	*Class that activates and deactivates nextPraxis Button
+	*/
+	
+	private class TextListener implements DocumentListener
+	{
+		public void insertUpdate(DocumentEvent e)
+		{
+			enableButton();
+		}
+		public void removeUpdate(DocumentEvent e)
+		{
+			enableButton();
+		} 
+		public void changedUpdate(DocumentEvent e)
+		{
+			enableButton();
+		}
+		private void enableButton()
+		{
+			if(paixnidi!=null)
+			{
+				nextPraxisButton.setEnabled(true);
+			}
+		} 
+	}
+
+	/**
+	*Constructor of GameController
+	*@param Game gets a game instance and makes it a shallow copy
+	*/
+	public GameController(Game game)
+	{
+		GameController();
+		setGame(game);		
+	}
+	
+	/**
+	*Constructor of GameController
+	*/
+	public GameController()
+	{
+		resultField.getDocument().addDocumentListener(new TextListener());//Adding the lissener for the Button NextPraxis
+		nextPraxisButton.addActionListener(this);//Adding listener to button
+	}
+	/**
+	*Creating a game controller
+	*@param Game gets a game instance. Warning makes it a shallow copy to the classe's instance variable 
+	*/
+	public void setGame(Game g)
+	{
+		this.paixnidi=game;
+	}
+	
+	/**
+	*@overide
+	*/
+	public void actionPerformed(ActionEvent e)
+	{
+		Object option=e.getSource();//get who caused the Action
+		if(paixnidi!=null)
+		{
+			if(option==nextPraxisButton)//If we selected to move onj the next arithmetic praxis
+			{
+
+				try
+				{
+					int[] results= new int[paixnidi.getCurrentPraxis().getResults()];
+					results[0]=Integer.parseInt( resultField.getText() );
+					boolean ok=false;
+					if(results.length>1)
+					{
+						String praxisResults=(String)JOptionPane.showInputDialog(resultField,"Η διαίρεση αυτή έχει Υπόλοιπο"+
+														"\nΠαρακαλώ εισάγεται το υπόλοιπο",
+														"Απαιτείται υπόλοιπό",
+														JOptionPane.PLAIN_MESSAGE);
+						results[1]=Integer.parseInt(praxisResults);
+					}
+				
+					//We get the result as string and we cheack it if ti is correct
+					while(!ok)
+					{
+				
+						if(paixnidi.checkApotelesma(results))
+						{
+							praxisLabel.setText(paixnidi.toString());
+							saved=false;
+							ok=true;
+						remaining.setText("Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum());
+						}
+						else
+						{
+								int pos=paixnidi.getWrongResultPos();
+								if(pos==Praxis.MODULO_POS)
+								{
+								JOptionPane.showMessageDialog((Component)resultField,
+																"Λάθος τιμή υπολοίπου\nEναπομένουσες προσπάθειες: "+
+																paixnidi.getTries(),
+																"Προσπάθησε ξανα",
+																JOptionPane.ERROR_MESSAGE);
+								String praxisResults=(String)JOptionPane.showInputDialog(resultField
+																						,"Η διαίρεση αυτή έχει Υπόλοιπο"+
+																						"\nΠαρακαλώεισάγεται το υπόλοιπο",
+																						"Απαιτείται υπόλοιπό",
+																		JOptionPane.PLAIN_MESSAGE);
+									results[1]=Integer.parseInt(praxisResults);
+							
+								}
+								else
+								{
+									JOptionPane.showMessageDialog((Component)resultField,
+											"Λάθος αποτέλεσμα!\nEναπομένουσες προσπάθειες: "+
+												paixnidi.getTries(),
+												"Προσπάθησε ξανα",
+													JOptionPane.ERROR_MESSAGE);
+									ok=true;
+								}
+						}	
+					}
+				}
+				catch(NumberFormatException nfe)//Not a number
+				{
+					JOptionPane.showMessageDialog((Component)resultField,
+									"Δεν δώσατε αριθμιτική τιμή στο αποτέλεσμα.\n"+
+									"Πρέπει να δώσετε αριθμιτική τιμή στο αποτέλεσμα",
+									"Προσπάθησε ξανα",
+									JOptionPane.ERROR_MESSAGE);
+				}
+				catch(TriesEndException tend)//Tries Ended
+				{
+					JOptionPane.showMessageDialog((Component)resultField,tend.getMessage(),"Προσπάθησε ξανα"
+															,JOptionPane.ERROR_MESSAGE);
+					praxisLabel.setText(paixnidi.toString());
+				}
+				catch(GameOverException gend)//Game Ended
+				{
+					JOptionPane.showMessageDialog((Component)resultField,gend.getMessage(),"Τέλος Παιχνιδιού"
+															,JOptionPane.INFORMATION_MESSAGE );
+					nextPraxisButton.setEnabled(false);
+					paixnidi=null;
+					praxisLabel.setText("x*y=");
+					saved=true;
+				}
+			}
+		}
+	}
+}

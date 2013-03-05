@@ -163,6 +163,8 @@ public abstract class GameController
 			current.saveAs=true;
 			current.save=false;
 			return current.clone();
+		
+
 		}
 	}
 

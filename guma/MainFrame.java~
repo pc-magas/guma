@@ -230,8 +230,7 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 				{
 					UIStatus s=controller.load(f);
 					if(s!=null)
-					{	
-						remaining.setText(s.praxisRemainingDisplay);
+					{					
 						updateUI(s);
 					}
 					else

@@ -310,7 +310,7 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 							}
 							else
 							{
-								System.out.println("Loading praxis: "+p[i].toString()+ "Needed to be taken "+p[i].getResults()+" results");
+								System.out.println("Loading praxis: "+p[i].toString());
 							}
 						}
                     				
