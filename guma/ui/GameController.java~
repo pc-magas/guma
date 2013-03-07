@@ -73,6 +73,12 @@ public abstract class GameController
 	public UIStatus takeResult(int apotelesma)
 	{
 
+		/**
+		*User interface status
+		*/
+		UIStatus current=this.current.clone();
+
+
 		int resultsNum=paixnidi.getResultsNum();
 		System.out.println("Results Should be taken "+resultsNum);
 		int results[]=new int[resultsNum];
@@ -126,7 +132,7 @@ public abstract class GameController
 				displayMessage("Τέλος Παιχνιδιού",gend.getMessage());
 				current.next=false;
 				paixnidi=null;
-				current.praxisValue="x+y=";
+				current.praxisValue="x*y=";
 				current.save=false;
 				current.saveAs=false;
 			}
@@ -230,17 +236,15 @@ public abstract class GameController
 				this.current.save=true;
 				this.current.saveAs=true;
 				this.current.praxisValue=paixnidi.toString();
-				this.current.praxisRemainingDisplay="Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum();
+				this.current.praxisRemainingDisplay="Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum();		
 			}
 			else
 			{
-				System.out.println("Else");
 				this.current.save=false;
 				this.current.saveAs=false;
 				this.current.praxisValue="x+y=";
 				this.current.praxisRemainingDisplay="Πράξεις:";
 			}
-			System.out.println("Inside new game: "+current.praxisRemainingDisplay);	
 	}
 	
 	/**

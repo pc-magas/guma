@@ -22,7 +22,7 @@ package guma.ui;
 
 import javax.swing.JOptionPane;
 import guma.SettingFrame;
-import guma.core.Game;
+import guma.core.Game
 
 /**
 *A class that allows you to Control the Game via Swing

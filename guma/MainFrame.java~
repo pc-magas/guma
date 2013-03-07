@@ -400,7 +400,7 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 			try
 			{
 				UIStatus current=controller.takeResult(Integer.parseInt(resultField.getText()));
-				updateUI(controller.getUIStatus());
+				updateUI(current);
 			}	
 			catch(NumberFormatException nfe)//Not a number
 			{

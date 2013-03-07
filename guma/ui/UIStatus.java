@@ -95,11 +95,15 @@ public class UIStatus
 	*/
 	public UIStatus(UIStatus other)
 	{
-		this(other.praxisRemainingDisplay,other.praxisValue,other.next,other.saveAs,other.save);
+		this.praxisRemainingDisplay=other.praxisRemainingDisplay;
+		this.praxisValue=other.praxisValue;
+		this.next=other.next;
+		this.saveAs=other.saveAs;
+		this.save=other.save;
 	}
 
 	/**
-	*Clone this UIStatus
+	*Clones this UIStatus
 	*/
 	public UIStatus clone()
 	{
