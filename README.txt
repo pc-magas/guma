@@ -1,8 +1,7 @@
-GUMA a Free Software Educational Program for elementary school kids. Version 1.0
+GUMA a Free Software Educational Program for elementary school students.
 
 What is GUMA?
-Guma is a ree Software Educational Program for elementary school kids, that helps thet to practice in arithmetic praxis
-of multiplication,adding and substraction
+Guma is a ree Software Educational Program for elementary school students, that helps thet to practice in basic arithmetic operations of multiplication,adding, substraction and division.
 
 So how does help them?
 Is helps them by challenging them to solve random arithmetic praxis with random numbers. 
