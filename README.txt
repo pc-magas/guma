@@ -24,12 +24,12 @@ c)Then type in terminal:
 	*) make build to compile .java files, make the jar file and remove any .class files into folder guma.
 
 Also you can compile manually by typing in comand line environment (terminal in Unix-like systems):
-	*)javac guma/*.java
+	*)javac guma/*/*.java && javac guma/*.java
 And making the jar file with:
 	*)	jar cvfe ./guma-1.0.jar guma.Main guma/*
 
 Both Source code and binaries are inside the guma-1.0.jar file in the folder guma.
-Sourcecode have .java ending and binaries are these that hame .class ending in their name.
+Sourcecode have .java ending and binaries are these that have .class ending in their name.
 
 WARNING:
 In order to compile the files you need the latest Java jdk environment.
