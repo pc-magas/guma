@@ -42,66 +42,53 @@ public class AddingSimulator extends AbstractSimulator
 	{
 			byte tempTelestis1=(telestis1Index<0)?0:telestis1[telestis1Index];
 			byte tempTelestis2=(telestis2Index<0)?0:telestis2[telestis2Index];
-
-			if(telestis1Index<=0 && telestis2Index<=0)
+			message="";
+			if(telestis1Index<0 && telestis2Index<0)
 			{
 				if(kratoumeno!=0)
 				{
-					message="Το κρατούμενο που περίσεψε το βάζω στο αποτέλεσμα";
+					message+="Το κρατούμενο που περίσεψε το βάζω στο αποτέλεσμα.\n";
 					result[resultIndex]=kratoumeno;
 					return true;
 				}
-				message="Τέλος προσομοίωσης";
+				message+="Τέλος προσομοίωσης";
+				System.out.println("Done");
 				return false;
 			}
 			else
 			{
-				if(temp==0)
+				System.out.println("Inside adding");
+				if(kratoumeno==0)
 				{
-					if(kratoumeno==0)
-					{
-						if(telestis1Index<=0 || telestis2Index<=0)
-						{
-							message="Προσθέτουμε τα ψηφία";
-						}
-						else
-						{
-							message="Προσθέτουμε τα ψηφία. Άν το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
-						}
-						temp=tempTelestis1+tempTelestis2;
-					}
-					else
-					{
-						if(telestis1Index<=0 || telestis2Index<=0)
-						{
-							message="Προσθέτουμε το κρατούμενο με το ψηφίο που μας περίσεψε";
-						}
-						else
-						{
-							message="Προσθέτουμε τα ψηφία μαζί με το κρατούμενο. Άν το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
-						}
-						temp=kratoumeno+tempTelestis1+tempTelestis2;
-					}
+					System.out.println("ADDING");
+					message+="Προσθέτουμε τα ψηφία. Άν το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
+					temp=tempTelestis1+tempTelestis2;
 				}
 				else
 				{
-					if(temp>=10)
-					{
-						message="Το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο";
-						kratoumeno=1;
-						result[resultIndex]=(byte)(temp-10);
-					}
-					else
-					{
-						message="Βάζουμε το άθροισμα των ψηφίων στο αποτέλεσμα";
-						result[resultIndex]=(byte)temp;
-					}
-					resultIndex--;
-					telestis1Index--;
-					telestis2Index--;
+					System.out.println("Adding with carry");
+					message+="Προσθέτουμε τα ψηφία μαζί με το κρατούμενο.\n Άν το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
+					temp=kratoumeno+tempTelestis1+tempTelestis2;
+					kratoumeno=0;
 				}
+				if(temp>=10)
+				{
+					message+="Το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο";
+					kratoumeno=1;
+					result[resultIndex]=(byte)(temp-10);
+				}
+				else
+				{
+					message+="Βάζουμε το άθροισμα των ψηφίων στο αποτέλεσμα";
+					result[resultIndex]=(byte)temp;
+				}
+				resultIndex--;
+				telestis1Index--;
+				telestis2Index--;
+				temp=-1;
 				return true;
 			}
+			
 	}
 		
 }
