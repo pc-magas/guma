@@ -22,7 +22,7 @@ package guma.simulator;
 import guma.simulator.AbstractSimulator;
 import java.lang.Math;
 
-public abstract class SubstractionSimulator extends AbstractSimulator
+public class SubstractionSimulator extends AbstractSimulator
 {
 
 	/**
@@ -64,7 +64,7 @@ public abstract class SubstractionSimulator extends AbstractSimulator
 		}
 		else
 		{
-			if(telestis1Index<0 && telestis2Index<0)
+			if(telestis1Index>=0 && telestis2Index>=0)
 			{
 				if(telestis1[telestis1Index]<telestis2[telestis2Index])
 				{
