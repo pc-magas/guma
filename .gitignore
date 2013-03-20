@@ -1,0 +1,4 @@
+#ignoring these files
+*~
+*.class
+*.save
