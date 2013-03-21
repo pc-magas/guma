@@ -36,6 +36,11 @@ public class MultiplicationSimulator extends AbstractSimulator
 	private int endiamesaIndex=0;
 
 	/**
+	*Shows what intermediate result will be chosen 
+	*/
+	private int endiamesoApotelesmaIndex=0;
+
+	/**
 	*Constructor Method
 	*@param telestis1: the first operator of the number that we will simulate the first operation
 	*@param telestis2: the second operator of the number that we will simulate the second operation
@@ -47,6 +52,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 		
 		for(int i=0;i<endiamesa.length;i++)
 		{
+			//From 
 			endiamesa[i]=new byte[telestis1.length+1];
 			Arrays.fill(endiamesa[i],(byte)0);
 		}
@@ -65,11 +71,30 @@ public class MultiplicationSimulator extends AbstractSimulator
 		{
 			if(telestis1Index>=0)
 			{
+				message="Πολλαπλασιάζουμε τα ψηφία "+telestis1[telestis1Index]+"*"+telestis2[telestis2Index];
+				endiamesa[endiamesoApotelesmaIndex][endiamesaIndex]=telestis1[telestis1Index]*telestis2[telestis2Index];
+				message+=" και ο πολαπλασιαμός έχει αποτέλεσμα: "+endiamesa[endiamesoApotelesmaIndex][endiamesaIndex];
 				if(kratoumeno!=0)
 				{
-					message="Πολλαπλασιάζουμε τα ψηφία "+telestis1[telestis1Index]+"*"+telestis2[telestis2Index];
-					
+					message+="\n Επειδή από την προηγούμενη πράξη έχουμε κρατούμενο το προσθέτοθμε στο αποτέλεσμα";					
+					endiamesa[endiamesoApotelesmaIndex][endiamesaIndex]+=kratoumeno
 				}
+				byte temp[]=AbstractSimulator.seperateDigits((int)endiamesa[endiamesoApotelesmaIndex][endiamesaIndex]);
+				if(temp.length>1)
+				{
+					message="\n Η πράξη μας είχε διψήφιο αποτέλεσμα άρα το πρώτο ψηφίο το κρατάμε κρατούμενο";
+					kratoumeno=temp[0];
+					endiamesa[endiamesoApotelesmaIndex][endiamesaIndex]=temp[1];
+				}
+				else
+				{
+					kratoumeno=0;
+				}
+			}
+			else
+			{
+				telestis2Index--;
+				
 			}
 		}
 		else
