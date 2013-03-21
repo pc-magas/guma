@@ -20,7 +20,7 @@
 package guma.simulator;
 
 import guma.simulator.AbstractSimulator;
-import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MultiplicationSimulator extends AbstractSimulator
 {
@@ -28,7 +28,12 @@ public class MultiplicationSimulator extends AbstractSimulator
 	/**
 	*Array List that stores intermediate results
 	*/
-	private ArrayList<byte[]> intermediate=new ArrayList<byte[]>();
+	private byte[][] endiamesa=null;
+
+	/**
+	*Shows index of intermediate results
+	*/
+	private int endiamesaIndex=0;
 
 	/**
 	*Constructor Method
@@ -38,6 +43,16 @@ public class MultiplicationSimulator extends AbstractSimulator
 	public MultiplicationSimulator(int telestis1,int telestis2)
 	{
 		super(telestis1,telestis2);
+		endiamesa=new byte[telestis2.length][];
+		
+		for(int i=0;i<endiamesa.length;i++)
+		{
+			endiamesa[i]=new byte[telestis1.length+1];
+			Arrays.fill(endiamesa[i],(byte)0);
+		}
+		result=new byte[telestis1.length+telestis2.length];
+		resultIndex=result.length-1;
+		endiamesaIndex=endiamesa[1].length-1;
 	}
 
 	/**
@@ -46,14 +61,21 @@ public class MultiplicationSimulator extends AbstractSimulator
 	*/	
 	public boolean next()
 	{
-		/*(telestis2Index>=0)
+		if(telestis2Index>=0)
 		{
 			if(telestis1Index>=0)
 			{
-				
+				if(kratoumeno!=0)
+				{
+					message="Πολλαπλασιάζουμε τα ψηφία "+telestis1[telestis1Index]+"*"+telestis2[telestis2Index];
+					
+				}
 			}
-		}*/
-		return true;
+		}
+		else
+		{
+			//do adding between results
+		}
 	}
 		
 }
