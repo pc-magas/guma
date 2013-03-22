@@ -84,10 +84,12 @@ public class MultiplicationSimulator extends AbstractSimulator
 				message+=" και ο πολαπλασιαμός έχει αποτέλεσμα: "+endiamesa[endiamesoApotelesmaIndex][endiamesaIndex];
 				if(kratoumeno!=0)
 				{
-					message+="\n Επειδή από την προηγούμενη πράξη έχουμε κρατούμενο το προσθέτοθμε στο αποτέλεσμα";					
+					message+="\n Επειδή από την προηγούμενη πράξη έχουμε κρατούμενο το προσθέτουμε στο αποτέλεσμα";					
 					temp+=kratoumeno;
 				}
+
 				byte tempM[]=AbstractSimulator.seperateDigits((int)endiamesa[endiamesoApotelesmaIndex][endiamesaIndex]);
+				
 				if(tempM.length>1)
 				{
 					message="\n Η πράξη μας είχε διψήφιο αποτέλεσμα άρα το πρώτο ψηφίο το κρατάμε κρατούμενο";
@@ -117,7 +119,10 @@ public class MultiplicationSimulator extends AbstractSimulator
 		}
 		else
 		{
-
+			/*
+			*Adding the intermediate results. Now having a temprorary line of code for just in order to compile correctly.
+			*/
+			return false;
 		}
 	}
 		
