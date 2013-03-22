@@ -84,6 +84,23 @@ public abstract class AbstractSimulator
 	}
 
 	/**
+	*Method that merges a number with seperated digits
+	*@param digits: Number with seperated ditits	
+	*/
+	public static long mergeDigits(byte[] digits)
+	{
+		long merged=0;
+		
+		for(int i=digits.length;i>=0;i++)
+		{
+			merged+=digits[digits.length-1-i]*Math.pow(10,i);
+		}
+
+		return merged;
+	}
+
+	
+	/**
 	*Constructor Method
 	*@param telestis1: the first operator of the number that we will simulate the first operation
 	*@param telestis2: the second operator of the number that we will simulate the first operation
