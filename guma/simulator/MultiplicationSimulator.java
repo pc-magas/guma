@@ -108,7 +108,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 				telestis2Index--;
 				telestis1Index=telestis1.length-1;
 				
-				if(telestis2Index>=0)
+				if(telestis2Index>=0 && resultIndex<endiamesaLastDigit.length)
 				{
 					message="Βάζουμε ένα 0 κάτω από το "+endiamesa[resultIndex][endiamesa[resultIndex].length-1];
 					resultIndex++;
@@ -119,9 +119,15 @@ public class MultiplicationSimulator extends AbstractSimulator
 		}
 		else
 		{
-			/*
-			*Adding the intermediate results. Now having a temprorary line of code for just in order to compile correctly.
-			*/
+			temp=0;
+			message="Προσθαίτουμε τα ενδιάμεσα αποτελέσματα.\nΤέλος προσομοίωσης";
+			for(int i=0;i<endiamesa.length;i++)
+			{
+				temp+=mergeDigits(endiamesa[i]);
+			}
+			
+			result=seperateDigits(temp);
+
 			return false;
 		}
 	}
