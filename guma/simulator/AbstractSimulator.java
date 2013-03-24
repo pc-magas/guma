@@ -91,9 +91,11 @@ public abstract class AbstractSimulator
 	{
 		long merged=0;
 		
-		for(int i=digits.length;i>=0;i++)
+		for(int i=0;i<digits.length;i++)
 		{
-			merged+=digits[digits.length-1-i]*Math.pow(10,i);
+			int pow=digits.length-1-i;
+			System.out.println(digits[i]*Math.pow(10,pow));
+			merged+=digits[i]*(long)Math.pow(10,pow);
 		}
 
 		return merged;
