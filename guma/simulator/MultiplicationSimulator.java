@@ -31,14 +31,10 @@ public class MultiplicationSimulator extends AbstractSimulator
 	private byte[][] endiamesa=null;
 
 	/**
-	*Shows index of intermediate results
-	*/
-	private int endiamesaIndex=0;
-
-	/**
-	*Stores for each intermediate result where is the last digit that will participate into filan adding
+	*Stores for each intermediate result where the result will be stored
 	*/
 	private int[] endiamesaLastDigit=null;
+
 	/**
 	*Shows what intermediate result will be chosen 
 	*/
@@ -62,9 +58,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 			endiamesaLastDigit[i]=endiamesa[i].length-1;
 			Arrays.fill(endiamesa[i],(byte)0);
 		}
-		result=new byte[this.telestis1.length+this.telestis2.length];
-		resultIndex=result.length-1;
-		endiamesaIndex=endiamesa[1].length-1;
+		endiamesoApotelesmaIndex=0;
 		
 	}
 
@@ -79,43 +73,46 @@ public class MultiplicationSimulator extends AbstractSimulator
 		{
 			if(telestis1Index>=0)
 			{
-				message="Πολλαπλασιάζουμε τα ψηφία "+telestis1[telestis1Index]+"*"+telestis2[telestis2Index];
+				message="Πολλαπλασιάζουμε τα ψηφία "+telestis2[telestis2Index]+"*"+telestis1[telestis1Index];
 				temp=telestis1[telestis1Index]*telestis2[telestis2Index];
-				message+=" και ο πολαπλασιαμός έχει αποτέλεσμα: "+endiamesa[endiamesoApotelesmaIndex][endiamesaIndex];
+				message+=" και ο πολαπλασιαμός έχει αποτέλεσμα: "+temp;
 				if(kratoumeno!=0)
 				{
 					message+="\n Επειδή από την προηγούμενη πράξη έχουμε κρατούμενο το προσθέτουμε στο αποτέλεσμα";					
 					temp+=kratoumeno;
 				}
 
-				byte tempM[]=AbstractSimulator.seperateDigits((int)endiamesa[endiamesoApotelesmaIndex][endiamesaIndex]);
+				byte tempM[]=AbstractSimulator.seperateDigits((int)temp);
 				
 				if(tempM.length>1)
 				{
 					message="\n Η πράξη μας είχε διψήφιο αποτέλεσμα άρα το πρώτο ψηφίο το κρατάμε κρατούμενο";
 					kratoumeno=tempM[0];
-					endiamesa[endiamesoApotelesmaIndex][endiamesaIndex]=tempM[1];
+					endiamesa[endiamesoApotelesmaIndex][endiamesaLastDigit[endiamesoApotelesmaIndex]]=tempM[tempM.length-1];
 				}
 				else
 				{
 					kratoumeno=0;
-					endiamesa[endiamesoApotelesmaIndex][endiamesaIndex]=(byte)temp;
+					endiamesa[endiamesoApotelesmaIndex][endiamesaLastDigit[endiamesoApotelesmaIndex]]=(byte)temp;
 				}
-				return true;
+				endiamesaLastDigit[endiamesoApotelesmaIndex]--;
+				telestis1Index--;
+
 			}
 			else
 			{
 				telestis2Index--;
 				telestis1Index=telestis1.length-1;
 				
-				if(telestis2Index>=0 && resultIndex<endiamesaLastDigit.length)
+				if(telestis2Index>=0 && endiamesoApotelesmaIndex<endiamesaLastDigit.length)
 				{
-					message="Βάζουμε ένα 0 κάτω από το "+endiamesa[resultIndex][endiamesa[resultIndex].length-1];
-					resultIndex++;
-					endiamesaLastDigit[resultIndex]=endiamesaLastDigit[resultIndex-1]-1;
+					message="Βάζουμε ένα 0 κάτω από το "+endiamesa[endiamesoApotelesmaIndex][endiamesa[endiamesoApotelesmaIndex].length-1];
+					endiamesoApotelesmaIndex++;
+					endiamesaLastDigit[endiamesoApotelesmaIndex]=endiamesaLastDigit[endiamesoApotelesmaIndex-1]-1;
 				}
-				return true;
+
 			}
+			return true;
 		}
 		else
 		{
@@ -123,7 +120,9 @@ public class MultiplicationSimulator extends AbstractSimulator
 			message="Προσθαίτουμε τα ενδιάμεσα αποτελέσματα.\nΤέλος προσομοίωσης";
 			for(int i=0;i<endiamesa.length;i++)
 			{
-				temp+=mergeDigits(endiamesa[i]);
+				int temp1=(int)mergeDigits(endiamesa[i]);
+				System.out.println("Ενδιάμεσο αποτέλεσμα: "+temp1);
+				temp+=temp1;
 			}
 			
 			result=seperateDigits(temp);
