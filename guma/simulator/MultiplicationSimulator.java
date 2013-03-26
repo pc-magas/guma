@@ -39,7 +39,17 @@ public class MultiplicationSimulator extends AbstractSimulator
 	*Shows what intermediate result will be chosen 
 	*/
 	private int endiamesoApotelesmaIndex=0;
-
+	
+	/**
+	*When 2 numbers when multiplying have zeros in the end then we ignore them and we apend them into the final result to the end
+	*/
+	private int apendZeros=0;
+	
+	/**
+	*Vsriable that shows if needed to display a message for apending zeros
+	*/
+	private boolean apendMessage=false;
+	
 	/**
 	*Constructor Method
 	*@param telestis1: the first operator of the number that we will simulate the first operation
@@ -60,6 +70,27 @@ public class MultiplicationSimulator extends AbstractSimulator
 		}
 		endiamesoApotelesmaIndex=0;
 		
+		while(telestis1Index>=0 && telestis2Index>=0 && (this.telestis1[telestis1Index]==0 || this.telestis2[telestis2Index]==0))
+		{
+			if(telestis1Index>=0 && this.telestis1[telestis1Index]==0)
+			{
+				telestis1Index--;
+				apendZeros++;
+			}
+			
+			if( telestis2Index>=0 && this.telestis2[telestis2Index]==0)
+			{
+				telestis2Index--;
+				apendZeros++;
+			}
+			
+		}
+		
+		if(apendZeros>0)
+		{
+			apendMessage=true;
+		}
+		
 	}
 
 	/**
@@ -69,6 +100,15 @@ public class MultiplicationSimulator extends AbstractSimulator
 	public boolean next()
 	{
 		message="";
+		
+		
+		if(apendMessage)
+		{
+			message="Ανγωούμε τα 0 που έχουν στο τέλος οι αριθμοί και εκτελούμε την πράξη του πολλαπλασιαμού από τα μη μηδενικα στοιχεία";
+			apendMessage=false;
+			return true;
+		}
+		
 		if(telestis2Index>=0)
 		{
 			if(telestis1Index>=0)
@@ -103,12 +143,9 @@ public class MultiplicationSimulator extends AbstractSimulator
 			{
 				telestis2Index--;
 				telestis1Index=telestis1.length-1;
-				System.out.println("Ενδιάμεσο αποτέλεσμα: "+mergeDigits(endiamesa[endiamesoApotelesmaIndex]));
 				
 				if(telestis2Index>=0 && endiamesoApotelesmaIndex<endiamesaLastDigit.length)
 				{
-					System.out.println("Μήκος Ενδιάμεσου αποτελέσματος"+endiamesoApotelesmaIndex+" :"+endiamesa[endiamesoApotelesmaIndex].length);
-					
 					message="Βάζουμε ένα 0 κάτω από το "+endiamesa[endiamesoApotelesmaIndex][endiamesa[endiamesoApotelesmaIndex].length-1];
 					
 					endiamesoApotelesmaIndex++;
@@ -126,14 +163,10 @@ public class MultiplicationSimulator extends AbstractSimulator
 			message="Προσθαίτουμε τα ενδιάμεσα αποτελέσματα.\nΤέλος προσομοίωσης";
 			for(int i=0;i<endiamesa.length;i++)
 			{
-				for(int j=0;j<endiamesa[i].length;j++)
-				{
-					System.out.print(endiamesa[i][j]);
-				}
-				System.out.println("");
 				int temp1=(int)mergeDigits(endiamesa[i]);
 				temp+=temp1;
 			}
+			temp*=(int)Math.pow(10,apendZeros);
 			
 			result=seperateDigits(temp);
 
