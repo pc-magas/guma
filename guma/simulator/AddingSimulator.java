@@ -21,7 +21,7 @@ package guma.simulator;
 
 import guma.simulator.AbstractSimulator;
 
-public class AddingSimulator extends AbstractSimulator
+public class AddingSimulator extends SimpleSimulator
 {
 
 	/**
