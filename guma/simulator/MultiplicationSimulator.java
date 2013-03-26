@@ -54,7 +54,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 		for(int i=0;i<endiamesa.length;i++)
 		{
 			//From 
-			endiamesa[i]=new byte[this.telestis1.length+1+i];
+			endiamesa[i]=new byte[this.telestis1.length+i];
 			endiamesaLastDigit[i]=endiamesa[i].length-1;
 			Arrays.fill(endiamesa[i],(byte)0);
 		}
@@ -97,22 +97,28 @@ public class MultiplicationSimulator extends AbstractSimulator
 				}
 				endiamesaLastDigit[endiamesoApotelesmaIndex]--;
 				telestis1Index--;
-
+				return true;	
 			}
 			else
 			{
 				telestis2Index--;
 				telestis1Index=telestis1.length-1;
+				System.out.println("Ενδιάμεσο αποτέλεσμα: "+mergeDigits(endiamesa[endiamesoApotelesmaIndex]));
 				
 				if(telestis2Index>=0 && endiamesoApotelesmaIndex<endiamesaLastDigit.length)
 				{
+					System.out.println("Μήκος Ενδιάμεσου αποτελέσματος"+endiamesoApotelesmaIndex+" :"+endiamesa[endiamesoApotelesmaIndex].length);
+					
 					message="Βάζουμε ένα 0 κάτω από το "+endiamesa[endiamesoApotelesmaIndex][endiamesa[endiamesoApotelesmaIndex].length-1];
+					
 					endiamesoApotelesmaIndex++;
-					endiamesaLastDigit[endiamesoApotelesmaIndex]=endiamesaLastDigit[endiamesoApotelesmaIndex-1]-1;
+					endiamesa[endiamesoApotelesmaIndex][endiamesa[endiamesoApotelesmaIndex].length-1]=(byte)0;
+					endiamesaLastDigit[endiamesoApotelesmaIndex]=endiamesa[endiamesoApotelesmaIndex].length-1-endiamesoApotelesmaIndex;
+					
 				}
-
+				return true;
 			}
-			return true;
+
 		}
 		else
 		{
@@ -120,8 +126,12 @@ public class MultiplicationSimulator extends AbstractSimulator
 			message="Προσθαίτουμε τα ενδιάμεσα αποτελέσματα.\nΤέλος προσομοίωσης";
 			for(int i=0;i<endiamesa.length;i++)
 			{
+				for(int j=0;j<endiamesa[i].length;j++)
+				{
+					System.out.print(endiamesa[i][j]);
+				}
+				System.out.println("");
 				int temp1=(int)mergeDigits(endiamesa[i]);
-				System.out.println("Ενδιάμεσο αποτέλεσμα: "+temp1);
 				temp+=temp1;
 			}
 			
@@ -129,6 +139,5 @@ public class MultiplicationSimulator extends AbstractSimulator
 
 			return false;
 		}
-	}
-		
+	}		
 }
