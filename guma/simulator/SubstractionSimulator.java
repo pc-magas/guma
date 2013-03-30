@@ -22,7 +22,7 @@ package guma.simulator;
 import guma.simulator.AbstractSimulator;
 import java.lang.Math;
 
-public class SubstractionSimulator extends AbstractSimulator
+public class SubstractionSimulator extends SimpleSimulator
 {
 
 	/**
@@ -57,34 +57,44 @@ public class SubstractionSimulator extends AbstractSimulator
 	{
 		boolean returnVal;
 		message="";
+		
 		if(!canOperate)
 		{
 			message="H πράξη αυτή δεν μπορεί να γίνει.";
 			returnVal=false;
 		}
 		else
-		{
-			if(telestis1Index>=0 && telestis2Index>=0)
+		{		
+			if(telestis1Index>=0)
 			{
-				if(telestis1[telestis1Index]<telestis2[telestis2Index])
+				int tempTelestis1=telestis1[telestis1Index];
+				int tempTelestis2=(telestis2Index>=0)?telestis2[telestis2Index]:0;
+				
+				if(kratoumeno>0)
 				{
-					if(kratoumeno==0)
-					{
-						message="To "+telestis1[telestis1Index]+" είναι μικρότερο από το "+telestis2[telestis2Index]+"Θα χρειαστούμε ένα δανεικό που θα μπεί μπορστά από το "+telestis1[telestis1Index]+"\n έτσι το "+telestis1[telestis1Index]+"θα γίνει 1"+telestis1[telestis1Index];
-						kratoumeno=1;
-					}
-					else
-					{
-						message="Κάνουμε την αφαίρεση των ψηφίων με την χρήση του δανεικού.";
-						result[resultIndex]=(byte)((10+telestis1[telestis1Index])-telestis2[telestis2Index]);
-						kratoumeno=0;						
-						reduceIndex();
-					}
+					message="Προσθέτουμε το δανεικό στο "+tempTelestis2+" και θα γίνει ";
+					tempTelestis2+=kratoumeno;
+					message+=tempTelestis2+"\n";
+					kratoumeno=0;
+				}
+				
+				if(tempTelestis1<tempTelestis2)
+				{
+
+					message+="To "+tempTelestis1+" είναι μικρότερο από το "+tempTelestis2+". Θα χρειαστούμε ένα δανεικό που θα μπεί μπορστά από το "+tempTelestis1+" έτσι το "+tempTelestis1+"θα γίνει 1"+tempTelestis1+". Μετά εκτελούμε την πράξη μεταξύ των ψηφίων 1"+tempTelestis1+"-"+tempTelestis2;
+					
+					result[resultIndex]=(byte)((10+tempTelestis1)-tempTelestis2);
+					
+					kratoumeno=1;
+					reduceIndex();
+					
+					returnVal=true;
+					
 				}
 				else
 				{
-					message="Κάνουμε την αφαίρεση των ψηφίων με την χρήση του δανεικού.";
-					result[resultIndex]=(byte)(telestis1[telestis1Index]-telestis2[telestis2Index]);
+					message="Κάνουμε την αφαίρεση των ψηφίων ";
+					result[resultIndex]=(byte)(tempTelestis1-tempTelestis2);
 					reduceIndex();
 				}
 				returnVal=true;
