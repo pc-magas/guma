@@ -21,11 +21,37 @@ package guma.simulator;
 
 import guma.simulator.AbstractSimulator;
 import java.util.Arrays;
+import java.util.ArrayList;
+
 
 public class DivisionSimulator extends AbstractSimulator
 {
 
 	
+	/**
+	*Stores the Final Result
+	*/
+	private ArrayList<Byte> piliko=new ArrayList<Byte>();
+	
+	/**
+	*Stores Modulo
+	*/
+	private byte modulo=0;
+	
+	/**
+	*Stores temporary the number the second operator  WITHOUT seperated digits
+	*/
+	private int telestis2Full=0;
+	
+	/**
+	*Stores temporaly the current number that will be divided with telestis2 
+	*/
+	private byte[] tempSeperated=null;
+	
+	/**
+	*Tells if found a number to divide
+	*/
+	private boolean found=false;
 	
 	/**
 	*Constructor Method
@@ -36,8 +62,16 @@ public class DivisionSimulator extends AbstractSimulator
 	{
 		super(telestis1,telestis2);
 		
+		telestis2Full=telestis2;
 		
+		telestis1Index=this.telestis2.length-1;
+		telestis2Index=0;
 		
+		tempSeperated=new byte[this.telestis2.length];
+		
+		System.arraycopy(this.telestis1,0,tempSeperated,0,tempSeperated.length);
+		
+		temp=-1;
 	}
 
 	/**
@@ -47,6 +81,37 @@ public class DivisionSimulator extends AbstractSimulator
 	public boolean next()
 	{
 		message="";
-		return true;
+		int temp2=mergeDigits(tempSeperated);
+		
+		if(telestis1Index<telestis1.length)
+		{
+			if(!found)
+			{
+				if(temp<0)
+				{
+					temp=tempSeperated[0]/telestis2[0];
+					message="Το "+tempSeperated[0]+" χωράει "+ temp +" φορές στο "+telestis2[0];
+				}
+				else
+				{
+					message="Το "+temp+" δεν μας κάνει γιατί "+temp+"X"+telestis2Full+"= "+temp*telestis2Full+" που είναι μεγαλύτερο από το "+temp2+". Γι αυτό δοκιμάζουμε με το αμέσως προηγούμενο";
+					temp--;
+				}
+			}	
+			else
+			{
+				piliko.add(new Byte((byte)temp));
+				temp=-1;
+			}
+				
+			return true;
+		}
+		else
+		{
+			message="Η πράξη τελείωσε";
+			return false;
+		}
+		
+
 	}		
 }
