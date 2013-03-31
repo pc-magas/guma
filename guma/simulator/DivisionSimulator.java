@@ -36,7 +36,7 @@ public class DivisionSimulator extends AbstractSimulator
 	/**
 	*Stores Modulo
 	*/
-	private byte modulo=0;
+	private int modulo=0;
 	
 	/**
 	*Stores temporary the number the second operator  WITHOUT seperated digits
@@ -47,11 +47,6 @@ public class DivisionSimulator extends AbstractSimulator
 	*Stores temporaly the current number that will be divided with telestis2 
 	*/
 	private byte[] tempSeperated=null;
-	
-	/**
-	*Tells if found a number to divide
-	*/
-	private boolean found=false;
 	
 	/**
 	*Constructor Method
@@ -84,23 +79,32 @@ public class DivisionSimulator extends AbstractSimulator
 		int temp2=mergeDigits(tempSeperated);
 		
 		if(telestis1Index<telestis1.length)
-		{
-			if(!found)
+		{	
+			
+			//If the selected digits not enough	
+			if(temp2<telestis2Full)
 			{
-				if(temp<0)
-				{
-					temp=tempSeperated[0]/telestis2[0];
-					message="Το "+tempSeperated[0]+" χωράει "+ temp +" φορές στο "+telestis2[0];
-				}
-				else
-				{
-					message="Το "+temp+" δεν μας κάνει γιατί "+temp+"X"+telestis2Full+"= "+temp*telestis2Full+" που είναι μεγαλύτερο από το "+temp2+". Γι αυτό δοκιμάζουμε με το αμέσως προηγούμενο";
-					temp--;
-				}
+				message="To "+temp2+" δεν χωράει στο "+telestis2Full;
+
+				message+=". Γι αυτό κατεβάζουμε και το "+telestis1[telestis1Index];
+				katevazwPsifio();
+				return true;
+			}
+			
+			//Finding the correct digit of the result
+			if(temp<0)
+			{
+				temp=temp2/telestis2Full;
+				message="Το "+temp+" χωράει "+ temp +" φορές στο "+telestis2Full;
 			}	
 			else
 			{
+				//Add the correct value to the result
 				piliko.add(new Byte((byte)temp));
+				
+				tempSeperated=seperateDigits(temp);
+				
+				katevazwPsifio();
 				temp=-1;
 			}
 				
@@ -109,9 +113,28 @@ public class DivisionSimulator extends AbstractSimulator
 		else
 		{
 			message="Η πράξη τελείωσε";
+			modulo=temp2;
 			return false;
 		}
 		
 
-	}		
+	}
+	
+	/**
+	*Adds an another digit to temp seperated 
+	*/
+	private void katevazwPsifio()
+	{
+		String s="";
+
+		for(int i=0;i<tempSeperated.length;i++)
+		{
+			s+=tempSeperated[i];		
+		}
+		telestis1Index++;
+		s+=telestis1[telestis1Index];
+		
+		tempSeperated=seperateDigits(Integer.valueOf(s));
+	}
+			
 }
