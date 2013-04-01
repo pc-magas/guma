@@ -20,9 +20,7 @@
 package guma.simulator;
 
 import guma.simulator.AbstractSimulator;
-import java.util.Arrays;
 import java.util.ArrayList;
-
 
 public class DivisionSimulator extends AbstractSimulator
 {
@@ -57,6 +55,25 @@ public class DivisionSimulator extends AbstractSimulator
 	{
 		super(telestis1,telestis2);
 		
+		//Counting how many zeros have at the end each number
+		int telestis1Zeros=zeroEndCount(this.telestis1);
+		int telestis2Zeros=zeroEndCount(this.telestis2);
+		
+		//Removing the zeros from the end
+		if(telestis1Zeros>0 && telestis2Zeros>0)
+		{
+			int min=Math.min(telestis1Zeros,telestis2Zeros);
+			
+			//We divide with the correct power of 10
+			telestis1/=(int)Math.pow(10,min);
+			telestis2/=(int)Math.pow(10,min);
+			
+			//Reseting the environment with removed the common number of zeros
+			this.telestis1= AbstractSimulator.seperateDigits(telestis1);
+			this.telestis2= AbstractSimulator.seperateDigits(telestis2);
+
+		}
+		
 		telestis2Full=telestis2;
 		
 		telestis1Index=this.telestis2.length-1;
@@ -64,6 +81,8 @@ public class DivisionSimulator extends AbstractSimulator
 		
 		tempSeperated=new byte[this.telestis2.length];
 		
+		
+		//Initilizing the number that will participate into division
 		for(int i=0;i<tempSeperated.length;i++)
 		{
 			tempSeperated[i]=this.telestis1[i];
@@ -80,53 +99,57 @@ public class DivisionSimulator extends AbstractSimulator
 	{
 		message="";
 		int temp2=mergeDigits(tempSeperated);
-		
+		boolean next1=false;
 		if(telestis1Index<telestis1.length)
 		{	
-			System.out.println("Ψηφίο Διεραιτέου"+ telestis1Index);
 			//If the selected digits not enough	
 			if(temp2<telestis2Full)
 			{
-				message="To "+temp2+" δεν χωράει στο "+telestis2Full;
-
-				message+=". Γι αυτό κατεβάζουμε και το "+telestis1[telestis1Index];
-				katevazwPsifio();
-				return true;
+				message="To "+temp2+" δεν χωράει στο "+telestis2Full+". ";
+				
+				if(katevazwPsifio())
+				{
+					message+="Γι αυτό κατεβάζουμε και το "+telestis1[telestis1Index];
+				}
+				else
+				{
+					message+="To"+temp2+"δεν χωρά στο "+telestis2Full+".";					
+					return false;
+				}
 			}
 			
+			
 			//Finding the correct digit of the result
-			if(temp<0)
-			{
-				temp=temp2/telestis2Full;
-				message="Το "+temp2+" χωράει "+ temp +" φορές στο "+telestis2Full;
-			}	
-			else
-			{
-				//Add the correct value to the result
-				piliko.add(new Byte((byte)temp));
+			temp=temp2/telestis2Full;
+			message="Το "+temp2+" χωράει "+ temp +" φορές στο "+telestis2Full+". ";	
+			
+			piliko.add(new Byte((byte)temp));
+			
+			int numr=telestis2Full*temp;
 				
-				tempSeperated=seperateDigits(temp);
+			message+="Αφαιρούμε το "+temp2+" με το "+numr+" (Προέκυψε από τον πολλαπλασιασμό του "+temp + " με τον διεραίτη τον "
+					+telestis2Full+ " )." ;
 				
-				katevazwPsifio();
-				temp=-1;
+			temp2-=numr;
+			
+			tempSeperated=seperateDigits(temp2);
+			
+			if(!katevazwPsifio())
+			{
+				message="Η πράξη τελείωσε";
+				modulo=temp2;
+				return false;
 			}
-				
-			return true;
-		}
-		else
-		{
-			message="Η πράξη τελείωσε";
-			modulo=temp2;
-			return false;
+			
 		}
 		
-
+		return true;
 	}
 	
 	/**
 	*Adds an another digit to temp seperated 
 	*/
-	private void katevazwPsifio()
+	private boolean katevazwPsifio()
 	{
 		String s="";
 
@@ -134,12 +157,22 @@ public class DivisionSimulator extends AbstractSimulator
 		{
 			s+=tempSeperated[i];		
 		}
+		
+		System.out.println("Before adding another digit: "+s);
 		telestis1Index++;
+		System.out.println("Telestis1Index: "+telestis1Index);
+		
 		if(telestis1Index<telestis1.length)
 		{
 			s+=telestis1[telestis1Index];
+			tempSeperated=seperateDigits(Integer.valueOf(s));
+			return true;
 		}
-		tempSeperated=seperateDigits(Integer.valueOf(s));
+		else
+		{
+			return false;
+		}
+
 	}
 	
 	/**
@@ -153,5 +186,6 @@ public class DivisionSimulator extends AbstractSimulator
 			s+=b.toString();
 		}
 		return s;
-	}	
+	}
+	
 }
