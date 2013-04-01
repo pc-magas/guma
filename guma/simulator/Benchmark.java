@@ -4,7 +4,7 @@ public class Benchmark
 {
 	public static void main(String[] args)
 	{
-		AbstractSimulator add=new MultiplicationSimulator(11,22);
+		DivisionSimulator add=new DivisionSimulator(300002,2);
 		boolean next=true;
 
 		do
