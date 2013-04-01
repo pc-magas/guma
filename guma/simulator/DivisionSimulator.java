@@ -64,7 +64,10 @@ public class DivisionSimulator extends AbstractSimulator
 		
 		tempSeperated=new byte[this.telestis2.length];
 		
-		System.arraycopy(this.telestis1,0,tempSeperated,0,tempSeperated.length);
+		for(int i=0;i<tempSeperated.length;i++)
+		{
+			tempSeperated[i]=this.telestis1[i];
+		}
 		
 		temp=-1;
 	}
@@ -80,7 +83,7 @@ public class DivisionSimulator extends AbstractSimulator
 		
 		if(telestis1Index<telestis1.length)
 		{	
-			
+			System.out.println("Ψηφίο Διεραιτέου"+ telestis1Index);
 			//If the selected digits not enough	
 			if(temp2<telestis2Full)
 			{
@@ -95,7 +98,7 @@ public class DivisionSimulator extends AbstractSimulator
 			if(temp<0)
 			{
 				temp=temp2/telestis2Full;
-				message="Το "+temp+" χωράει "+ temp +" φορές στο "+telestis2Full;
+				message="Το "+temp2+" χωράει "+ temp +" φορές στο "+telestis2Full;
 			}	
 			else
 			{
@@ -132,9 +135,23 @@ public class DivisionSimulator extends AbstractSimulator
 			s+=tempSeperated[i];		
 		}
 		telestis1Index++;
-		s+=telestis1[telestis1Index];
-		
+		if(telestis1Index<telestis1.length)
+		{
+			s+=telestis1[telestis1Index];
+		}
 		tempSeperated=seperateDigits(Integer.valueOf(s));
 	}
-			
+	
+	/**
+	*@overide
+	*/
+	public String getResult()
+	{
+		String s="";
+		for(Byte b:piliko)
+		{
+			s+=b.toString();
+		}
+		return s;
+	}	
 }
