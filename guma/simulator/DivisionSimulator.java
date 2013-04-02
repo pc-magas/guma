@@ -99,25 +99,39 @@ public class DivisionSimulator extends AbstractSimulator
 	{
 		message="";
 		int temp2=mergeDigits(tempSeperated);
-		boolean next1=false;
+
 		if(telestis1Index<telestis1.length)
 		{	
 			//If the selected digits not enough	
 			if(temp2<telestis2Full)
 			{
-				message="To "+temp2+" δεν χωράει στο "+telestis2Full+". ";
+				if(temp2==0)
+				{
+					message+="Βάζουμε 0 εις το πιλίκο.";
+					piliko.add(new Byte((byte)0));
+					if(!katevazwPsifio())
+					{
+						message+="Η πράξη τελείωσε";
+						modulo=temp2;
+						return false;
+					}
+					return true;
+				}
 				
+				message="To "+temp2+" δεν χωράει στο "+telestis2Full+". ";
 				if(katevazwPsifio())
 				{
 					message+="Γι αυτό κατεβάζουμε και το "+telestis1[telestis1Index];
+					return true;
 				}
 				else
 				{
-					message+="To"+temp2+"δεν χωρά στο "+telestis2Full+".";					
+					message+="Tέλος πράξης το "+temp2+" μένει  σαν υπόλοιπο. Και βάζουμε 0 εις το πιλίκο";
+					piliko.add(new Byte((byte)0));					
 					return false;
 				}
+				
 			}
-			
 			
 			//Finding the correct digit of the result
 			temp=temp2/telestis2Full;
