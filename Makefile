@@ -11,7 +11,7 @@ core: arithmetic
 	javac ${SOURCE}/core/*.java
 
 ui:
-	javac ${SOURCE}/ui/*.java
+	javac ${SOURCE}/ui/*/*.java
 
 gui: ui
 	javac ${SOURCE}/gui/*.java
