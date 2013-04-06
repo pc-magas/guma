@@ -20,6 +20,8 @@
 package guma.simulator;
 
 import java.util.*;
+import guma.arithmetic.Praxis;
+import guma.simulator.*;
 
 public abstract class AbstractSimulator
 {
@@ -87,14 +89,13 @@ public abstract class AbstractSimulator
 	*Method that merges a number with seperated digits
 	*@param digits: Number with seperated ditits	
 	*/
-	public static long mergeDigits(byte[] digits)
+	public static int mergeDigits(byte[] digits)
 	{
-		long merged=0;
+		int merged=0;
 		
 		for(int i=0;i<digits.length;i++)
 		{
 			int pow=digits.length-1-i;
-			System.out.println(digits[i]*Math.pow(10,pow));
 			merged+=digits[i]*(long)Math.pow(10,pow);
 		}
 
@@ -115,12 +116,38 @@ public abstract class AbstractSimulator
 		telestis1Index=this.telestis1.length-1;
 		telestis2Index=this.telestis2.length-1;
 		
-		int maxLength=	(int)((this.telestis1.length>this.telestis2.length)? this.telestis1.length : this.telestis2.length);
-		
-		resultIndex=maxLength;
-		result=new byte[resultIndex+1];
-		Arrays.fill(result,(byte)0);
 		temp=0;	
+	}
+	
+	/**
+	*Counts how many zeros has on the end a number with seperated digits.
+	*If parameter num is null then it returns -1
+	*@param num: number with seperated digits
+	*/
+	public static int zeroEndCount(byte[] num)
+	{
+		int zeros=0;
+		
+		try
+		{
+			for(int i=num.length-1;i>=0;i--)
+			{
+				if(num[i]==0)
+				{
+					zeros++;
+				}
+				else
+				{
+					break;
+				}
+			} 
+		}
+		catch(NullPointerException n)
+		{
+			zeros=-1;
+		}
+		
+		return zeros;	
 	}
 
 	/**
@@ -192,9 +219,57 @@ public abstract class AbstractSimulator
 		return getTelestis(telestis2);
 	}
 	
+	/**
+	*Returns as String the result
+	*/
 	public String getResult()
 	{
 		return getTelestis(result);
+	}
+	
+	/**
+	*Creates a Simulator Bazed on the praxisType is given on Praxis Type
+	*@param telestis1: the first operator (depending in the operation) of the operation we want to simulate
+	*@param telesits2: the second operator (depending in the operation) of the operation we want to simulate
+	*@param praxisType: The type of Operation that tells what kind of simulator we want
+	*/
+	public static AbstractSimulator makesimulator(int telestis1, int telestis2,char praxisType)
+	{
+		AbstractSimulator a=null;
+		switch(praxisType)
+		{
+			case Praxis.ADDING: a= new AddingSimulator(telestis1,telestis2);
+			break;
+			
+			case Praxis.SUBSTRACTION:
+				if(telestis1>telestis2)
+				{
+					a= new SubstractionSimulator(telestis1,telestis2);
+				}
+				else
+				{
+					a= new SubstractionSimulator(telestis1,telestis2);
+				}
+			break;
+			
+			case Praxis.DIVISION:
+				if(telestis1>telestis2)
+				{
+					a= new DivisionSimulator(telestis1,telestis2);
+				}
+				else
+				{
+					a= new DivisionSimulator(telestis1,telestis2);
+				}
+				break;
+			
+			case Praxis.MULTIPLICATION: a= new MultiplicationSimulator(telestis1,telestis2,false);
+			break;
+			
+			default: a=null;		
+		}
+		
+		return a;
 	}
 
 	/**
