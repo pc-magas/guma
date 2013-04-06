@@ -23,7 +23,7 @@ package guma.gui;
 import javax.swing.JOptionPane;
 import guma.gui.SettingFrame;
 import guma.core.Game;
-import guma.ui.GameController;
+import guma.ui.main.GameController;
 
 /**
 *A class that allows you to Control the Game via Swing

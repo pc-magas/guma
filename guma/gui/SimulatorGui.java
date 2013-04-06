@@ -68,7 +68,7 @@ public class SimulatorGui extends JPanel implements ActionListener
 	*/
 	private AbstractSimulator s=null;
 	
-	public SimulatorGui()
+	public SimulatorGui(int telestis1, int telestis2)
 	{
 		super();
 		setLayout(new BorderLayout());

@@ -20,8 +20,9 @@
 package guma.gui;
 
 import guma.gui.*;
+import guma.gui.SwingGameController;
 import guma.core.*;
-import guma.ui.*;
+import guma.ui.main.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -430,7 +431,7 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 	}
 
 	public void updateUI(UIStatus status)
-	{
+	{		
 		System.out.println("Updating status:\nPraxisvalue: "+status.praxisValue+"\nRemaining:"+status.praxisRemainingDisplay);
 		praxisLabel.setText(status.praxisValue);
 		remaining.setText(status.praxisRemainingDisplay);
