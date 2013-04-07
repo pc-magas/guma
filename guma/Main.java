@@ -18,7 +18,7 @@
 */
 package guma;
 
-import guma.MainFrame;
+import guma.gui.MainFrame;
 
 
 public class Main
