@@ -71,9 +71,14 @@ public abstract class AbstractSimulator
 	protected String message="";
 
 	/**
+	*Variable that tells what type of operation simulates
+	*/
+	protected char type;
+	
+	/**
 	*Method that seperates the digits from a Number
 	*/
-	public  static byte[] seperateDigits(int number)
+	public static byte[] seperateDigits(int number)
 	{
 		byte[] intermediate=new byte[String.valueOf(number).length()];
 		
@@ -191,14 +196,48 @@ public abstract class AbstractSimulator
 	}
 
 	/**
-	*A way to return the operatos as String with distinct space between tht digits
+	*A way to return the operatos as String with distinct space (tab) between tht digits
+	*@param num: the number with seperated Digits
 	*/
-	private String getTelestis(byte[] num)
+	public static String getTelestis(byte[] num)
+	{
+		return getTelestis(num,"\t","");
+	}
+	
+	/**
+	*A way to return the operatos as String with distinct space between tht digits
+	*@param num: the number with seperated Digits
+	*@param front:  The sting you want to be be th the front of a digit
+	*@param back: The string you want to be at the back of a digit
+	*/
+	public static String getTelestis(byte[] num,String front, String back)
+	{
+		
+		return getTelestis(num,front,back,0,front,back);
+	}
+	
+	/**
+	*A way to return the operatos as String with distinct space between tht digits
+	*@param num: the number with seperated Digits
+	*@param front:  The sting you want to be on the front of a digit
+	*@param back: The string you want to be at the back of a digit
+	*@param pos: select a specified position that will have seperate texnt on the front and back
+	*@param posFront: The sting you want to be on the front of a digit at specified positions, given by pos paramenter
+	*@param posBack: The sting you want to be at the back of a digit at specified positions, given by pos parameter
+	*/
+	public static String getTelestis(byte[] num,String front, String back, int pos, String posFront, String posBack)
 	{
 		String s="";
 		for(int i=0;i<num.length;i++)
 		{
-			s+="\t"+num[i];
+			if(i==pos)
+			{
+				s+=posFront+num[i]+posBack;
+			}
+			else
+			{
+				s+=front+num[i]+back;
+			}
 		}
 		return s;
 	}
@@ -213,10 +252,54 @@ public abstract class AbstractSimulator
 
 	/**
 	*Returns the first operator
+	*@param front:  The sting you want to be be th the front of a digit
+	*@param back: The string you want to be at the back of a digit
+	*/
+	public String getTelestis1(String front, String back)
+	{
+		return getTelestis(telestis1,front,back);
+	}
+	
+	/**
+	*Returns the first operator
+	*@param front:  The sting you want to be be th the front of a digit
+	*@param back: The string you want to be at the back of a digit
+	*@param pos: select a specified position that will have seperate texnt on the front and back
+	*@param posFront: The sting you want to be on the front of a digit at specified positions, given by pos paramenter
+	*@param posBack: The sting you want to be at the back of a digit at specified positions, given by pos parameter
+	*/
+	public String getTelestis1(String front, String back,int pos, String posFront, String posBack)
+	{
+		return getTelestis(telestis1,front,back,pos, posFront, posBack);
+	}
+	
+	/**
+	*Returns the second operator
 	*/
 	public String getTelestis2()
 	{
 		return getTelestis(telestis2);
+	}
+	
+	/**
+	*Returns the second operator
+	*/
+	public String getTelestis2(String front, String back)
+	{
+		return getTelestis(telestis2,front,back);
+	}
+	
+	/**
+	*Returns the first operator
+	*@param front:  The sting you want to be be th the front of a digit
+	*@param back: The string you want to be at the back of a digit
+	*@param pos: select a specified position that will have seperate texnt on the front and back
+	*@param posFront: The sting you want to be on the front of a digit at specified positions, given by pos paramenter
+	*@param posBack: The sting you want to be at the back of a digit at specified positions, given by pos parameter
+	*/
+	public String getTelestis2(String front, String back,int pos, String posFront, String posBack)
+	{
+		return getTelestis(telestis1,front,back,pos, posFront, posBack);
 	}
 	
 	/**
@@ -225,6 +308,29 @@ public abstract class AbstractSimulator
 	public String getResult()
 	{
 		return getTelestis(result);
+	}
+	
+	/**
+	*Returns as String the result
+	*@param front:  The sting you want to be be th the front of a digit
+	*@param back: The string you want to be at the back of a digit
+	*/
+	public String getResult(String front, String back)
+	{
+		return getTelestis(result,front,back);
+	}
+	
+	/**
+	*Returns the first operator
+	*@param front:  The sting you want to be be th the front of a digit
+	*@param back: The string you want to be at the back of a digit
+	*@param pos: select a specified position that will have seperate texnt on the front and back
+	*@param posFront: The sting you want to be on the front of a digit at specified positions, given by pos paramenter
+	*@param posBack: The sting you want to be at the back of a digit at specified positions, given by pos parameter
+	*/
+	public String getResult(String front, String back,int pos, String posFront, String posBack)
+	{
+		return getTelestis(telestis1,front,back,pos, posFront, posBack);
 	}
 	
 	/**
@@ -278,5 +384,9 @@ public abstract class AbstractSimulator
 	*/
 	public abstract boolean next();
 
-	
+	/**
+	*This method shows tas String the operation of simulator
+	*@param: html: Shows if the utput will be html or not
+	*/
+	public abstract String toString(boolean html);
 }
