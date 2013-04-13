@@ -268,9 +268,9 @@ public abstract class AbstractSimulator
 	*@param posFront: The sting you want to be on the front of a digit at specified positions, given by pos paramenter
 	*@param posBack: The sting you want to be at the back of a digit at specified positions, given by pos parameter
 	*/
-	public String getTelestis1(String front, String back,int pos, String posFront, String posBack)
+	public String getTelestis1(String front, String back, String posFront, String posBack)
 	{
-		return getTelestis(telestis1,front,back,pos, posFront, posBack);
+		return getTelestis(telestis1,front,back,telestis1Index, posFront, posBack);
 	}
 	
 	/**
@@ -297,9 +297,9 @@ public abstract class AbstractSimulator
 	*@param posFront: The sting you want to be on the front of a digit at specified positions, given by pos paramenter
 	*@param posBack: The sting you want to be at the back of a digit at specified positions, given by pos parameter
 	*/
-	public String getTelestis2(String front, String back,int pos, String posFront, String posBack)
+	public String getTelestis2(String front, String back, String posFront, String posBack)
 	{
-		return getTelestis(telestis1,front,back,pos, posFront, posBack);
+		return getTelestis(telestis1,front,back,telestis2Index, posFront, posBack);
 	}
 	
 	/**
@@ -328,9 +328,9 @@ public abstract class AbstractSimulator
 	*@param posFront: The sting you want to be on the front of a digit at specified positions, given by pos paramenter
 	*@param posBack: The sting you want to be at the back of a digit at specified positions, given by pos parameter
 	*/
-	public String getResult(String front, String back,int pos, String posFront, String posBack)
+	public String getResult(String front, String back, String posFront, String posBack)
 	{
-		return getTelestis(telestis1,front,back,pos, posFront, posBack);
+		return getTelestis(telestis1,front,back,resultIndex, posFront, posBack);
 	}
 	
 	/**
