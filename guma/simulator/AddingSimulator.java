@@ -20,6 +20,7 @@
 package guma.simulator;
 
 import guma.simulator.AbstractSimulator;
+import guma.arithmetic.Praxis;
 
 public class AddingSimulator extends SimpleSimulator
 {
@@ -32,33 +33,32 @@ public class AddingSimulator extends SimpleSimulator
 	public AddingSimulator(int telestis1,int telestis2)
 	{
 		super(telestis1,telestis2);
+		type=Praxis.ADDING;
 	}
 
 	/**
-	*This Method does the next step of an arithmetic praxis Simulation
-	*Returns true if it has next step to do
+	*@override
 	*/	
 	public boolean next()
 	{
 			byte tempTelestis1=(telestis1Index<0)?0:telestis1[telestis1Index];
 			byte tempTelestis2=(telestis2Index<0)?0:telestis2[telestis2Index];
 			message="";
-			if(telestis1Index<0 && telestis2Index<0)
+			
+			if(telestis1Index<0 && telestis2Index<0)//run out of digits
 			{
-				if(kratoumeno!=0)
+				if(kratoumeno!=0)//if carry remained
 				{
 					message+="Το κρατούμενο που περίσεψε το βάζω στο αποτέλεσμα.\n";
 					result[resultIndex]=kratoumeno;
 					return true;
 				}
 				message+="Τέλος προσομοίωσης";
-				System.out.println("Done");
 				return false;
 			}
 			else
 			{
-				System.out.println("Inside adding");
-				if(kratoumeno==0)
+				if(kratoumeno==0)//If carry
 				{
 					System.out.println("ADDING");
 					message+="Προσθέτουμε τα ψηφία. Άν το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
@@ -67,11 +67,12 @@ public class AddingSimulator extends SimpleSimulator
 				else
 				{
 					System.out.println("Adding with carry");
-					message+="Προσθέτουμε τα ψηφία μαζί με το κρατούμενο.\n Άν το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
+					message+="Προσθέτουμε τα ψηφία μαζί με το κρατούμενο.\n Άν το άθροισμα των ψηφίων είναι διψήφιος κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
 					temp=kratoumeno+tempTelestis1+tempTelestis2;
 					kratoumeno=0;
 				}
-				if(temp>=10)
+				
+				if(temp>=10)//if need to take a carry
 				{
 					message+="Το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο";
 					kratoumeno=1;
