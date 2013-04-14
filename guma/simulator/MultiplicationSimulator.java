@@ -65,7 +65,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 	public MultiplicationSimulator(int telestis1,int telestis2, boolean spartial)
 	{
 		super(telestis1,telestis2);
-		
+		type=Praxis.MULTIPLICATION;
 		this.spartial=spartial;
 		
 		endiamesa=new byte[this.telestis2.length][];
@@ -103,7 +103,6 @@ public class MultiplicationSimulator extends AbstractSimulator
 		{
 			apendMessage=true;
 		}
-		
 		
 		
 	}
@@ -208,17 +207,15 @@ public class MultiplicationSimulator extends AbstractSimulator
 		String s="";
 		if(html)
 		{
-			s+="<table><tr>"+getTelestis1("<td>","</td>","<td><font color=\"#006400\">","</font></td>")
-							+"<tr><td>"+ type+"</td>"+getTelestis2("<td>","</td>","<td><font color=\"#006400\">","</font></td>")+
-							"</tr></table><hr><table>";
-			for(int i=0;i<endiamesoApotelesmaIndex;i++)
+			s+="<table><tr>"+getTelestis1("<td>","</td>","<td><font color=\"006400\">","</font></td>")
+							+"</tr><tr><td>"+ type+"</td>"+getTelestis2("<td>","</td>","<td><font color=\"#006400\">","</font></td>")+
+							"</tr></table><hr><br><table>";
+			for(int i=0;i<=endiamesoApotelesmaIndex;i++)
 			{
-				s+="<tr>"+getTelestis(endiamesa[endiamesoApotelesmaIndex],"<td>","<td>",
-										endiamesaLastDigit[endiamesoApotelesmaIndex]
-										,"<td><font color=\"#006400\">",
-										"</font></td>")+"</tr>";
+				s+="<tr>"+getTelestis(endiamesa[i],"<td>","</td>",endiamesaLastDigit[i],"<td><font color=\"006400\">","</font></td>")
+					+"</tr><br>";
 			}
-			s+="</table>";
+			s+="</table><hr>"+"<table><tr><td>"+getResult()+"</td></tr></table>";
 		}
 		else
 		{
@@ -226,7 +223,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 			
 			for(int i=0;i<endiamesoApotelesmaIndex;i++)
 			{
-				s+=getTelestis(endiamesa[endiamesoApotelesmaIndex],"\t","")+"\n";
+				s+=getTelestis(endiamesa[i],"\t","")+"\n";
 			}
 			s+="\n";
 		}

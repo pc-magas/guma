@@ -166,7 +166,7 @@ public abstract class AbstractSimulator
 	/**
 	*Returns the message
 	*/
-	public String toString()
+	public String getMessage()
 	{
 		return message;
 	}
@@ -278,7 +278,7 @@ public abstract class AbstractSimulator
 	*/
 	public String getTelestis2()
 	{
-		return getTelestis(telestis2);
+		return getTelestis2("","");
 	}
 	
 	/**
@@ -286,7 +286,7 @@ public abstract class AbstractSimulator
 	*/
 	public String getTelestis2(String front, String back)
 	{
-		return getTelestis(telestis2,front,back);
+		return getTelestis2(front,back);
 	}
 	
 	/**
@@ -299,7 +299,14 @@ public abstract class AbstractSimulator
 	*/
 	public String getTelestis2(String front, String back, String posFront, String posBack)
 	{
-		return getTelestis(telestis1,front,back,telestis2Index, posFront, posBack);
+		if(telestis2!=null)
+		{
+			return getTelestis(telestis2,front,back,telestis2Index, posFront, posBack);
+		}
+		else
+		{
+			return front+"0"+back;
+		}
 	}
 	
 	/**
@@ -307,7 +314,7 @@ public abstract class AbstractSimulator
 	*/
 	public String getResult()
 	{
-		return getTelestis(result);
+		return getResult("","");
 	}
 	
 	/**
@@ -317,7 +324,7 @@ public abstract class AbstractSimulator
 	*/
 	public String getResult(String front, String back)
 	{
-		return getTelestis(result,front,back);
+		return getResult(front,back,front,back);
 	}
 	
 	/**
@@ -330,7 +337,14 @@ public abstract class AbstractSimulator
 	*/
 	public String getResult(String front, String back, String posFront, String posBack)
 	{
-		return getTelestis(telestis1,front,back,resultIndex, posFront, posBack);
+		if(result!=null)
+		{
+			return getTelestis(result,front,back,resultIndex, posFront, posBack);
+		}
+		else
+		{
+			return front+"0"+back;
+		}
 	}
 	
 	/**
