@@ -46,6 +46,11 @@ public class DivisionSimulator extends AbstractSimulator
 	*/
 	private byte[] tempSeperated=null;
 	
+	/*
+	*Stores miscelanous info (such as intermediate values from the division)
+	*/
+	ArrayList<byte[]> miscelanous=new ArrayList<byte[]>();
+	
 	/**
 	*Constructor Method
 	*@param telestis1: the first operator of the number that we will simulate the first operation
@@ -171,15 +176,14 @@ public class DivisionSimulator extends AbstractSimulator
 		{
 			s+=tempSeperated[i];		
 		}
-		
-		System.out.println("Before adding another digit: "+s);
+
 		telestis1Index++;
-		System.out.println("Telestis1Index: "+telestis1Index);
 		
 		if(telestis1Index<telestis1.length)
 		{
 			s+=telestis1[telestis1Index];
 			tempSeperated=seperateDigits(Integer.valueOf(s));
+			miscelanous.add(tempSeperated);
 			return true;
 		}
 		else
@@ -192,13 +196,86 @@ public class DivisionSimulator extends AbstractSimulator
 	/**
 	*@overide
 	*/
-	public String getResult()
+	public String getResult(String front, String back,String posFront, String posBack)
 	{
 		String s="";
+		front=(front!=null)?front:"";
+		back=(back!=null)?back:"";
+		posFront=(posFront!=null)?posFront:"";
+		posBack=(posBack!=null)?posBack:"";
+		int i=0;
 		for(Byte b:piliko)
 		{
-			s+=b.toString();
+			if(i==(piliko.size()-1))
+			{
+				s+=posFront+b.toString()+posBack;
+			}
+			else
+			{
+				s+=front+b.toString()+back;
+			}
 		}
+		return s;
+	}
+	
+	/**
+	*@overide
+	*/
+	public String getResult(String front, String back)
+	{
+		return getResult(front,back,front,back);
+	}
+	
+	public String getResult()
+	{
+		return getResult("","");
+	}
+	
+	/**
+	*@override
+	*/
+	public String toString(boolean html)
+	{
+		String s="";
+		
+		if(html)
+		{
+			//designinig a table of tables so I can have the vertical line fos shpwing the division
+			s+="<table> <tr><td><table BORDER=\"1\" CELLPADDING=\"3\" CELLSPACING=\"1\"   RULES=\"COLS\"  FRAME=\"VSIDES\" >"
+				+"<tr>"+getTelestis1("<td>","</td>","<td><font color=\"#006400\">","</font></td>")+"</tr>";
+			
+			for(int i=0;i<miscelanous.size();i++)
+			{
+				for(int j=0; j<i;j++)
+				{
+					s+="<td>\t</td>";
+				}
+				s+=getTelestis(miscelanous.get(i),"<td>","</td>");
+			}
+			s+="</table></td><td><table BORDER=\"1\" CELLPADDING=\"3\" CELLSPACING=\"1\" RULES=\"ROWS\" FRAME=\"HSIDES\">"+
+				"<tr>"+getTelestis2("<td>","</td>")+"</tr><tr>"+getResult("<td>","</td>","<td><font color=\"#006400\">","</font></td>")
+				+"</tr></table></td></tr></table>";
+		}
+		else
+		{
+			s+=getTelestis1("\t","\t")+"|"+getTelestis2("","")+"\n";
+			
+			for(int i=0;i<miscelanous.size();i++)
+			{
+				for(int j=0; j<i;j++)
+				{
+					s+="\t";
+				}
+				s+=getTelestis(miscelanous.get(i),"\t","\t")+"|";
+				
+				if(i==0)
+				{
+					s+=getResult("","");
+				}
+				s+="\n";
+			}
+		}
+		
 		return s;
 	}
 	

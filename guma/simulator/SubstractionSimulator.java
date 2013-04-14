@@ -21,7 +21,7 @@ package guma.simulator;
 
 import guma.simulator.AbstractSimulator;
 import java.lang.Math;
-import guna.arithmetic.Praxis;
+import guma.arithmetic.Praxis;
 
 public class SubstractionSimulator extends SimpleSimulator
 {
