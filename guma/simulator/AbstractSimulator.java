@@ -286,7 +286,7 @@ public abstract class AbstractSimulator
 	*/
 	public String getTelestis2(String front, String back)
 	{
-		return getTelestis2(front,back);
+		return getTelestis2(front,back,front,back);
 	}
 	
 	/**
