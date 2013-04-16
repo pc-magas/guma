@@ -68,7 +68,7 @@ public class DivisionSimulator extends AbstractSimulator
 		if(telestis1Zeros>0 && telestis2Zeros>0)
 		{
 			int min=Math.min(telestis1Zeros,telestis2Zeros);
-			
+			message="Αρχικά ο Διαρέτης ήταν "+telestis1+" και ο διεραιτέος ήταν."+telestis2+", γι αυτό αφαιρούμε το κοινό αριθμό μηδενικών από το τέλος. ";
 			//We divide with the correct power of 10
 			telestis1/=(int)Math.pow(10,min);
 			telestis2/=(int)Math.pow(10,min);
@@ -77,6 +77,8 @@ public class DivisionSimulator extends AbstractSimulator
 			this.telestis1= AbstractSimulator.seperateDigits(telestis1);
 			this.telestis2= AbstractSimulator.seperateDigits(telestis2);
 
+			telestis1Zeros=0;
+			telestis2Zeros=0;
 		}
 		
 		telestis2Full=telestis2;
@@ -92,7 +94,7 @@ public class DivisionSimulator extends AbstractSimulator
 		{
 			tempSeperated[i]=this.telestis1[i];
 		}
-		
+		message+="Κατεβάζουμε από τον διεραιτέο τόσα ψηφία όσα είναι και ο διεραιτης";
 		temp=-1;
 	}
 
@@ -104,6 +106,8 @@ public class DivisionSimulator extends AbstractSimulator
 	{
 		message="";
 		int temp2=mergeDigits(tempSeperated);
+		
+		
 
 		if(telestis1Index<telestis1.length)
 		{	
@@ -188,6 +192,7 @@ public class DivisionSimulator extends AbstractSimulator
 		}
 		else
 		{
+			miscelanous.add(tempSeperated);
 			return false;
 		}
 
@@ -241,19 +246,20 @@ public class DivisionSimulator extends AbstractSimulator
 		if(html)
 		{
 			//designinig a table of tables so I can have the vertical line fos shpwing the division
-			s+="<table> <tr><td><table BORDER=\"1\" CELLPADDING=\"3\" CELLSPACING=\"1\"   RULES=\"COLS\"  FRAME=\"VSIDES\" >"
-				+"<tr>"+getTelestis1("<td>","</td>","<td><font color=\"#006400\">","</font></td>")+"</tr>";
+			s+="<table RULES=\"COLS\"> <tr><td><table >"
+				+"<tr>"+getTelestis1("<td>","</td>","<td><font color=\"blue\">","</font></td>")+"</tr>";
 			
 			for(int i=0;i<miscelanous.size();i++)
 			{
+				s+="<tr>";
 				for(int j=0; j<i;j++)
 				{
 					s+="<td>\t</td>";
 				}
-				s+=getTelestis(miscelanous.get(i),"<td>","</td>");
+				s+=getTelestis(miscelanous.get(i),"<td>","</td>")+"</tr>";
 			}
-			s+="</table></td><td><table BORDER=\"1\" CELLPADDING=\"3\" CELLSPACING=\"1\" RULES=\"ROWS\" FRAME=\"HSIDES\">"+
-				"<tr>"+getTelestis2("<td>","</td>")+"</tr><tr>"+getResult("<td>","</td>","<td><font color=\"#006400\">","</font></td>")
+			s+="</table></td><td><table RULES=\"ROWS\">"+
+				"<tr>"+getTelestis2("<td>","</td>")+"</tr><tr>"+getResult("<td>","</td>","<td><font color=\"blue\">","</font></td>")
 				+"</tr></table></td></tr></table>";
 		}
 		else
