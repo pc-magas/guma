@@ -124,6 +124,7 @@ public abstract class AbstractSimulator
 		temp=0;	
 	}
 	
+	
 	/**
 	*Counts how many zeros has on the end a number with seperated digits.
 	*If parameter num is null then it returns -1
@@ -353,7 +354,7 @@ public abstract class AbstractSimulator
 	*@param telesits2: the second operator (depending in the operation) of the operation we want to simulate
 	*@param praxisType: The type of Operation that tells what kind of simulator we want
 	*/
-	public static AbstractSimulator makesimulator(int telestis1, int telestis2,char praxisType)
+	public static AbstractSimulator makeSimulator(int telestis1, int telestis2,char praxisType)
 	{
 		AbstractSimulator a=null;
 		switch(praxisType)
