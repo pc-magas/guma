@@ -32,9 +32,14 @@ public class SimulatorUI
 	private String carryList="/t";
 	
 	/**
-	*Stores how the operation is in string form
+	*Stores the operation as String
 	*/
 	private String operation="";
+	
+	/**
+	*Shows if you can do the next step of the simulation
+	*/
+	private boolean next=false;
 	
 	/**
 	*Setting a value to carryList
@@ -78,12 +83,14 @@ public class SimulatorUI
 	*@param message: the message we get from simulator
 	*@param carryList: the current carry of operation 
 	*@param operation: the operation as string that we get from simulator
+	*@param next: tells  on ui if we have next step or not
 	*/
-	public SimulatorUI(String message, String carryList, String operation)
+	public SimulatorUI(String message, String carryList, String operation,boolean next)
 	{
 		setMessage(message);
 		setCarryList(carryList);
 		setOperation(operation);
+		setNext(next);
 	}
 	
 	/**
@@ -91,12 +98,14 @@ public class SimulatorUI
 	*@param message: the message we get from simulator
 	*@param carry: the current carry of operation 
 	*@param operation: the operation as string that we get from simulator
+	*@param next: tells  on ui if we have next step or not
 	*/
-	public SimulatorUI(String message, int carry, String operation)
+	public SimulatorUI(String message, int carry, String operation,boolean next)
 	{
 		setMessage(message);
 		setCarryList(carry);
 		setOperation(operation);
+		setNext(next);
 	}
 	
 	
@@ -106,7 +115,7 @@ public class SimulatorUI
 	*/
 	public SimulatorUI(SimulatorUI other)
 	{
-		this(other.getMessage(),other.getCarryList(),other.getOperation());
+		this(other.getMessage(),other.getCarryList(),other.getOperation(),other.getNext());
 	}
 	
 	
@@ -153,10 +162,64 @@ public class SimulatorUI
 	}
 	
 	/**
+	*Sets a value to next
+	*/
+	public void setNext(boolean value)
+	{
+		next=value;
+	}
+	
+	/**
+	*Gets if we can go to the next step
+	*/
+	public boolean getNext()
+	{
+		return next;
+	}
+	
+	/**
+	*Toggles next from true to false
+	*/
+	public void toggleNext()
+	{
+		setNext(!next);
+	}
+	
+	/**
 	*Cloning the current class
 	*/
 	public SimulatorUI clone()
 	{
 		return new SimulatorUI(this);
+	}
+	
+	/**
+	*Updates Simulator UI
+	*@param message: the message we get from simulator
+	*@param carry: the current carry of operation 
+	*@param operation: the operation as string that we get from simulator
+	*@param next: tells  on ui if we have next step or not
+	*/
+	public void update(String message, int carry, String operation,boolean next)
+	{
+		setMessage(message);
+		setCarryList(carry);
+		setOperation(operation);
+		setNext(next);
+	}
+	
+	/**
+	*Updates Simulator UI
+	*@param message: the message we get from simulator
+	*@param carry: the current carry of operation 
+	*@param operation: the operation as string that we get from simulator
+	*@param next: tells  on ui if we have next step or not
+	*/
+	public void update(String message, String carryList, String operation,boolean next)
+	{
+		setMessage(message);
+		setCarryList(carryList);
+		setOperation(operation);
+		setNext(next);
 	}
 }
