@@ -20,40 +20,56 @@
 package guma.ui.simulator;
 
 import guma.simulator.*;
-import guma.ui.simulator.UIInterface; 
+import guma.ui.simulator.SimulatorUI; 
 
-public abstract class SimulatorController
+public class SimulatorController
 {
 
 	/**
 	*The current simulator
 	*/
-	AbstractSimulator simulator=null;
+	private AbstractSimulator simulator=null;
 	
 	/**
 	*Tells us how the Interface will look like
 	*/
-	SimulatorUI ui=new SimulatorUI();
+	private SimulatorUI ui=new SimulatorUI();
+	
+	/**
+	*Shows the type of output we want
+	*/
+	private boolean html=false;
 	
 	/**
 	*Constructor Method
 	*@param telestis1: The first operator that we need in order to simulate the operation
 	*@param telestis2: The second operator that we need in order to simulate the operation
 	*@param praxisType: What kind of operation we want to simulate
+	*@param html: configures it we need html output or not
 	*/
-	public SimulatorController(int telestis1,int telestis2,char praxisType)
+	public SimulatorController(int telestis1,int telestis2,char praxisType,boolean html)
 	{
-		c= AbstractSimulator.makeSimulator(telestis1,telestis2,praxisType);
+		simulator= AbstractSimulator.makeSimulator(telestis1,telestis2,praxisType);
 	}
 	
 	/**
-	*Constructor method. It creates controller from another simulator.
-	*<strong>Warning</strong> the other is passed as shallow copy 
-	*@param other: the simulator that we want this controller to controll
+	*Does the next step on the simulator
 	*/
-	public SimulatorController(AbstractSimulator other)
+	public SimulatorUI next()
 	{
-		simulator=other;
+		if(simulator.next())
+		{
+			ui.update(simulator.getMessage(),simulator.getCarry(),simulator.toString(html),true);
+		}
+		else
+		{
+			ui.update(simulator.getMessage(),simulator.getCarry(),simulator.toString(html),false);
+		}
+		return ui.clone();
 	}
+	
+	/**
+	*Return
+	*/
 	
 }
