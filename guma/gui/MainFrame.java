@@ -127,7 +127,7 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 	*That shows the remaining arithmetic Operations
 	*/
 	private JLabel remaining=new JLabel("Πράξεις:");
-
+	
 	/**
 	*Inner class that handles what to do when the window closes
 	*/
@@ -195,16 +195,26 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 		if(returnVal == JFileChooser.APPROVE_OPTION) 
 		{
 			f=file.getSelectedFile();
-			
+			String filename=f.getAbsolutePath();
+
+			System.out.println(filename);			
 			/*Do save or load */
 			try
 			{
 				/*Select to save*/
 				if(save==true)
 				{
-					if( f.exists())
+					//Apend .guma at the end of file
+					if(!filename.endsWith(".guma"))
 					{
-						int option=JOptionPane.showConfirmDialog((Component)file,"To αρχείο όπου επιλέξατε"+ 										"υπάρχει AΝΤΙΚΑΤΑΣΤΑΣΗ?",
+						System.out.println("Renaming File");
+						f=new File(filename+".guma");
+						System.out.println("New Filename: "+f.getName());
+					} 
+					
+					if(f.exists())
+					{
+						int option=JOptionPane.showConfirmDialog((Component)file,"To αρχείο "+f.getName() +" όπου επιλέξατε"+ 										"υπάρχει AΝΤΙΚΑΤΑΣΤΑΣΗ?",
 											"Αντικατάσταση αρχείου",
 											JOptionPane.YES_NO_OPTION,
 										JOptionPane.WARNING_MESSAGE );
