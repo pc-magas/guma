@@ -1,4 +1,5 @@
 /**
+
 *GUMA a simple math game for elementary school students
 *	Copyright (C) 2011-1012  Dimitrios Desyllas (pc_magas)
 *
@@ -14,13 +15,13 @@
 *
 *    You should have received a copy of the GNU General Public License
 *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*Contact with me by main at thes address: pc_magas@yahoo.gr
+*Contact with me by main at this address: pc_magas@yahoo.gr
 */
 
 package guma.gui;
 
 import guma.gui.*;
-import guma.gui.SwingGameController;
+
 import guma.core.*;
 import guma.ui.main.*;
 

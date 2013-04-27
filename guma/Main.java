@@ -20,7 +20,6 @@ package guma;
 
 import guma.gui.MainFrame;
 
-
 public class Main
 {
 	/**
