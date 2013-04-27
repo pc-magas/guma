@@ -18,26 +18,23 @@
 *	Contact with me by at this address: pc_magas@yahoo.gr
 */
 
+package guma.gui;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import guma.core.*;
 import guma.arithmetic.Praxis;
-import guma.simulator.*;
+import guma.ui.simulator.*;
 
-public class SimulatorGui extends JPanel implements ActionListener
+public class SimulatorGui extends JPanel implements ActionListener,UpdateSimulatorUI
 {
 	/**
 	*Button that allows you to move on the next step of Operation Simulation
 	*/
 	private JButton next= new JButton("Επόμενο Βήμα");
-	
-	/**
-	*Button that closes the window
-	*/
-	private JButton close=new JButton("Κλείσιμο προσομοιώσης");
-	
+		
 	/**
 	*Panel that stores the Buttons
 	*/
@@ -64,11 +61,11 @@ public class SimulatorGui extends JPanel implements ActionListener
 	private JLabel message=new JLabel();
 	
 	/**
-	*Simulator of an operation
+	*Controller that we use as interface between GUI and simulator
 	*/
-	private AbstractSimulator s=null;
+	private SimulatorController s=null;
 	
-	public SimulatorGui(int telestis1, int telestis2)
+	public SimulatorGui(int telestis1, int telestis2, char praxisType)
 	{
 		super();
 		setLayout(new BorderLayout());
@@ -77,13 +74,35 @@ public class SimulatorGui extends JPanel implements ActionListener
 		add(BorderLayout.SOUTH,carry);
 		add(BorderLayout.NORTH,message);
 		add(BorderLayout.SOUTH,praxis);
-		buttonPanel.add(close);
 		buttonPanel.add(next);
+		add(buttonPanel);
+		s=new SimulatorController(telestis1,telestis2,praxisType);
 	}
 	
-		
+	/**
+	*@override
+	*/	
 	public void actionPerformed(ActionEvent e)
 	{
-    
+    	Object option=e.getSource();//get who caused the Action
+    	if(option==next)
+    	{
+    		SimulatorUI u=s.next();
+    		if(u!=null)
+    		{
+    			updateUI(u);
+    		}
+    	}
+	}
+	
+	/**
+	*@override
+	*/
+	public void updateUI(SimulatorUI u)
+	{
+		next.setEnabled(u.getNext());
+		info.setText(u.getMessage());
+		carry.setText(u.getCarryList());
+		praxis.setText(u.getOperation());
 	}
 }
