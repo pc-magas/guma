@@ -75,6 +75,11 @@ public abstract class Praxis implements Serializable
 	public static final int MODULO_POS=1;
 	
 	/**
+	*Returns the praxis type
+	*/	
+	protected char praxistype;
+	
+	/**
 	*Constructor method that creates a random arithmetic praxis eg 2+2
 	*@param maxNum: The maximum value that can have a number as Operator.
  	*/
@@ -203,6 +208,14 @@ public abstract class Praxis implements Serializable
 	public int getResults()
 	{
 		return results;
+	}
+	
+	/**
+	*Returns the operationSymbol
+	*/
+	public char getPraxisType()
+	{
+		return praxistype;
 	}
 	
 	/**

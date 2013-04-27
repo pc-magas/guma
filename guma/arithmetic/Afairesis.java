@@ -42,6 +42,7 @@ public class Afairesis extends Praxis
 	public Afairesis(int telestis1, int telestis2)
 	{
 		super(telestis1,telestis2);
+		praxistype=SUBSTRACTION;
 	}
 
 	/**

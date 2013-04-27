@@ -32,6 +32,7 @@ public class Multiplication extends Praxis
 	public Multiplication(int maxNum)
 	{
 		super(maxNum);
+		praxistype=MULTIPLICATION;
 	}
 	
 	/**
@@ -42,6 +43,7 @@ public class Multiplication extends Praxis
 	public Multiplication(int telestis1, int telestis2)
 	{
 		super(telestis1,telestis2);
+		praxistype=MULTIPLICATION;
 	}
 
 	/**

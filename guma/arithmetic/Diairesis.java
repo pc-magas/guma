@@ -42,6 +42,7 @@ public class Diairesis extends Praxis
 		{
 			results=2;
 		}
+		praxistype=DIVISION;
 	}
 
 	/**
@@ -61,6 +62,7 @@ public class Diairesis extends Praxis
 		{
 			results=2;
 		}
+		praxistype=DIVISION;
 	}
 
 	/**

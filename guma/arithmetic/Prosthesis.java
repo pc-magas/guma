@@ -32,6 +32,7 @@ public class Prosthesis extends Praxis
 	public Prosthesis(int maxNum)
 	{
 		super(maxNum);
+		praxistype=ADDING;
 	}
 	
 	/**
@@ -42,6 +43,7 @@ public class Prosthesis extends Praxis
 	public Prosthesis(int telestis1, int telestis2)
 	{
 		super(telestis1,telestis2);
+		praxistype=ADDING;
 	}
 
 	/**
