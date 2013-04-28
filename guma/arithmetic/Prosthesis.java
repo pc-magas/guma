@@ -59,7 +59,7 @@ public class Prosthesis extends Praxis
 	*/
 	public String toFullString()
 	{
-		return toString()+' '+String.valueOf(apotelesma);
+		return toString()+' '+String.valueOf(apotelesma[0]);
 	}
 	/**
 	*@override
