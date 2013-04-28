@@ -28,27 +28,27 @@ import guma.core.*;
 import guma.arithmetic.Praxis;
 import guma.ui.simulator.*;
 
-public class SimulatorGui extends JPanel implements ActionListener,UpdateSimulatorUI
+public class SimulatorGui extends JFrame implements ActionListener,UpdateSimulatorUI
 {
+	/**
+	*Button Panel
+	*/
+	private JPanel butonPanel=new JPanel();
+		
 	/**
 	*Button that allows you to move on the next step of Operation Simulation
 	*/
 	private JButton next= new JButton("Επόμενο Βήμα");
-		
-	/**
-	*Panel that stores the Buttons
-	*/
-	private JPanel buttonPanel=new JPanel();
 	
 	/**
-	*Label that dislpay the message of the cuttenr step
+	*Close Window Button
 	*/
-	private JLabel info=new JLabel();
+	private JButton close=new JButton("Κλείσιμο");
 	
 	/**
 	*Showing the Carry
 	*/
-	private JLabel carry=new JLabel("Κρατούμενο<br>");
+	private JLabel carry=new JLabel("Κρατούμενο</br>");
 	
 	/**
 	*Showing the operation
@@ -65,17 +65,31 @@ public class SimulatorGui extends JPanel implements ActionListener,UpdateSimulat
 	*/
 	private SimulatorController s=null;
 	
+	/**
+	*Constructor
+	*@param telestis1: the first operator of the operation we want to simulate
+	*@param telestis2: the second operator of the operation we want to simulate
+	*@param praxisType: the type of operation we want to simulate
+	*/
 	public SimulatorGui(int telestis1, int telestis2, char praxisType)
 	{
 		super();
+		setSize(500,345);
+		setTitle("Προσομοίωση Πράξης");
 		setLayout(new BorderLayout());
-		buttonPanel.setLayout(new FlowLayout());
-		add( BorderLayout.EAST,buttonPanel);
-		add(BorderLayout.SOUTH,carry);
-		add(BorderLayout.NORTH,message);
-		add(BorderLayout.SOUTH,praxis);
-		buttonPanel.add(next);
-		add(buttonPanel);
+		add(butonPanel,BorderLayout.SOUTH);
+		butonPanel.setLayout(new FlowLayout());
+		
+		butonPanel.add(next);
+		butonPanel.add(close);
+		
+		add(carry,BorderLayout.EAST);
+		add(message,BorderLayout.NORTH);
+		add(praxis,BorderLayout.CENTER);
+		
+		next.addActionListener(this);
+		close.addActionListener(this);
+		
 		s=new SimulatorController(telestis1,telestis2,praxisType);
 	}
 	
@@ -88,10 +102,11 @@ public class SimulatorGui extends JPanel implements ActionListener,UpdateSimulat
     	if(option==next)
     	{
     		SimulatorUI u=s.next();
-    		if(u!=null)
-    		{
-    			updateUI(u);
-    		}
+    		updateUI(u);
+    	}
+    	else if(option==close)
+    	{
+    		dispose();
     	}
 	}
 	
@@ -100,9 +115,22 @@ public class SimulatorGui extends JPanel implements ActionListener,UpdateSimulat
 	*/
 	public void updateUI(SimulatorUI u)
 	{
+		System.out.println("Updating UI");
 		next.setEnabled(u.getNext());
-		info.setText(u.getMessage());
-		carry.setText(u.getCarryList());
-		praxis.setText(u.getOperation());
+		message.setText("<html><body><center>"+u.getMessage()+"</center></body></html>");
+		carry.setText("<html><body><center>"+u.getCarryList()+"</center></body></html>");
+		praxis.setText("<html><body><center>"+u.getOperation()+"</ceter></body></html>");
+	}
+	
+	/**
+	*Shows the Simulator GUI
+	*@param telestis1: the first operator of the operation we want to simulate
+	*@param telestis2: the second operator of the operation we want to simulate
+	*@param praxisType: the type of operation we want to simulate
+	*/
+	public void showSimulator(Component parent)
+	{
+		setVisible(true);
+	 	//JOptionPane.showMessageDialog(parent,this);
 	}
 }
