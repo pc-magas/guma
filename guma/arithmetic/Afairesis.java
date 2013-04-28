@@ -67,7 +67,7 @@ public class Afairesis extends Praxis
 	*/
 	public String toFullString()
 	{
-		return (toString()+' '+String.valueOf(apotelesma));
+		return (toString()+' '+String.valueOf(apotelesma[0]));
 	}
 
 	/**
