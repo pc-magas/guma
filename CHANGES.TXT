@@ -1,6 +1,11 @@
 Here are the changes of guma between versions:
 
-Version 1.6.1
+Version 7 alpha:
+*)Making a simulator for each operation.
+*)Add automatically ".guma" on files when needed.
+*)Fixes on showing the praxis as full string.
+
+Version 1.6.1:
 *)Seperating Ui from core
 *)Support XML
 
