@@ -23,7 +23,7 @@ run: guma guma/Main.class
 	java guma.Main
 
 jar: guma
-	jar cvfe ./src/guma-${VERSION}.jar guma.Main guma/*
+	jar cvfe ./guma-${VERSION}.jar guma.Main guma/*
 
 clean: clean-unessesery
 	rm -fr guma/*.class && rm -fr guma/*/*.class && rm -fr guma/*/*/*.class
