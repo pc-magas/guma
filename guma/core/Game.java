@@ -217,15 +217,13 @@ public class Game
 	*@param previous: tur if we need the previous operation or not
 	*/
 
-	public Praxis getPraxis(boolean previous) throws GameOverException
+	public Praxis getPraxis(boolean previous)throws GameOverException
 	{
 
-		if(!(praksisCounter<0) && !end)
-		{
 			if(!previous)
 			{
 				System.out.println("We get the "+praksisCounter+"th praxis");
-				return p[praksisCounter];
+				return p[praksisCounter];	
 			}
 			else
 			{
@@ -239,12 +237,7 @@ public class Game
 					return null;
 				}
 			}
-		}
-		else
-		{
-			throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+(float)((float)score/3)+'/'+p.length);
-
-		}
+		
 		
 	}
 	
@@ -253,7 +246,16 @@ public class Game
 	*/
 	public Praxis getCurrentPraxis() throws GameOverException
 	{
-		return getPraxis(false);
+		
+		if(!(praksisCounter<0) && !end)
+		{
+			return getPraxis(false);
+		}
+		else
+		{
+			throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+(float)((float)score/3)+'/'+p.length);
+
+		}
 	}
 
 	/**
