@@ -118,7 +118,7 @@ public abstract class GameController
 			}
 			catch(TriesEndException tend)//Tries Ended
 			{
-				displayError("Τέλος προσπαθειών",tend.getMessage());
+				triesEndMessage("Τέλος προσπαθειών",tend.getMessage());
 				current.praxisValue=paixnidi.toString();
 			}
 			catch(GameOverException gend)//Game Ended
@@ -210,14 +210,30 @@ public abstract class GameController
 	protected abstract int getExtraResult();
 
 	/**
+	*Displays an error when tries ended
+	*@param title: the title of message window
+	*@param message: the message
+	*/
+	public abstract void triesEndMessage(String title,String message);
+	
+	/**
 	*Method that shows to the user an error message
+	*@param title: the title of message window
+	*@param message: the message
 	*/
 	public abstract void displayError(String title, String message);
 
 	/**
 	*Displays a Message
+	*@param title: the title of message window
+	*@param message: the message
 	*/
 	public abstract void displayMessage(String title, String message);
+	
+	/**
+	*Shows Simulator
+	*/
+	public abstract void simulate();
 	
 	/**
 	*Method that creates a new game
