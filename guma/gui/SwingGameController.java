@@ -24,6 +24,8 @@ import javax.swing.JOptionPane;
 import guma.gui.SettingFrame;
 import guma.core.Game;
 import guma.ui.main.GameController;
+import guma.gui.SimulatorGui;
+import guma.arithmetic.Praxis;
 
 /**
 *A class that allows you to Control the Game via Swing
@@ -75,6 +77,30 @@ public class SwingGameController extends GameController
 	public void displayMessage(String title, String message)
 	{
 		JOptionPane.showMessageDialog(null,message,title,JOptionPane.PLAIN_MESSAGE);
+	}
+	
+	/**
+	*Displays a Message
+	*/
+	public void triesEndMessage(String title, String message)
+	{
+		String[] options={"Προσομοίωση πράξης","OK"};
+		int returnVal= JOptionPane.showOptionDialog(null,message,title,JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,
+									options,options[1]);
+		if(returnVal==JOptionPane.OK_OPTION)
+		{
+			try
+			{
+				Praxis p=paixnidi.getPraxis(true);
+				SimulatorGui g= new SimulatorGui(p.getTelestis1(),p.getTelestis2(),p.getPraxisType());
+				g.showSimulator(null);
+			}
+			catch(NullPointerException n)
+			{
+				n.printStackTrace();
+			}
+		}
+		
 	}
 
 	/**
