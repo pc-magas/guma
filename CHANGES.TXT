@@ -1,6 +1,10 @@
 Here are the changes of guma between versions:
 
-Version 7 alpha:
+Version 1.7 alpha2:
+*)Fixing the look of simple Simulator
+*)Bugfixes on selecting the correct arithmetic operation for simulation
+
+Version 1.7 alpha:
 *)Making a simulator for each operation.
 *)Add automatically ".guma" on files when needed.
 *)Fixes on showing the praxis as full string.
