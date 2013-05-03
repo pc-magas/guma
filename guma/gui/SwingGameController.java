@@ -89,18 +89,26 @@ public class SwingGameController extends GameController
 									options,options[1]);
 		if(returnVal==JOptionPane.OK_OPTION)
 		{
-			try
-			{
-				Praxis p=paixnidi.getPraxis(true);
-				SimulatorGui g= new SimulatorGui(p.getTelestis1(),p.getTelestis2(),p.getPraxisType());
-				g.showSimulator(null);
-			}
-			catch(NullPointerException n)
-			{
-				n.printStackTrace();
-			}
+			simulate();
 		}
 		
+	}
+	
+	/**
+	*@override
+	*/
+	public void simulate()
+	{
+		try
+		{
+			Praxis p=paixnidi.getPraxis(true);
+			SimulatorGui g= new SimulatorGui(p.getTelestis1(),p.getTelestis2(),p.getPraxisType());
+			g.showSimulator(null);
+		}
+		catch(NullPointerException n)
+		{
+			n.printStackTrace();
+		}
 	}
 
 	/**
