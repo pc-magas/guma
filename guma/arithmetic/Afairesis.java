@@ -32,6 +32,7 @@ public class Afairesis extends Praxis
 	public Afairesis(int maxNum)
 	{
 		super(maxNum);
+		praxistype=SUBSTRACTION;
 	}
 	
 	/**
