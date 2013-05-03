@@ -102,6 +102,10 @@ public class SwingGameController extends GameController
 		try
 		{
 			Praxis p=paixnidi.getPraxis(true);
+			if(p==null)
+			{
+				p=paixnidi.getCurrentPraxis();
+			}
 			SimulatorGui g= new SimulatorGui(p.getTelestis1(),p.getTelestis2(),p.getPraxisType());
 			g.showSimulator(null);
 		}
