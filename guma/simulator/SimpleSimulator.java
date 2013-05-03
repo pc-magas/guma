@@ -53,8 +53,15 @@ public abstract class SimpleSimulator extends guma.simulator.AbstractSimulator
 		String s="";
 		if(html)
 		{
-			s="<table><tr>"+getTelestis1("<td>","</td>","<td><font color=\"#006400\">","</font></td>")
-							+"<tr><td>"+ type+"</td>"+getTelestis2("<td>","</td>","<td><font color=\"#006400\">","</font></td>")+
+			s="<table><tr><td> </td>"+getTelestis1("<td>","</td>","<td><font color=\"#006400\">","</font></td>")
+							+"<tr><td>"+ type+"</td>";
+			
+			for(int i=(telestis1.length-telestis2.length);i>0;i--)
+			{
+				s+="<td> </td>";
+			}
+							
+			s+=getTelestis2("<td>","</td>","<td><font color=\"#006400\">","</font></td>")+
 							"</tr></table><hr><table><tr>"+getResult("<td>","</td>","<td><font color=\"#006400\">","</font></td>")+
 							"</tr></table>";
 		}
