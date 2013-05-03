@@ -196,16 +196,32 @@ public class Game
 	}
 	
 	/**
-	*Returns the current praxis that the user is requ3ested to answer
+	*Returns the precious or current arithmetic operation that the user is requested to answer
+	*@param previous: tur if we need the previous operation or not
 	*/
 
-	public Praxis getCurrentPraxis() throws GameOverException
+	public Praxis getPraxis(boolean previous) throws GameOverException
 	{
 
 		if(!(praksisCounter<0))
 		{
-			System.out.println("We get the "+praksisCounter+"th praxis");
-			return p[praksisCounter];
+			if(!previous)
+			{
+				System.out.println("We get the "+praksisCounter+"th praxis");
+				return p[praksisCounter];
+			}
+			else
+			{
+				if(praksisCounter<(p.length-1))
+				{
+					System.out.println("We get the "+(praksisCounter+1)+"th praxis");
+					return p[praksisCounter+1];
+				}
+				else
+				{
+					return null;
+				}
+			}
 		}
 		else
 		{
@@ -213,6 +229,14 @@ public class Game
 
 		}
 		
+	}
+	
+	/**
+	*Returns the precious or current arithmetic operation that the user is requested to answer
+	*/
+	public Praxis getCurrentPraxis() throws GameOverException
+	{
+		return getPraxis(false);
 	}
 
 	/**
