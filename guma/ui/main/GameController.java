@@ -90,7 +90,20 @@ public abstract class GameController
 				
 				if(paixnidi.checkApotelesma(results))
 				{
-					current.praxisValue=paixnidi.toString();
+					try
+					{
+						current.praxisValue=paixnidi.toString();
+					}
+					catch(GameOverException gend)//Game Ended
+					{
+						displayMessage("Τέλος Παιχνιδιού",gend.getMessage());
+						current.next=false;
+						paixnidi=null;
+						current.praxisValue="x+y=";
+						current.save=false;
+						current.saveAs=false;
+						return current.clone();
+					}
 				}
 				else
 				{		
@@ -116,11 +129,6 @@ public abstract class GameController
 				System.out.println("Inside take result remaining praxis: "+current.praxisRemainingDisplay);
 				current.save=true;
 			}
-			catch(TriesEndException tend)//Tries Ended
-			{
-				triesEndMessage("Τέλος προσπαθειών",tend.getMessage());
-				current.praxisValue=paixnidi.toString();
-			}
 			catch(GameOverException gend)//Game Ended
 			{
 				displayMessage("Τέλος Παιχνιδιού",gend.getMessage());
@@ -130,6 +138,24 @@ public abstract class GameController
 				current.save=false;
 				current.saveAs=false;
 			}
+			catch(TriesEndException tend)//Tries Ended
+			{
+				triesEndMessage("Τέλος προσπαθειών",tend.getMessage());
+				try
+				{
+					current.praxisValue=paixnidi.toString();
+				}
+				catch(GameOverException gend)
+				{
+					displayMessage("Τέλος Παιχνιδιού",gend.getMessage());
+					current.next=false;
+					paixnidi=null;
+					current.praxisValue="x+y=";
+					current.save=false;
+					current.saveAs=false;
+				}
+			}
+			
 		}
 		return current.clone();
 	}

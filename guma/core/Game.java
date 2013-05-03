@@ -77,6 +77,11 @@ public class Game
 	private boolean saved=false;
 
 	/**
+	*Boollean that helps us out to check what kind of error we will throw
+	*/
+	private boolean end=false;
+
+	/**
 	*Creator method
 	*@param pli8os The number of arithmetic praxis that a game should have.
 	*@param maxNum The maximum value that can have a number as Operator.
@@ -135,33 +140,44 @@ public class Game
 	public boolean checkApotelesma(int result[]) throws TriesEndException,GameOverException
 	{
 		wrongResultPos=p[praksisCounter].getWrongResult(result);
-		if(wrongResultPos<0)/*If the gived result is correct*/
+		
+		if(praksisCounter>=0 && !end)
 		{
-			score+=tries;/*Add tries to the score*/
-			tries=3;
-			praksisCounter--;
-
-		}
-		else
-		{
-			tries--;/*reduce tries*/
-			if(tries==0)/*No more tries*/
+			if(wrongResultPos<0)/*If the gived result is correct*/
 			{
-				tries=3;
-				if((praksisCounter-1)>0)
-				{
+				
+					score+=tries;/*Add tries to the score*/
 					tries=3;
-
-					/*Throw the correct error*/
-					throw new TriesEndException("Δώσατε Λάθος αποτέλεσμα 3 φορές.\n"+p[praksisCounter--].toFullString()+"\nΤο πρόγραμμα μεταβαίνει στην επόμενη πράξη.");
-				}
-				else
-				{
-					throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+score+'/'+p.length);
-				}
+					praksisCounter--;
 				
 			}
+			else
+			{
+				tries--;/*reduce tries*/
+				if(tries==0)/*No more tries*/
+				{
+					if(praksisCounter>0)
+					{
+						tries=3;
+						/*Throw the correct error*/
+						throw new TriesEndException("Δώσατε Λάθος αποτέλεσμα 3 φορές.\n"+p[praksisCounter--].toFullString()+"\nΤο πρόγραμμα μεταβαίνει στην επόμενη πράξη.");
+					}
+					else
+					{
+						System.out.println("Tries End");
+						end=true;
+						throw new TriesEndException("Δώσατε Λάθος αποτέλεσμα 3 φορές.\n"+p[praksisCounter--].toFullString()+"\nΤο πρόγραμμα μεταβαίνει στην επόμενη πράξη.");
+						
+					}
+				}
+			}
+		}	
+		else
+		{
+			System.out.println("Game OVER");
+			throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+score+'/'+p.length);
 		}
+		
 		saved=false;
 		return wrongResultPos<0?true:false;
 	}
@@ -183,12 +199,13 @@ public class Game
 	{
 		String s="";
 		System.out.println(praksisCounter);
-		if(!(praksisCounter<0))
+		if(praksisCounter>=0)
 		{
 			s=p[praksisCounter].toString();
 		}
 		else
 		{
+			
 			throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+(float)((float)score/3)+'/'+p.length);
 
 		}
@@ -203,7 +220,7 @@ public class Game
 	public Praxis getPraxis(boolean previous) throws GameOverException
 	{
 
-		if(!(praksisCounter<0))
+		if(!(praksisCounter<0) && !end)
 		{
 			if(!previous)
 			{
