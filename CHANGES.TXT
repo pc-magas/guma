@@ -1,8 +1,9 @@
 Here are the changes of guma between versions:
 
 Version 1.7 alpha2:
-*)Fixing the look of simple Simulator
-*)Bugfixes on selecting the correct arithmetic operation for simulation
+*)Show error message on the end after making an error to the last arithmetic operation.
+*)Fixing the look of simple Simulator/
+*)Bugfixes on selecting the correct arithmetic operation for simulation.
 
 Version 1.7 alpha:
 *)Making a simulator for each operation.
