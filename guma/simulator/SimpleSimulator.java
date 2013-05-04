@@ -53,17 +53,33 @@ public abstract class SimpleSimulator extends guma.simulator.AbstractSimulator
 		String s="";
 		if(html)
 		{
-			s="<table><tr><td> </td>"+getTelestis1("<td>","</td>","<td><font color=\"#006400\">","</font></td>")
-							+"<tr><td>"+ type+"</td>";
+			s="<table><tr><td> </td>";
 			
-			for(int i=(telestis1.length-telestis2.length);i>0;i--)
+			if(telestis2.length>telestis1.length)
 			{
-				s+="<td> </td>";
-			}
+				
+				for(int i=(telestis2.length-telestis1.length);i>0;i--)
+				{
+					s+="<td> </td>";
+				}
+				s+=getTelestis1("<td>","</td>","<td><font color=\"#006400\">","</font></td>")
+							+"<tr><td>"+ type+"</td>";
+				s+=getTelestis2("<td>","</td>","<td><font color=\"#006400\">","</font></td>");
 							
-			s+=getTelestis2("<td>","</td>","<td><font color=\"#006400\">","</font></td>")+
-							"</tr></table><hr><table><tr>"+getResult("<td>","</td>","<td><font color=\"#006400\">","</font></td>")+
-							"</tr></table>";
+			}
+			else
+			{
+				s+=getTelestis1("<td>","</td>","<td><font color=\"#006400\">","</font></td>")
+							+"<tr><td>"+ type+"</td>";	
+				for(int i=(telestis1.length-telestis2.length);i>0;i--)
+				{
+					s+="<td> </td>";
+				}
+				s+=getTelestis2("<td>","</td>","<td><font color=\"#006400\">","</font></td>");
+			}
+			s+="</tr></table><hr><table><tr>"+getResult("<td>","</td>","<td><font color=\"#006400\">","</font></td>")+
+				"</tr></table>";								
+			
 		}
 		else
 		{
