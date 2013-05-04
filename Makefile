@@ -1,5 +1,6 @@
 VERSION=1.7
 SOURCE=guma
+LIBS= ./html2image-0.9.jar
 
 guma: core simulator gui ${SOURCE}/Main.java
 	javac ${SOURCE}/*.java
@@ -14,13 +15,13 @@ ui:
 	javac ${SOURCE}/ui/*/*.java
 
 gui: ui
-	javac ${SOURCE}/gui/*.java
+	javac -cp ${LIBS}:. ${SOURCE}/gui/*.java
 
 simulator:
 	javac ${SOURCE}/simulator/*.java
 
 run: guma guma/Main.class
-	java guma.Main
+	java -classpath ${LIBS}:. guma.Main
 
 jar: guma
 	jar cvfe ./guma-${VERSION}.jar guma.Main guma/*
