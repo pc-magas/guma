@@ -22,11 +22,13 @@ package guma.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.awt.event.*;
 import java.util.ArrayList;
 import guma.core.*;
 import guma.arithmetic.Praxis;
 import guma.ui.simulator.*;
+import gui.ava.html.image.generator.HtmlImageGenerator;
 
 public class SimulatorGui extends JFrame implements ActionListener,UpdateSimulatorUI
 {
@@ -116,10 +118,15 @@ public class SimulatorGui extends JFrame implements ActionListener,UpdateSimulat
 	public void updateUI(SimulatorUI u)
 	{
 		System.out.println("Updating UI");
+		HtmlImageGenerator imageGenerator = new HtmlImageGenerator();
+		imageGenerator.loadHtml(u.getOperation());
+		BufferedImage b=imageGenerator.getBufferedImage();
+		ImageIcon icon = new ImageIcon((Image) b);
 		next.setEnabled(u.getNext());
 		message.setText("<html><body><center>"+u.getMessage()+"</center></body></html>");
 		carry.setText("<html><body><center>"+u.getCarryList()+"</center></body></html>");
-		praxis.setText("<html><body><center>"+u.getOperation()+"</ceter></body></html>");
+		
+		praxis.setIcon(icon);
 	}
 	
 	/**
