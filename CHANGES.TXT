@@ -1,5 +1,9 @@
 Here are the changes of guma between versions:
 
+Version 1.7 beta
+*)Improved division Simulator view
+*)Bugfixes on Division Simulator
+
 Version 1.7 alpha2:
 *)Show error message on the end after making an error to the last arithmetic operation.
 *)Fixing the look of simple Simulator/
