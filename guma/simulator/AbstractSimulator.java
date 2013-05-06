@@ -369,7 +369,7 @@ public abstract class AbstractSimulator
 				}
 				else
 				{
-					a= new SubstractionSimulator(telestis1,telestis2);
+					a= new SubstractionSimulator(telestis2,telestis1);
 				}
 			break;
 			
@@ -380,7 +380,7 @@ public abstract class AbstractSimulator
 				}
 				else
 				{
-					a= new DivisionSimulator(telestis1,telestis2);
+					a= new DivisionSimulator(telestis2,telestis1);
 				}
 				break;
 			
