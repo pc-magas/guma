@@ -21,6 +21,7 @@ package guma.simulator;
 
 import guma.simulator.AbstractSimulator;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DivisionSimulator extends AbstractSimulator
 {
@@ -252,14 +253,17 @@ public class DivisionSimulator extends AbstractSimulator
 			
 			for(int i=0;i<miscelanous.size();i++)
 			{
-				s+="<tr>";
-				for(int j=0; j<i;j++)
+				byte[] temp=miscelanous.get(i);
+				
+				if(!Arrays.equals(telestis1,temp))
 				{
-					s+="<td>\t</td>";
+					s+="<tr>";
+					for(int j=0; j<i;j++)
+					{
+						s+="<td>\t</td>";
+					}
+					s+=getTelestis(temp,"<td>","</td>")+"</tr>";
 				}
-				
-				s+=getTelestis(miscelanous.get(i),"<td>","</td>")+"</tr>";
-				
 			}
 			s+="</table></td><td><table rules=\"rows\">"+
 				"<tr style=\"padding:0.25em; border-bottom:1px solid black;\">"+getTelestis2("<td>","</td>")
