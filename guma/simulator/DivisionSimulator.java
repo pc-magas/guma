@@ -92,7 +92,7 @@ public class DivisionSimulator extends AbstractSimulator
 		//Initilizing the number that will participate into division
 		for(int i=0;i<tempSeperated.length;i++)
 		{
-			System.out.println("i val"+i);
+			System.out.println("i val:"+i+" length:"+tempSeperated.length);
 			tempSeperated[i]=this.telestis1[i];
 		}
 		message+="Κατεβάζουμε από τον διεραιτέο τόσα ψηφία όσα είναι και ο διεραιτης";
@@ -247,8 +247,8 @@ public class DivisionSimulator extends AbstractSimulator
 		if(html)
 		{
 			//designinig a table of tables so I can have the vertical line fos shpwing the division
-			s+="<table rules=\"cols\"> <tr><td><table >"
-				+"<tr>"+getTelestis1("<td>","</td>","<td><font color=\"blue\">","</font></td>")+"</tr>";
+			s+="<table rules=\"cols\"> <tr><td style=\"padding:0.25em; border-right:1px solid black;\"><table>"
+				+"<tr>"+getTelestis1("<td>","</td>","<td><font color=\"blue\">","</font></td>")+"</tr></td>";
 			
 			for(int i=0;i<miscelanous.size();i++)
 			{
@@ -257,10 +257,13 @@ public class DivisionSimulator extends AbstractSimulator
 				{
 					s+="<td>\t</td>";
 				}
+				
 				s+=getTelestis(miscelanous.get(i),"<td>","</td>")+"</tr>";
+				
 			}
 			s+="</table></td><td><table rules=\"rows\">"+
-				"<tr>"+getTelestis2("<td>","</td>")+"</tr><tr>"+getResult("<td>","</td>","<td><font color=\"blue\">","</font></td>")
+				"<tr style=\"padding:0.25em; border-bottom:1px solid black;\">"+getTelestis2("<td>","</td>")
+				+"</tr><tr>"+getResult("<td>","</td>","<td><font color=\"blue\">","</font></td>")
 				+"</tr></table></td></tr></table>";
 		}
 		else
