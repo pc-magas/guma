@@ -51,6 +51,7 @@ public class AddingSimulator extends SimpleSimulator
 				{
 					message+="Το κρατούμενο που περίσεψε το βάζω στο αποτέλεσμα.\n";
 					result[resultIndex]=kratoumeno;
+					kratoumeno=0;
 					return true;
 				}
 				message+="Τέλος προσομοίωσης";
