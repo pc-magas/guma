@@ -25,4 +25,4 @@ while [ -h "$PRG" ] ; do
       PRG="`dirname $PRG`/$link"
   fi
 done
-java -jar `dirname $PRG`/guma-1.6.1.jar "$@"
+java -jar `dirname $PRG`/guma-1.7.jar "$@"
