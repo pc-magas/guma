@@ -137,7 +137,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 				message+=" και ο πολαπλασιαμός έχει αποτέλεσμα: "+temp;
 				if(kratoumeno!=0)
 				{
-					message+="\n Επειδή από την προηγούμενη πράξη έχουμε κρατούμενο το προσθέτουμε στο αποτέλεσμα";					
+					message+="\n Επειδή από την προηγούμενη πράξη έχουμε κρατούμενο το προσθέτουμε στο αποτέλεσμα. ";					
 					temp+=kratoumeno;
 				}
 
@@ -145,7 +145,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 				
 				if(tempM.length>1)
 				{
-					message+="\n Η πράξη μας είχε διψήφιο αποτέλεσμα άρα το πρώτο ψηφίο το κρατάμε κρατούμενο";
+					message+="\n Η πράξη μας είχε διψήφιο αποτέλεσμα άρα το πρώτο ψηφίο το κρατάμε κρατούμενο. ";
 					kratoumeno=tempM[0];
 					endiamesa[endiamesoApotelesmaIndex][endiamesaLastDigit[endiamesoApotelesmaIndex]]=tempM[tempM.length-1];
 				}
@@ -155,7 +155,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 					endiamesa[endiamesoApotelesmaIndex][endiamesaLastDigit[endiamesoApotelesmaIndex]]=(byte)temp;
 					
 				}
-								
+				System.out.println("Result Index:"+endiamesoApotelesmaIndex+"Index:"+endiamesaLastDigit[endiamesoApotelesmaIndex]);				
 				endiamesaLastDigit[endiamesoApotelesmaIndex]--;
 				telestis1Index--;
 				return true;	
@@ -168,7 +168,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 				if(kratoumeno>0)
 				{
 				 	message+="Βάζουμε το κρατούμενο στην αρχή του αποτελέσματος";
-				 	endiamesa[endiamesoApotelesmaIndex][endiamesaLastDigit[endiamesoApotelesmaIndex]]=kratoumeno;
+				 	endiamesa[endiamesoApotelesmaIndex][0]=kratoumeno;
 				 	kratoumeno=0;
 				}
 				
@@ -178,8 +178,8 @@ public class MultiplicationSimulator extends AbstractSimulator
 					
 					endiamesoApotelesmaIndex++;
 					endiamesa[endiamesoApotelesmaIndex][endiamesa[endiamesoApotelesmaIndex].length-1]=(byte)0;
-					endiamesaLastDigit[endiamesoApotelesmaIndex]=endiamesa[endiamesoApotelesmaIndex].length-endiamesoApotelesmaIndex;
-					
+					endiamesaLastDigit[endiamesoApotelesmaIndex]=endiamesa[endiamesoApotelesmaIndex].length-endiamesoApotelesmaIndex-1;
+					//System.out.println("Endiamesa Last Digit: "+endiamesaLastDigit[endiamesoApotelesmaIndex]+"\n Index:"+endiamesoApotelesmaIndex);
 				}
 				return true;
 			}
@@ -212,7 +212,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 		String s="";
 		if(html)
 		{
-			s+="<table><tr>"+getTelestis1("<td>","</td>","<td><font color=\"blue\">","</font></td>")
+			s+="<table><tr><td></td>"+getTelestis1("<td>","</td>","<td><font color=\"blue\">","</font></td>")
 							+"</tr><tr><td>"+ type+"</td>"+getTelestis2("<td>","</td>","<td><font color=\"blue\">","</font></td>")+
 							"</tr></table><hr><br><table>";
 			for(int i=0;i<=endiamesoApotelesmaIndex;i++)
