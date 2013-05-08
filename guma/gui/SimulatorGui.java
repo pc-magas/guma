@@ -45,9 +45,19 @@ public class SimulatorGui extends JFrame implements ActionListener,UpdateSimulat
 	private JButton close=new JButton("Κλείσιμο");
 	
 	/**
+	*Panel for havinh together the area that shows the carry and the label
+	*/
+	private JPanel carryPanel= new JPanel();
+	
+	/**
+	*Label that shows the a value for carry column
+	*/
+	private JLabel carryLabel=new JLabel("Κρατούμενα/Δανεικά:");
+	
+	/**
 	*Showing the Carry
 	*/
-	private JLabel carry=new JLabel("Κρατούμενο</br>");
+	private JLabel carry=new JLabel();
 	
 	/**
 	*Showing the operation
@@ -82,7 +92,11 @@ public class SimulatorGui extends JFrame implements ActionListener,UpdateSimulat
 		butonPanel.add(next);
 		butonPanel.add(close);
 		
-		add(carry,BorderLayout.EAST);
+		carryPanel.setLayout(new GridLayout(2,1));
+		carryPanel.add(carryLabel);
+		carryPanel.add(carry);
+		
+		add(carryPanel,BorderLayout.EAST);
 		add(message,BorderLayout.NORTH);
 		add(praxis,BorderLayout.CENTER);
 		
