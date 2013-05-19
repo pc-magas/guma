@@ -1,8 +1,11 @@
 VERSION=1.7
 SOURCE=guma
+CLASSFOLDER=./libs
+JAR1=${CLASSFOLDER}/commons-io-2.4
+JAR2=${CLASSFOLDER}/net/download-1.0.jar
+CLASSPATH= ${JAR1}:${JAR2}:.
 
-
-guma: core simulator gui ${SOURCE}/Main.java
+guma: core simulator gui net ${SOURCE}/Main.java
 	javac ${SOURCE}/*.java
 
 arithmetic:
@@ -21,8 +24,11 @@ simulator:
 	javac ${SOURCE}/simulator/*.java
 
 run: guma guma/Main.class
-	java  guma.Main
+	java -cp ${CLASSPATH} guma.Main
 
+net: 
+	javac -cp ${CLASSPATH} ${SOURCE}/net/*.java
+	
 jar: guma
 	jar cvfe ./guma-${VERSION}.jar guma.Main guma/*
 
