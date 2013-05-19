@@ -377,6 +377,15 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 	}
 	
 	/**
+	*Loads a saved progress
+	*@param path: The path of the file we want to load the current progress
+	*/
+	public static Game load(String path) throws IOException,ClassNotFoundException
+	{
+		return Game.load(new File(path));
+	}
+	
+	/**
 	*Return the Current Score
 	*/
 
