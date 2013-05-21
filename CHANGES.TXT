@@ -1,5 +1,8 @@
 Here are the changes of guma between versions:
 
+Version 1.7 beta3
+*)Improved loon on Simulator Gui
+
 Version 1.7 beta2
 *)Bugfixes on Adding and Multiplication Simulator
 *)Improved look od division SImulator
