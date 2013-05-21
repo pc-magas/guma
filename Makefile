@@ -17,7 +17,7 @@ core: arithmetic
 ui:
 	javac ${SOURCE}/ui/*/*.java
 
-gui: ui
+gui: ui net
 	javac  ${SOURCE}/gui/*.java
 
 simulator:
