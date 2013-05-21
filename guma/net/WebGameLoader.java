@@ -24,7 +24,7 @@ import java.util.Date;
 import java.io.File;
 import java.io.IOException;
 
-public class WebGameLoader implements Runnable
+public abstract class WebGameLoader implements Runnable
 {
 	
 	/**
@@ -68,23 +68,29 @@ public class WebGameLoader implements Runnable
 		Thread t=new Thread(this);
 	}
 	
+	
 	/**
 	*Constructor method
 	*@param url: the url of file on the web
 	*/
 	public WebGameLoader(String url)
 	{
-		this(url,0);
+		this(url,0l);
 	}
 	
 	@Override
 	public void run()
 	{
+		Object progressObject=initProgress();
 		do
 		{
 			status=d.getStatus();
-			percent = d.getPercent();
-		}while(status.equalsIgnoreCase("Downloading"));
+			if(!status.equalsIgnoreCase("Error"))
+			{
+				percent = d.getPercent();
+				updateProgress(progressObject,percent);
+			}
+		}while(status.equalsIgnoreCase("Downloading")&& !status.equalsIgnoreCase("Error"));
 		load=true;
 	}
 	
@@ -134,4 +140,15 @@ public class WebGameLoader implements Runnable
 	{
 		return percent;
 	}
+	
+	/**
+	*Initializes the progressBar Viewer
+	*/
+	protected abstract Object initProgress();
+	
+	/**
+	*Updates the progressbar
+	*/
+	protected abstract void updateProgress(Object o,float progress);
+	
 }
