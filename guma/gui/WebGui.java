@@ -135,5 +135,22 @@ public class WebGui extends JPanel implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
+		Object source=e.getSource();
+		
+		if(source==paste)
+		{
+			JTextField jte = (JTextField)pastemenu.getInvoker();
+			jte.paste();
+		}
+		else if(source==copy)
+		{
+			JTextField jte = (JTextField)pastemenu.getInvoker();
+			jte.copy();
+		}
+		else if(source==cut)
+		{
+			JTextField jte = (JTextField)pastemenu.getInvoker();
+			jte.cut();
+		}
 	}
 }
