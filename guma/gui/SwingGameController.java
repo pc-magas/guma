@@ -26,6 +26,7 @@ import guma.core.Game;
 import guma.ui.main.GameController;
 import guma.gui.SimulatorGui;
 import guma.arithmetic.Praxis;
+import guma.gui.WebGui;
 
 /**
 *A class that allows you to Control the Game via Swing
@@ -123,4 +124,10 @@ public class SwingGameController extends GameController
 		return new SettingFrame().getGame(null);
 	}
 	
+	@Override
+	public Game loadGameFromWeb()
+	{
+		WebGui w=new WebGui();
+		return w.getGame();
+	}
 }

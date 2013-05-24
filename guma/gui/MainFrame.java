@@ -63,7 +63,12 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 	*The MenuItem in which the user select file to load progress
 	*/
 	private JMenuItem loadGameOption= new JMenuItem("Άνοιγμα");
-
+	
+	/**
+	*Option that allows you to open from the web a Game
+	*/
+	private JMenuItem loadWebOption= new JMenuItem("Άνοιγμα από το διαδικτυο");
+	
 	/**
 	*The MenuItem in which the user select file to load progress
 	*/
@@ -328,6 +333,7 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 		/*Adding MenuOptions*/
 		fileMenu.add(newGameOption);
 		fileMenu.add(loadGameOption);
+		fileMenu.add(loadWebOption);
 		fileMenu.add(saveGameOption);
 		fileMenu.add(saveAs);
 	
@@ -353,6 +359,7 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 		/*Adding Action Listeners*/
 		newGameOption.addActionListener(this);
 		loadGameOption.addActionListener(this);
+		loadWebOption.addActionListener(this);
 		saveGameOption.addActionListener(this);
 		nextPraxisButton.addActionListener(this);
 		close.addActionListener(this);
@@ -404,6 +411,11 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 		else if(option==newGameOption)//if we select to create a game
 		{
 			controller.newGame();
+			updateUI(controller.getUIStatus());
+		}
+		else if(option==loadWebOption)
+		{
+			controller.loadFromWeb();
 			updateUI(controller.getUIStatus());
 		}
 		else if(option==nextPraxisButton)//If we selected to move onj the next arithmetic praxis

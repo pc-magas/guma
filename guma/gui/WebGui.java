@@ -31,7 +31,7 @@ public class WebGui extends JPanel implements ActionListener
 	/**
 	*Shows the Label for seting the size of downloaded file
 	*/
-	private JLabel sizeLabel= new JLabel("Μέγεθος Αρχείου σε <strong>Kilobytes</strong>");
+	private JLabel sizeLabel= new JLabel("Μέγεθος Αρχείου σε Kilobytes");
 	
 	/**
 	*Shows the Label for seting the url of Downloaded file
@@ -166,6 +166,7 @@ public class WebGui extends JPanel implements ActionListener
 	
 		String[] options={"OK","Ακύρωση"};
 		Game gameToCreate=null;
+		
 			
 		int returnVal=JOptionPane.showOptionDialog(null,this,"Κατέβασμα παιχνιδιού από το web",
 							JOptionPane.OK_CANCEL_OPTION,

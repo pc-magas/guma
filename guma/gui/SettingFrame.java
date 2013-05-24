@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import guma.core.*;
 import guma.arithmetic.Praxis;
 
+
 /**
 *This class allows me to set the settings of a new Game
 */
