@@ -289,4 +289,32 @@ public abstract class GameController
 	*Initialize a new game
 	*/
 	public abstract Game makeNewGame();
+	
+	/**
+	*Load a Game 
+	*/
+	public abstract Game loadGameFromWeb();
+	/**
+	*Loads a Game from the Web and updates the Ui
+	*/
+	public void loadFromWeb()
+	{
+			paixnidi= loadGameFromWeb();
+			if(paixnidi!=null)
+			{
+				this.current.save=true;
+				this.current.saveAs=true;
+				this.current.praxisValue=paixnidi.toString();
+				this.current.praxisRemainingDisplay="Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum();
+			}
+			else
+			{
+				System.out.println("Else");
+				this.current.save=false;
+				this.current.saveAs=false;
+				this.current.praxisValue="x+y=";
+				this.current.praxisRemainingDisplay="Πράξεις:";
+			}
+			System.out.println("Inside new game: "+current.praxisRemainingDisplay);	
+	}
 }
