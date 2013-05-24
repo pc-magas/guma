@@ -46,7 +46,7 @@ public class WebGui extends JPanel implements ActionListener
 	/**
 	*Input of size
 	*/
-	private JTextField sizeInput=new JTextField();
+	private JTextField sizeInput=new JTextField("0");
 	
 	/**
 	*Menu for Paste
@@ -127,12 +127,16 @@ public class WebGui extends JPanel implements ActionListener
 		}
 	}
 	
+	/**
+	*Method that allows you to Add component on a GridBagLayout Panel or Frame
+	*/
 	public void addComponent(JComponent component,GridBagLayout gridbag,GridBagConstraints c)
 	{
 		gridbag.setConstraints(component,c);
 		add(component);
 	}
 	
+	@Override
 	public void actionPerformed(ActionEvent e)
 	{
 		Object source=e.getSource();
@@ -142,7 +146,7 @@ public class WebGui extends JPanel implements ActionListener
 			JTextField jte = (JTextField)pastemenu.getInvoker();
 			jte.paste();
 		}
-		else if(source==copy)
+		else if(source==cοpy)
 		{
 			JTextField jte = (JTextField)pastemenu.getInvoker();
 			jte.copy();
@@ -152,5 +156,57 @@ public class WebGui extends JPanel implements ActionListener
 			JTextField jte = (JTextField)pastemenu.getInvoker();
 			jte.cut();
 		}
+	}
+	
+	/**
+	*Returns a Game from the Web
+	*/
+	public Game getGame()
+	{
+	
+		String[] options={"OK","Ακύρωση"};
+		Game gameToCreate=null;
+			
+		int returnVal=JOptionPane.showOptionDialog(null,this,"Κατέβασμα παιχνιδιού από το web",
+							JOptionPane.OK_CANCEL_OPTION,
+							JOptionPane.QUESTION_MESSAGE,
+							null,(Object[])options,
+							(Object)options[1]);//Shows the Dialog
+		
+		if(returnVal==JOptionPane.OK_OPTION)
+		{
+			String url=urlInput.getText();
+			long sizev=0;
+			try
+			{
+				String sizes=sizeInput.getText();
+				if(!sizes.equals(""))
+				{
+					sizev=Long.parseLong(sizes)*1024;
+				}
+			
+				SwingWebLoader w=new SwingWebLoader(url,sizev);
+				
+				while(w.getStatus().equalsIgnoreCase("Downloading")){}//Wait to finish the download
+				return w.getGame();
+			}
+			catch(java.io.IOException x)
+			{
+				x.printStackTrace();
+				JOptionPane.showMessageDialog(null,"Σφάλμα","Η διεύθυνση δικτύου δεν αντιστοιχεί σε παιχνίδι",JOptionPane.ERROR_MESSAGE);
+				return null;
+			}
+			catch(Exception e)
+			{
+				JOptionPane.showMessageDialog(null,"Σφάλμα","Δεν δώσατε αριθμιτική τιμή στο μέγεθος",JOptionPane.ERROR_MESSAGE);
+				return this.getGame();
+			}
+		}
+		else
+		{
+			 gameToCreate=null;
+		}
+
+		return gameToCreate;
 	}
 }
