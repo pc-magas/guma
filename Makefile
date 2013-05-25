@@ -1,7 +1,7 @@
 VERSION=1.7
 SOURCE=guma
 CLASSFOLDER=./libs
-JAR1=${CLASSFOLDER}/commons-io-2.4
+JAR1=${CLASSFOLDER}/commons-io-2.4/commons-io-2.4.jar
 JAR2=${CLASSFOLDER}/net/download-1.0.jar
 CLASSPATH= ${JAR1}:${JAR2}:.
 
