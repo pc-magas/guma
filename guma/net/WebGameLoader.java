@@ -24,7 +24,7 @@ import java.util.Date;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class WebGameLoader implements Runnable
+public abstract class WebGameLoader
 {
 	
 	/**
@@ -65,7 +65,27 @@ public abstract class WebGameLoader implements Runnable
 		
 		d= new Downloader(url,path,allowed,size);
 
-		Thread t=new Thread(this);
+		Object progressObject=initProgress();
+		do
+		{
+			System.out.println("Inside Thread loop");
+
+			status=d.getStatus();
+			if(!status.equalsIgnoreCase("Error"))
+			{
+				//System.out.println("OK");
+				percent = d.getPercent();
+				updateProgress(progressObject,percent);
+			}
+			else
+			{
+				load=false;
+				//System.err.println("Error");
+				break;
+
+			}
+		}while(!status.equalsIgnoreCase("Error") && !status.equalsIgnoreCase("Finished") );
+		load=true;
 	}
 	
 	
@@ -78,33 +98,28 @@ public abstract class WebGameLoader implements Runnable
 		this(url,0l);
 	}
 	
-	@Override
-	public void run()
-	{
-		Object progressObject=initProgress();
-		do
-		{
-			status=d.getStatus();
-			if(!status.equalsIgnoreCase("Error"))
-			{
-				percent = d.getPercent();
-				updateProgress(progressObject,percent);
-			}
-		}while(status.equalsIgnoreCase("Downloading")&& !status.equalsIgnoreCase("Error"));
-		load=true;
-	}
-	
 	/**
 	*Returns the game
 	*/
 	public guma.core.Game getGame() throws IOException,ClassNotFoundException
 	{
 		if(load)
-		{			
+		{	
+			System.out.println("Can load the Game");
+			guma.core.Game g=guma.core.Game.load(path);
+			if(g!=null)
+			{
+				System.out.println("GAme Loaded");
+			}
+			else
+			{
+				System.err.println("Game Not Loaded");
+			}
 			return guma.core.Game.load(path);
 		}
 		else
 		{
+			System.out.println("Cannot load the Game status: "+status);
 			return null;
 		}
 	}
