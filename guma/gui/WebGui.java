@@ -185,16 +185,19 @@ public class WebGui extends JPanel implements ActionListener
 				{
 					sizev=Long.parseLong(sizes)*1024;
 				}
-			
 				SwingWebLoader w=new SwingWebLoader(url,sizev);
-				
-				while(w.getStatus().equalsIgnoreCase("Downloading")){}//Wait to finish the download
-				return w.getGame();
+				gameToCreate=w.getGame();
 			}
 			catch(java.io.IOException x)
 			{
 				x.printStackTrace();
 				JOptionPane.showMessageDialog(null,"Σφάλμα","Η διεύθυνση δικτύου δεν αντιστοιχεί σε παιχνίδι",JOptionPane.ERROR_MESSAGE);
+				return null;
+			}
+			catch(ClassNotFoundException c)
+			{
+				c.printStackTrace();
+				JOptionPane.showMessageDialog(null,"Σφάλμα","Το αρχείο δεν αντιστοιχεί σε παιχνίδι",JOptionPane.ERROR_MESSAGE);
 				return null;
 			}
 			catch(Exception e)
@@ -207,7 +210,7 @@ public class WebGui extends JPanel implements ActionListener
 		{
 			 gameToCreate=null;
 		}
-
+		System.out.println("Before Return");
 		return gameToCreate;
 	}
 }
