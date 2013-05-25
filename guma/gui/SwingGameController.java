@@ -27,6 +27,7 @@ import guma.ui.main.GameController;
 import guma.gui.SimulatorGui;
 import guma.arithmetic.Praxis;
 import guma.gui.WebGui;
+import java.io.IOException;
 
 /**
 *A class that allows you to Control the Game via Swing
