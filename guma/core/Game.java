@@ -385,6 +385,7 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 		return Game.load(new File(path));
 	}
 	
+	
 	/**
 	*Return the Current Score
 	*/
