@@ -270,18 +270,21 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 		}
 		return;
 	}
+	
 	/**
-	*
+	*Asks a question if we need to save the file or not
 	*/
-	public void closeFrame()
+	public boolean askSaveQuestion()
 	{
+		boolean doAction=true;
 		if(controller.gameStarted() && !controller.gameSaved())/*If an unsaved game has created*/
 		{
+		
 			/*The String of each option we have*/
-			String [] options={"Κλεισιμο και αποθήκευση","Κλείσιμο δίχως αποθήκευση","Ακύρωση"};
+			String [] options={"Aποθήκευση","Χωρίς αποθήκευση","Ακύρωση"};
 				
 			/*Creating the Dialog window*/
-			int option= JOptionPane.showOptionDialog(MainFrame.this,
+			 int option=JOptionPane.showOptionDialog(MainFrame.this,
 								"H πρόοδος δεν έχει αποθηκευτεί. \n"
 								+"Τι να κάνω;",
 								"Κλείσιμο",
@@ -289,28 +292,33 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 								    JOptionPane.QUESTION_MESSAGE,
 								null,
 								options,options[2]);
-		
 			if(option==JOptionPane.YES_OPTION)
 			{
 				fileLoadAndSave(true);/*Open Filechooser frame for Save*/
-				System.exit(0);
 			}
-			else if(option==JOptionPane.NO_OPTION)/*If we select not to save*/
+			else if(option==JOptionPane.NO_OPTION)
 			{
-				System.exit(0);
 			}
-			else
+			else if(option==JOptionPane.CANCEL_OPTION)/*If we select not to save*/
 			{
 				/*Or else close the dialog that have showed to you*/
 				JOptionPane.getRootFrame().dispose();
+				doAction=false;
 			}
 										
 		}
-		else
-		{
-			System.exit(0);
-		}
-
+		return doAction;
+	}
+	
+	/**
+	*Method that closes the frame 
+	*/
+	public void closeFrame()
+	{
+			if(askSaveQuestion())
+			{	
+				System.exit(0);
+			}
 	}
 
 	/**
@@ -401,7 +409,9 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 		}
 		else if(option==loadGameOption)//if we selected to load game
 		{
+			askSaveQuestion();
 			fileLoadAndSave(false);
+			
 			
 		}
 		else if(option==saveAs)//If we selected to change file
@@ -410,13 +420,18 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 		}
 		else if(option==newGameOption)//if we select to create a game
 		{
+			askSaveQuestion();
 			controller.newGame();
 			updateUI(controller.getUIStatus());
+			
 		}
 		else if(option==loadWebOption)
 		{
-			controller.loadFromWeb();
-			updateUI(controller.getUIStatus());
+			if(askSaveQuestion())
+			{
+				controller.loadFromWeb();
+				updateUI(controller.getUIStatus());
+			}
 		}
 		else if(option==nextPraxisButton)//If we selected to move onj the next arithmetic praxis
 		{
