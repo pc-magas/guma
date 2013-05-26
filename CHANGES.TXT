@@ -1,7 +1,11 @@
 Here are the changes of guma between versions:
 
+Version 1.7 beta4
+*)Download from web feature
+*)Save game before creating new
+
 Version 1.7 beta3
-*)Improved loon on Simulator Gui
+*)Improved look on Simulator Gui
 
 Version 1.7 beta2
 *)Bugfixes on Adding and Multiplication Simulator
