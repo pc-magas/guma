@@ -183,7 +183,7 @@ public class WebGui extends JPanel implements ActionListener
 				String sizes=sizeInput.getText();
 				if(!sizes.equals(""))
 				{
-					sizev=Long.parseLong(sizes)*1024;
+					sizev=(long)Float.parseFloat(sizes)*1024;
 				}
 				SwingWebLoader w=new SwingWebLoader(url,sizev);
 				gameToCreate=w.getGame();
