@@ -179,7 +179,6 @@ public class MultiplicationSimulator extends AbstractSimulator
 					endiamesoApotelesmaIndex++;
 					endiamesa[endiamesoApotelesmaIndex][endiamesa[endiamesoApotelesmaIndex].length-1]=(byte)0;
 					endiamesaLastDigit[endiamesoApotelesmaIndex]=endiamesa[endiamesoApotelesmaIndex].length-endiamesoApotelesmaIndex-1;
-					//System.out.println("Endiamesa Last Digit: "+endiamesaLastDigit[endiamesoApotelesmaIndex]+"\n Index:"+endiamesoApotelesmaIndex);
 				}
 				return true;
 			}

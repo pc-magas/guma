@@ -28,12 +28,12 @@ public abstract class AbstractSimulator
 	/**
 	*The first number with seperated Digits that we will simulate the arithmetic operation
 	*/
-	protected byte telestis1[]=null;
+	protected Number telestis1=null;
 
 	/**
 	*The second number with seperated Digits that we will simulate the arithmetic operation
 	*/
-	protected byte telestis2[]=null;
+	protected Number telestis2[]=null;
 
 	/**
 	*Arraylist that we will keep the carry
@@ -43,22 +43,8 @@ public abstract class AbstractSimulator
 	/**
 	*Array that will keep the final result
 	*/
-	protected byte[] result=null;
+	protected Number[] result=null;
 
-	/**
-	*Flag that positions in what digit we will apply the arithmetic operation
-	*/
-	protected int telestis1Index;
-
-	/**
-	*Flag that positions in what digit we will apply the arithmetic operation
-	*/
-	protected int telestis2Index;
-
-	/**
-	*Flag that positions in what digit we will apply the arithmetic operation
-	*/
-	protected int resultIndex;
 
 	/**
 	*Stores temporaly the result
@@ -75,37 +61,6 @@ public abstract class AbstractSimulator
 	*/
 	protected char type;
 	
-	/**
-	*Method that seperates the digits from a Number
-	*/
-	public static byte[] seperateDigits(int number)
-	{
-		byte[] intermediate=new byte[String.valueOf(number).length()];
-		
-		for(int i=0;i<intermediate.length;i++)
-		{
-			intermediate[intermediate.length-1-i]=(byte)(number%10);
-			number/=10;
-		}		
-		return intermediate;
-	}
-
-	/**
-	*Method that merges a number with seperated digits
-	*@param digits: Number with seperated ditits	
-	*/
-	public static int mergeDigits(byte[] digits)
-	{
-		int merged=0;
-		
-		for(int i=0;i<digits.length;i++)
-		{
-			int pow=digits.length-1-i;
-			merged+=digits[i]*(long)Math.pow(10,pow);
-		}
-
-		return merged;
-	}
 
 	
 	/**
@@ -124,38 +79,6 @@ public abstract class AbstractSimulator
 		temp=0;	
 	}
 	
-	
-	/**
-	*Counts how many zeros has on the end a number with seperated digits.
-	*If parameter num is null then it returns -1
-	*@param num: number with seperated digits
-	*/
-	public static int zeroEndCount(byte[] num)
-	{
-		int zeros=0;
-		
-		try
-		{
-			for(int i=num.length-1;i>=0;i--)
-			{
-				if(num[i]==0)
-				{
-					zeros++;
-				}
-				else
-				{
-					break;
-				}
-			} 
-		}
-		catch(NullPointerException n)
-		{
-			zeros=-1;
-		}
-		
-		return zeros;	
-	}
-
 	/**
 	*Returns the carry
 	*/
@@ -196,52 +119,6 @@ public abstract class AbstractSimulator
 		return telestis2Index;
 	}
 
-	/**
-	*A way to return the operatos as String with distinct space (tab) between tht digits
-	*@param num: the number with seperated Digits
-	*/
-	public static String getTelestis(byte[] num)
-	{
-		return getTelestis(num,"\t","");
-	}
-	
-	/**
-	*A way to return the operatos as String with distinct space between tht digits
-	*@param num: the number with seperated Digits
-	*@param front:  The sting you want to be be th the front of a digit
-	*@param back: The string you want to be at the back of a digit
-	*/
-	public static String getTelestis(byte[] num,String front, String back)
-	{
-		
-		return getTelestis(num,front,back,0,front,back);
-	}
-	
-	/**
-	*A way to return the operatos as String with distinct space between tht digits
-	*@param num: the number with seperated Digits
-	*@param front:  The sting you want to be on the front of a digit
-	*@param back: The string you want to be at the back of a digit
-	*@param pos: select a specified position that will have seperate texnt on the front and back
-	*@param posFront: The sting you want to be on the front of a digit at specified positions, given by pos paramenter
-	*@param posBack: The sting you want to be at the back of a digit at specified positions, given by pos parameter
-	*/
-	public static String getTelestis(byte[] num,String front, String back, int pos, String posFront, String posBack)
-	{
-		String s="";
-		for(int i=0;i<num.length;i++)
-		{
-			if(i==pos)
-			{
-				s+=posFront+num[i]+posBack;
-			}
-			else
-			{
-				s+=front+num[i]+back;
-			}
-		}
-		return s;
-	}
 	
 	/**
 	*Returns the first operator
