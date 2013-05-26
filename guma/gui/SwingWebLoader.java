@@ -50,6 +50,7 @@ public class SwingWebLoader extends guma.net.WebGameLoader
 	protected Object initProgress()
 	{
 		ProgressMonitor p=new ProgressMonitor(null,"Πρόοδος φόρτωσης παιχνιδιού από το διαδίκτυο","Πρόοδος",0,100);
+		p.setProgress(0);
 		return  (Object)p;
 	}
 	
@@ -57,6 +58,21 @@ public class SwingWebLoader extends guma.net.WebGameLoader
 	protected void updateProgress(Object o,float progress)
 	{
 		ProgressMonitor p=(ProgressMonitor)o;
-		p.setProgress((int)progress);
+		if(p!=null)
+		{
+			p.setProgress((int)progress);
+			try
+			{
+				Thread.sleep(100);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			System.err.println("Null Pointer duting showing the progressbar");
+		}
 	}
 }	
