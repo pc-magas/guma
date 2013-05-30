@@ -21,7 +21,7 @@ package guma.simulator;
 
 import java.util.*;
 import guma.arithmetic.Praxis;
-import guma.simulator.*;
+import guma.simulator.Number;
 
 public abstract class AbstractSimulator
 {
@@ -33,7 +33,7 @@ public abstract class AbstractSimulator
 	/**
 	*The second number with seperated Digits that we will simulate the arithmetic operation
 	*/
-	protected Number telestis2[]=null;
+	protected Number telestis2=null;
 
 	/**
 	*Arraylist that we will keep the carry
@@ -43,7 +43,7 @@ public abstract class AbstractSimulator
 	/**
 	*Array that will keep the final result
 	*/
-	protected Number[] result=null;
+	protected Number result=null;
 
 
 	/**
@@ -70,12 +70,10 @@ public abstract class AbstractSimulator
 	*/
 	public AbstractSimulator(int telestis1, int telestis2)
 	{
-		this.telestis1= AbstractSimulator.seperateDigits(telestis1);
-		this.telestis2= AbstractSimulator.seperateDigits(telestis2);
-
-		telestis1Index=this.telestis1.length-1;
-		telestis2Index=this.telestis2.length-1;
-		
+		this.telestis1=new Number(telestis1);
+		this.telestis2=new Number(telestis2);
+		this.telestis1.setSelectedDigitToEnd();
+		this.telestis2.setSelectedDigitToEnd();
 		temp=0;	
 	}
 	
@@ -98,111 +96,49 @@ public abstract class AbstractSimulator
 	/**
 	*Returns the position of the result digit 
 	*/
-	public int getResDigit()
-	{
-		return resultIndex;
+	public int getResDigit() throws IndexOutOfBoundsException
+	{	
+			return result.getDigit();
 	}
 
 	/**
 	*Returns the position of the  digit of first Operator 
 	*/
-	public int getTelests1Digit()
+	public int getTelests1Digit() throws IndexOutOfBoundsException
 	{
-		return telestis1Index;
+		return telestis1.getDigit();
 	}
 
 	/**
-	*Returns the position of the  digit of second Operator
+	*Returns the position of the  digit of first Operator 
 	*/
-	public int getTelests2Digit()
+	public int getTelests2Digit() throws IndexOutOfBoundsException
 	{
-		return telestis2Index;
-	}
-
-	
-	/**
-	*Returns the first operator
-	*/
-	public String getTelestis1()
-	{
-		return getTelestis(telestis1);
-	}
-
-	/**
-	*Returns the first operator
-	*@param front:  The sting you want to be be th the front of a digit
-	*@param back: The string you want to be at the back of a digit
-	*/
-	public String getTelestis1(String front, String back)
-	{
-		return getTelestis(telestis1,front,back);
+		return telestis2.getDigit();
 	}
 	
 	/**
-	*Returns the first operator
-	*@param front:  The sting you want to be be th the front of a digit
-	*@param back: The string you want to be at the back of a digit
-	*@param pos: select a specified position that will have seperate texnt on the front and back
-	*@param posFront: The sting you want to be on the front of a digit at specified positions, given by pos paramenter
-	*@param posBack: The sting you want to be at the back of a digit at specified positions, given by pos parameter
+	*Reprsents the telestis1 as String Form
+	*@param front: The string that wioll be pun ton the front on non selected digit
+	*@param back: The string that wioll be pun ton the back on non selected digit
+	*@param frontSelected: The string that will be pun on the front selected digit
+	*@param backSelected: The string that will be pun on the back selected digit
 	*/
-	public String getTelestis1(String front, String back, String posFront, String posBack)
+	public String getTelestis1(String front, String back, String frontSelected, String backSelected)
 	{
-		return getTelestis(telestis1,front,back,telestis1Index, posFront, posBack);
+		return telestis1.toString(front,back,frontSelected,backSelected);
 	}
 	
 	/**
-	*Returns the second operator
+	*Reprsents the telestis2 as String Form
+	*@param front: The string that wioll be pun ton the front on non selected digit
+	*@param back: The string that wioll be pun ton the back on non selected digit
+	*@param frontSelected: The string that will be pun on the front selected digit
+	*@param backSelected: The string that will be pun on the back selected digit
 	*/
-	public String getTelestis2()
+	public String getTelestis2(String front, String back, String frontSelected, String backSelected)
 	{
-		return getTelestis2("","");
-	}
-	
-	/**
-	*Returns the second operator
-	*/
-	public String getTelestis2(String front, String back)
-	{
-		return getTelestis2(front,back,front,back);
-	}
-	
-	/**
-	*Returns the first operator
-	*@param front:  The sting you want to be be th the front of a digit
-	*@param back: The string you want to be at the back of a digit
-	*@param pos: select a specified position that will have seperate texnt on the front and back
-	*@param posFront: The sting you want to be on the front of a digit at specified positions, given by pos paramenter
-	*@param posBack: The sting you want to be at the back of a digit at specified positions, given by pos parameter
-	*/
-	public String getTelestis2(String front, String back, String posFront, String posBack)
-	{
-		if(telestis2!=null)
-		{
-			return getTelestis(telestis2,front,back,telestis2Index, posFront, posBack);
-		}
-		else
-		{
-			return front+"0"+back;
-		}
-	}
-	
-	/**
-	*Returns as String the result
-	*/
-	public String getResult()
-	{
-		return getResult("","");
-	}
-	
-	/**
-	*Returns as String the result
-	*@param front:  The sting you want to be be th the front of a digit
-	*@param back: The string you want to be at the back of a digit
-	*/
-	public String getResult(String front, String back)
-	{
-		return getResult(front,back,front,back);
+		return telestis2.toString(front,back,frontSelected, backSelected);
 	}
 	
 	/**
@@ -217,13 +153,25 @@ public abstract class AbstractSimulator
 	{
 		if(result!=null)
 		{
-			return getTelestis(result,front,back,resultIndex, posFront, posBack);
+		 return telestis1.toString(front,back,posFront,posBack);
 		}
 		else
 		{
 			return front+"0"+back;
 		}
 	}
+	
+		/**
+	*Returns the first operator
+	*@param front:  The sting you want to be be th the front of a digit
+	*@param back: The string you want to be at the back of a digit
+	*@param pos: select a specified position that will have seperate texnt on the front and back
+	*/
+	public String getResult(String front, String back)
+	{
+		return getResult(front,back,front,back);
+	}
+	
 	
 	/**
 	*Creates a Simulator Bazed on the praxisType is given on Praxis Type
@@ -280,5 +228,5 @@ public abstract class AbstractSimulator
 	*This method shows tas String the operation of simulator
 	*@param: html: Shows if the utput will be html or not
 	*/
-	public abstract String toString(boolean html);
+	public abstract String toString();
 }

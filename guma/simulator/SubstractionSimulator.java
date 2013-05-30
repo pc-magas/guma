@@ -66,14 +66,22 @@ public class SubstractionSimulator extends SimpleSimulator
 		}
 		else
 		{		
-			if(telestis1Index>=0)
+			try
 			{
-				int tempTelestis1=telestis1[telestis1Index];
-				int tempTelestis2=(telestis2Index>=0)?telestis2[telestis2Index]:0;
+				int tempTelestis1=telestis1.getDigit();
+				int tempTelestis2=0;
+				try
+				{
+					tempTelestis2=telestis2.getDigit();
+				}
+				catch(IndexOutOfBoundsException o)
+				{
+					tempTelestis2=0;
+				}
 				
 				if(kratoumeno>0)
 				{
-					message="Προσθέτουμε το δανεικό στο "+tempTelestis2+" και θα γίνει ";
+					message="Προσθέτουμε το δανεικό στο "+tempTelestis2+" και έτσι θα γίνει ";
 					tempTelestis2+=kratoumeno;
 					message+=tempTelestis2+"\n";
 					kratoumeno=0;
@@ -84,7 +92,7 @@ public class SubstractionSimulator extends SimpleSimulator
 
 					message+="To "+tempTelestis1+" είναι μικρότερο από το "+tempTelestis2+". Θα χρειαστούμε ένα δανεικό που θα μπεί μπορστά από το "+tempTelestis1+" έτσι το "+tempTelestis1+"θα γίνει 1"+tempTelestis1+". Μετά εκτελούμε την πράξη μεταξύ των ψηφίων 1"+tempTelestis1+"-"+tempTelestis2;
 					
-					result[resultIndex]=(byte)((10+tempTelestis1)-tempTelestis2);
+					result.setDigit((byte)((10+tempTelestis1)-tempTelestis2));
 					
 					kratoumeno=1;
 					reduceIndex();
@@ -95,12 +103,12 @@ public class SubstractionSimulator extends SimpleSimulator
 				else
 				{
 					message="Κάνουμε την αφαίρεση των ψηφίων ";
-					result[resultIndex]=(byte)(tempTelestis1-tempTelestis2);
+					result.setDigit((byte)(tempTelestis1-tempTelestis2));
 					reduceIndex();
 				}
 				returnVal=true;
 			}
-			else
+			catch(IndexOutOfBoundsException o)
 			{
 				message="H πράξη τελείωσε";
 				returnVal=false;
@@ -114,8 +122,8 @@ public class SubstractionSimulator extends SimpleSimulator
 	*/
 	private void reduceIndex()
 	{
-		resultIndex--;
-		telestis1Index--;
-		telestis2Index--;
+		result.previousDigit();
+		telestis1.previousDigit();
+		telestis2.previousDigit();
 	}
 }

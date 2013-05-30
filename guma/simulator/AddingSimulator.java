@@ -41,16 +41,34 @@ public class AddingSimulator extends SimpleSimulator
 	*/	
 	public boolean next()
 	{
-			byte tempTelestis1=(telestis1Index<0)?0:telestis1[telestis1Index];
-			byte tempTelestis2=(telestis2Index<0)?0:telestis2[telestis2Index];
+			byte tempTelestis1;
+			byte tempTelestis2;
 			message="";
 			
-			if(telestis1Index<0 && telestis2Index<0)//run out of digits
+			try
+			{
+				tempTelestis1=(byte)telestis1.getDigit();
+			}
+			catch(IndexOutOfBoundsException out1)
+			{
+				tempTelestis1=0;
+			}
+			
+			try
+			{
+				tempTelestis2=(byte)telestis2.getDigit();
+			}
+			catch(IndexOutOfBoundsException out2)
+			{
+				tempTelestis2=0;
+			}
+			
+			if(telestis1.getDigitPos()<0 && telestis2.getDigitPos()<0)//run out of digits
 			{
 				if(kratoumeno!=0)//if carry remained
 				{
 					message+="Το κρατούμενο που περίσεψε το βάζω στο αποτέλεσμα.\n";
-					result[resultIndex]=kratoumeno;
+					result.setDigit(kratoumeno);
 					kratoumeno=0;
 					return true;
 				}
@@ -61,7 +79,6 @@ public class AddingSimulator extends SimpleSimulator
 			{
 				if(kratoumeno==0)//If carry
 				{
-					System.out.println("ADDING");
 					message+="Προσθέτουμε τα ψηφία. Άν το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
 					temp=tempTelestis1+tempTelestis2;
 				}
@@ -77,20 +94,19 @@ public class AddingSimulator extends SimpleSimulator
 				{
 					message+="Το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο";
 					kratoumeno=1;
-					result[resultIndex]=(byte)(temp-10);
+					result.setDigit((byte)(temp-10));
 				}
 				else
 				{
 					message+="Βάζουμε το άθροισμα των ψηφίων στο αποτέλεσμα";
-					result[resultIndex]=(byte)temp;
+					result.setDigit((byte)temp);
 				}
-				resultIndex--;
-				telestis1Index--;
-				telestis2Index--;
+				result.previousDigit();
+				telestis1.previousDigit();
+				telestis2.previousDigit();
 				temp=-1;
 				return true;
 			}
-			
 	}
 		
 }

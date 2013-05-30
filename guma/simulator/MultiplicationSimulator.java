@@ -29,27 +29,22 @@ public class MultiplicationSimulator extends AbstractSimulator
 	/**
 	*Array List that stores intermediate results
 	*/
-	private byte[][] endiamesa=null;
-
-	/**
-	*Stores for each intermediate result where the result will be stored
-	*/
-	private int[] endiamesaLastDigit=null;
+	private Number[] endiamesa=null;
 
 	/**
 	*Shows what intermediate result will be chosen 
 	*/
 	private int endiamesoApotelesmaIndex=0;
+		
+	/**
+	*Variable that shows if needed to display a message for apending zeros
+	*/
+	private boolean apendMessage=false;
 	
 	/**
 	*When 2 numbers when multiplying have zeros in the end then we ignore them and we apend them into the final result to the end
 	*/
 	private int apendZeros=0;
-	
-	/**
-	*Variable that shows if needed to display a message for apending zeros
-	*/
-	private boolean apendMessage=false;
 	
 	/**
 	*This variable shows if the intermediate results will be added directly or not
@@ -68,36 +63,26 @@ public class MultiplicationSimulator extends AbstractSimulator
 		type=Praxis.MULTIPLICATION;
 		this.spartial=spartial;
 		
-		endiamesa=new byte[this.telestis2.length][];
-		endiamesaLastDigit=new int[this.telestis2.length];
+		endiamesa=new Number[this.telestis2.length()];
+		
 
 		//initilizing the matrix for storing the intermediate results
 		for(int i=0;i<endiamesa.length;i++)
 		{
-			endiamesa[i]=new byte[this.telestis1.length+i+1];
-			endiamesaLastDigit[i]=endiamesa[i].length-1;
-			Arrays.fill(endiamesa[i],(byte)0);
+			endiamesa[i]=new Number(this.telestis1.length()+i+1,true);
 		}
 		
 		//setting the first intermediate result
 		endiamesoApotelesmaIndex=0;
 
-		//When one of the operators have zero digits on the end we ignore them and we apennd them to the final result		
-		while(telestis1Index>=0 && telestis2Index>=0 && (this.telestis1[telestis1Index]==0 || this.telestis2[telestis2Index]==0))
-		{
-			if(telestis1Index>=0 && this.telestis1[telestis1Index]==0)
-			{
-				telestis1Index--;
-				apendZeros++;
-			}
+		apendZeros+=this.telestis1.getendZeroCount()+this.telestis2.getendZeroCount();
+		this.telestis1.setSelectedDigitToEnd(true);
+		this.telestis1.setSeperator("(");
 			
-			if( telestis2Index>=0 && this.telestis2[telestis2Index]==0)
-			{
-				telestis2Index--;
-				apendZeros++;
-			}
+		this.telestis2.setSelectedDigitToEnd(true);
+		this.telestis2.setSeperator("(");
 			
-		}
+		
 		
 		if(apendZeros>0)
 		{
@@ -119,8 +104,8 @@ public class MultiplicationSimulator extends AbstractSimulator
 	public boolean next()
 	{
 		message="";
-		
-		
+		int tempTelestis2;
+		int tempTelestis1;
 		if(apendMessage)
 		{
 			message="Ανγωούμε τα 0 που έχουν στο τέλος οι αριθμοί και εκτελούμε την πράξη του πολλαπλασιαμού από τα μη μηδενικα στοιχεία";
@@ -128,75 +113,79 @@ public class MultiplicationSimulator extends AbstractSimulator
 			return true;
 		}
 		
-		if(telestis2Index>=0)
+		try
 		{
-			if(telestis1Index>=0)
+			tempTelestis2=telestis2.getDigit();
+			
+			try
 			{
-				message="Πολλαπλασιάζουμε τα ψηφία "+telestis2[telestis2Index]+"*"+telestis1[telestis1Index];
-				temp=telestis1[telestis1Index]*telestis2[telestis2Index];
+				tempTelestis1=telestis1.getDigit();
+				message="Πολλαπλασιάζουμε τα ψηφία "+tempTelestis1+"*"+tempTelestis2;
+				temp=tempTelestis1*tempTelestis2;
 				message+=" και ο πολαπλασιαμός έχει αποτέλεσμα: "+temp;
 				if(kratoumeno!=0)
 				{
-					message+="\n Επειδή από την προηγούμενη πράξη έχουμε κρατούμενο το προσθέτουμε στο αποτέλεσμα. ";					
+					message+="\n Επειδή από την προηγούμενη πράξη έχουμε κρατούμενο το προσθέτουμε στο αποτέλεσμα. ";	
 					temp+=kratoumeno;
 				}
 
-				byte tempM[]=AbstractSimulator.seperateDigits((int)temp);
+				byte tempM[]=Number.seperateDigits((int)temp);
 				
 				if(tempM.length>1)
 				{
 					message+="\n Η πράξη μας είχε διψήφιο αποτέλεσμα άρα το πρώτο ψηφίο το κρατάμε κρατούμενο. ";
 					kratoumeno=tempM[0];
-					endiamesa[endiamesoApotelesmaIndex][endiamesaLastDigit[endiamesoApotelesmaIndex]]=tempM[tempM.length-1];
+					endiamesa[endiamesoApotelesmaIndex].setDigit(tempM[tempM.length-1]);
 				}
 				else
 				{
 					kratoumeno=0;
-					endiamesa[endiamesoApotelesmaIndex][endiamesaLastDigit[endiamesoApotelesmaIndex]]=(byte)temp;
-					
+					endiamesa[endiamesoApotelesmaIndex].setDigit((byte)temp);
 				}
-				System.out.println("Result Index:"+endiamesoApotelesmaIndex+"Index:"+endiamesaLastDigit[endiamesoApotelesmaIndex]);				
-				endiamesaLastDigit[endiamesoApotelesmaIndex]--;
-				telestis1Index--;
+								
+				endiamesa[endiamesoApotelesmaIndex].previousDigit();
+				telestis1.previousDigit();
 				return true;	
 			}
-			else
+			catch(IndexOutOfBoundsException oo)
 			{
-				telestis2Index--;
-				telestis1Index=telestis1.length-1;
+				telestis2.previousDigit();//Go to previous Digit
+				
+				//We set selected digit to begin pf telestis 1 until we select all digits of telestis2
+				telestis1.setSelectedDigitToBegin();
 				
 				if(kratoumeno>0)
 				{
 				 	message+="Βάζουμε το κρατούμενο στην αρχή του αποτελέσματος";
-				 	endiamesa[endiamesoApotelesmaIndex][0]=kratoumeno;
+				 	endiamesa[endiamesoApotelesmaIndex].setDigit(kratoumeno);
 				 	kratoumeno=0;
 				}
 				
-				if(telestis2Index>=0 && endiamesoApotelesmaIndex<endiamesaLastDigit.length)
+				if(telestis2.getDigitPos()>=0 && endiamesoApotelesmaIndex<endiamesa.length)
 				{
-					message+="Βάζουμε ένα 0 κάτω από το "+endiamesa[endiamesoApotelesmaIndex][endiamesa[endiamesoApotelesmaIndex].length-1];
+					message+="Βάζουμε ένα 0 κάτω από το "+endiamesa[endiamesoApotelesmaIndex].getDigit(endiamesa[endiamesoApotelesmaIndex].length()-1);
 					
 					endiamesoApotelesmaIndex++;
-					endiamesa[endiamesoApotelesmaIndex][endiamesa[endiamesoApotelesmaIndex].length-1]=(byte)0;
-					endiamesaLastDigit[endiamesoApotelesmaIndex]=endiamesa[endiamesoApotelesmaIndex].length-endiamesoApotelesmaIndex-1;
+					endiamesa[endiamesoApotelesmaIndex].setDigit((byte)0);
+					endiamesa[endiamesoApotelesmaIndex].setDigitPos(endiamesoApotelesmaIndex+1,true);//Select One digit from the end
 				}
 				return true;
 			}
 
 		}
-		else
+		catch(IndexOutOfBoundsException o)//If we have no mode digits on 
 		{
 			temp=0;
 			message="Προσθαίτουμε τα ενδιάμεσα αποτελέσματα.\n";
 			
 				for(int i=0;i<endiamesa.length;i++)
 				{
-					int temp1=(int)mergeDigits(endiamesa[i]);
+					int temp1=endiamesa[i].getValue();
 					temp+=temp1;
 				}
 				temp*=(int)Math.pow(10,apendZeros);
 			
-				result=seperateDigits(temp);
+				result=new Number(temp);
 			
 			message+="Τέλος προσομοίωσης";
 			return false;
@@ -206,40 +195,25 @@ public class MultiplicationSimulator extends AbstractSimulator
 	/**
 	*@override
 	*/
-	public String toString(boolean html)
+	public String toString()
 	{
 		String s="";
-		if(html)
-		{
+		
 			s+="<table><tr><td></td>"+getTelestis1("<td>","</td>","<td><font color=\"blue\">","</font></td>")
 							+"</tr><tr><td>"+ type+"</td>"+getTelestis2("<td>","</td>","<td><font color=\"blue\">","</font></td>")+
 							"</tr></table><hr><br><table>";
-			for(int i=0;i<=endiamesoApotelesmaIndex;i++)
-			{
-				s+="<tr>";
-				for(int j=0;j<(endiamesa.length-i);j++)
-				{
-					s+="<td>\t</td>";
-				}
-				s+=getTelestis(endiamesa[i],"<td>","</td>",endiamesaLastDigit[i],"<td><font color=\"blue\">","</font></td>");
-				s+="</tr>";
-			}
-			s+="</table><hr>"+"<table><tr><td>"+getResult()+"</td></tr></table>";
-		}
-		else
+		for(int i=0;i<=endiamesoApotelesmaIndex;i++)
 		{
-			s+=""+getTelestis1("\t","")+"\n"+ type+getTelestis2("\t","")+"\n";
-			
-			for(int i=0;i<endiamesoApotelesmaIndex;i++)
+			s+="<tr>";
+			for(int j=0;j<(endiamesa.length-i);j++)
 			{
-				for(int j=0;j<(endiamesa.length-i);j++)
-				{
-					s+="\t";
-				}
-				s+=getTelestis(endiamesa[i],"\t","")+"\n";
+				s+="<td>\t</td>";
 			}
-			s+="\n";
+			s+=endiamesa[i].toString("<td>","</td>","<td><font color=\"blue\">","</font></td>");
+			s+="</tr>";
 		}
+		s+="</table><hr>"+"<table><tr>"+getResult("<td>","</td>")+"</tr></table>";
+	
 		return s;
 	}		
 }
