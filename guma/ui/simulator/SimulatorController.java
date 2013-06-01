@@ -35,10 +35,7 @@ public class SimulatorController
 	*/
 	private SimulatorUI ui=null;
 	
-	/**
-	*Shows the type of output we want
-	*/
-	private boolean html=true;
+	
 	
 	/**
 	*Constructor Method
@@ -47,23 +44,12 @@ public class SimulatorController
 	*@param praxisType: What kind of operation we want to simulate
 	*@param html: configures it we need html output or not
 	*/
-	public SimulatorController(int telestis1,int telestis2,char praxisType,boolean html)
+	public SimulatorController(int telestis1,int telestis2,char praxisType)
 	{
 		simulator= AbstractSimulator.makeSimulator(telestis1,telestis2,praxisType);
 		ui=new SimulatorUI();
-		this.html=html;
 	}
-	/**
-	*Constructor Method
-	*@param telestis1: The first operator that we need in order to simulate the operation
-	*@param telestis2: The second operator that we need in order to simulate the operation
-	*@param praxisType: What kind of operation we want to simulate
-	*/
-	public SimulatorController(int telestis1,int telestis2,char praxisType)
-	{
-		this(telestis1,telestis2,praxisType,true);
-	}
-	
+
 	/**
 	*Does the next step on the simulator
 	*/
@@ -71,11 +57,11 @@ public class SimulatorController
 	{
 		if(simulator.next())
 		{
-			ui.update(simulator.getMessage(),simulator.getCarry(),simulator.toString(html),true);
+			ui.update(simulator.getMessage(),simulator.getCarry(),simulator.toString(),true);
 		}
 		else
 		{
-			ui.update(simulator.getMessage(),simulator.getCarry(),simulator.toString(html),false);
+			ui.update(simulator.getMessage(),simulator.getCarry(),simulator.toString(),false);
 		}
 		return ui.clone();
 	}
