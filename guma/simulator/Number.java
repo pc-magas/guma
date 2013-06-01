@@ -75,7 +75,6 @@ public class Number
 			Arrays.fill(digits,(byte)1);
 			value=mergeDigits(digits);
 		}
-		zeroEndCount();
 	}
 	
 	/**
@@ -346,4 +345,11 @@ public class Number
 		zeroSepetator=seperator;
 	}
 	
+	/**
+	*Returns the seperated digits
+	*/
+	public byte[] getSeperatedDigits()
+	{
+		return digits;
+	}
 }

@@ -130,6 +130,16 @@ public abstract class AbstractSimulator
 	}
 	
 	/**
+	*Reprsents the telestis1 as String Form
+	*@param front: The string that wioll be pun ton the front on non selected digit
+	*@param back: The string that wioll be pun ton the back on non selected digit
+	*/
+	public String getTelestis1(String front, String back)
+	{
+		return telestis1.toString(front,back,front,back);
+	}
+	
+	/**
 	*Reprsents the telestis2 as String Form
 	*@param front: The string that wioll be pun ton the front on non selected digit
 	*@param back: The string that wioll be pun ton the back on non selected digit
@@ -139,6 +149,16 @@ public abstract class AbstractSimulator
 	public String getTelestis2(String front, String back, String frontSelected, String backSelected)
 	{
 		return telestis2.toString(front,back,frontSelected, backSelected);
+	}
+	
+	/**
+	*Reprsents the telestis2 as String Form
+	*@param front: The string that wioll be pun ton the front on non selected digit
+	*@param back: The string that wioll be pun ton the back on non selected digit
+	*/
+	public String getTelestis2(String front, String back)
+	{
+		return getTelestis2(front,back);
 	}
 	
 	/**
@@ -153,7 +173,7 @@ public abstract class AbstractSimulator
 	{
 		if(result!=null)
 		{
-		 return telestis1.toString(front,back,posFront,posBack);
+		 return result.toString(front,back,posFront,posBack);
 		}
 		else
 		{
@@ -172,6 +192,13 @@ public abstract class AbstractSimulator
 		return getResult(front,back,front,back);
 	}
 	
+	/**
+	*gets the result as string without anything special on the front or the back
+	*/
+	public String getResult()
+	{
+		return getResult("","");
+	}
 	
 	/**
 	*Creates a Simulator Bazed on the praxisType is given on Praxis Type

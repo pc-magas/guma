@@ -62,8 +62,8 @@ public class DivisionSimulator extends AbstractSimulator
 		super(telestis1,telestis2);
 		
 		//Counting how many zeros have at the end each number
-		int telestis1Zeros=zeroEndCount(this.telestis1);
-		int telestis2Zeros=zeroEndCount(this.telestis2);
+		int telestis1Zeros=this.telestis1.getendZeroCount();
+		int telestis2Zeros=this.telestis2.getendZeroCount();
 		
 		//Removing the zeros from the end
 		if(telestis1Zeros>0 && telestis2Zeros>0)
@@ -71,30 +71,24 @@ public class DivisionSimulator extends AbstractSimulator
 			int min=Math.min(telestis1Zeros,telestis2Zeros);
 			message="Αρχικά ο Διαρέτης ήταν "+telestis1+" και ο διεραιτέος ήταν."+telestis2+", γι αυτό αφαιρούμε το κοινό αριθμό μηδενικών από το τέλος. ";
 			//We divide with the correct power of 10
-			telestis1/=(int)Math.pow(10,min);
-			telestis2/=(int)Math.pow(10,min);
+			this.telestis1.removeEndZero(min);
+			this.telestis2.removeEndZero(min);
 			
-			//Reseting the environment with removed the common number of zeros
-			this.telestis1= AbstractSimulator.seperateDigits(telestis1);
-			this.telestis2= AbstractSimulator.seperateDigits(telestis2);
-
 			telestis1Zeros=0;
 			telestis2Zeros=0;
 		}
 		
-		telestis2Full=telestis2;
 		
-		telestis1Index=this.telestis2.length-1;
-		telestis2Index=0;
+		this.telestis1.setDigitPos((int)(this.telestis2.length()-1));
 		
-		tempSeperated=new byte[this.telestis2.length];
+		tempSeperated=new byte[this.telestis2.length()];
 		
 		
 		//Initilizing the number that will participate into division
 		for(int i=0;i<tempSeperated.length;i++)
 		{
 			System.out.println("i val:"+i+" length:"+tempSeperated.length);
-			tempSeperated[i]=this.telestis1[i];
+			tempSeperated[i]=this.telestis1.getDigit(i);
 		}
 		message+="Κατεβάζουμε από τον διεραιτέο τόσα ψηφία όσα είναι και ο διεραιτης";
 		temp=-1;
@@ -107,11 +101,10 @@ public class DivisionSimulator extends AbstractSimulator
 	public boolean next()
 	{
 		message="";
-		int temp2=mergeDigits(tempSeperated);
+		int temp2=Number.mergeDigits(tempSeperated);
 		
 		
-
-		if(telestis1Index<telestis1.length)
+		try
 		{	
 			//If the selected digits not enough	
 			if(temp2<telestis2Full)
@@ -120,22 +113,19 @@ public class DivisionSimulator extends AbstractSimulator
 				{
 					message+="Βάζουμε 0 εις το πιλίκο.";
 					piliko.add(new Byte((byte)0));
-					if(!katevazwPsifio())
-					{
-						message+="Η πράξη τελείωσε";
-						modulo=temp2;
-						return false;
-					}
+					katevazwPsifio();
 					return true;
 				}
 				
 				message="To "+temp2+" δεν χωράει στο "+telestis2Full+". ";
-				if(katevazwPsifio())
+				try
 				{
-					message+="Γι αυτό κατεβάζουμε και το "+telestis1[telestis1Index];
+					katevazwPsifio();
+				
+					message+="Γι αυτό κατεβάζουμε και το "+telestis1.getDigit();
 					return true;
 				}
-				else
+				catch(IndexOutOfBoundsException out)
 				{
 					message+="Tέλος πράξης το "+temp2+" μένει  σαν υπόλοιπο. Και βάζουμε 0 εις το πιλίκο";
 					piliko.add(new Byte((byte)0));					
@@ -157,15 +147,16 @@ public class DivisionSimulator extends AbstractSimulator
 				
 			temp2-=numr;
 			
-			tempSeperated=seperateDigits(temp2);
+			tempSeperated=Number.seperateDigits(temp2);
 			
-			if(!katevazwPsifio())
-			{
+			katevazwPsifio();
+			
+		}
+		catch(IndexOutOfBoundsException o)
+		{
 				message="Η πράξη τελείωσε";
 				modulo=temp2;
 				return false;
-			}
-			
 		}
 		
 		return true;
@@ -174,7 +165,7 @@ public class DivisionSimulator extends AbstractSimulator
 	/**
 	*Adds an another digit to temp seperated 
 	*/
-	private boolean katevazwPsifio()
+	private void katevazwPsifio() throws IndexOutOfBoundsException
 	{
 		String s="";
 
@@ -183,26 +174,26 @@ public class DivisionSimulator extends AbstractSimulator
 			s+=tempSeperated[i];		
 		}
 
-		telestis1Index++;
 		
-		if(telestis1Index<telestis1.length)
-		{
-			s+=telestis1[telestis1Index];
-			tempSeperated=seperateDigits(Integer.valueOf(s));
+		telestis1.nextDigit();
+		
+		try
+		{	
+			s+=telestis1.getDigit();
+			tempSeperated=Number.seperateDigits(Integer.valueOf(s));
 			miscelanous.add(tempSeperated);
-			return true;
+
 		}
-		else
+		catch(IndexOutOfBoundsException e)
 		{
 			miscelanous.add(tempSeperated);
-			return false;
+			throw e;
 		}
 
 	}
 	
-	/**
-	*@overide
-	*/
+	
+	@Override
 	public String getResult(String front, String back,String posFront, String posBack)
 	{
 		String s="";
@@ -225,71 +216,50 @@ public class DivisionSimulator extends AbstractSimulator
 		return s;
 	}
 	
-	/**
-	*@overide
-	*/
+	
+	@Override
 	public String getResult(String front, String back)
 	{
 		return getResult(front,back,front,back);
 	}
 	
+	@Override
 	public String getResult()
 	{
 		return getResult("","");
 	}
 	
-	/**
-	*@override
-	*/
-	public String toString(boolean html)
+	
+	@Override
+	public String toString()
 	{
 		String s="";
 		
-		if(html)
+		//designinig a table of tables so I can have the vertical line fos shpwing the division
+		s+="<table rules=\"cols\"> <tr><td style=\"padding:0.25em; border-right:1px solid black;\"><table>"
+			+"<tr>"+getTelestis1("<td>","</td>","<td><font color=\"blue\">","</font></td>")+"</tr></td>";
+		
+		for(int i=0;i<miscelanous.size();i++)
 		{
-			//designinig a table of tables so I can have the vertical line fos shpwing the division
-			s+="<table rules=\"cols\"> <tr><td style=\"padding:0.25em; border-right:1px solid black;\"><table>"
-				+"<tr>"+getTelestis1("<td>","</td>","<td><font color=\"blue\">","</font></td>")+"</tr></td>";
+			byte[] temp=miscelanous.get(i);
 			
-			for(int i=0;i<miscelanous.size();i++)
+			if(!Arrays.equals(telestis1.getSeperatedDigits(),temp))
 			{
-				byte[] temp=miscelanous.get(i);
-				
-				if(!Arrays.equals(telestis1,temp))
-				{
-					s+="<tr>";
-					for(int j=0; j<i;j++)
-					{
-						s+="<td>\t</td>";
-					}
-					s+=getTelestis(temp,"<td>","</td>")+"</tr>";
-				}
-			}
-			s+="</table></td><td><table rules=\"rows\">"+
-				"<tr style=\"padding:0.25em; border-bottom:1px solid black;\">"+getTelestis2("<td>","</td>")
-				+"</tr><tr>"+getResult("<td>","</td>","<td><font color=\"blue\">","</font></td>")
-				+"</tr></table></td></tr></table>";
-		}
-		else
-		{
-			s+=getTelestis1("\t","\t")+"|"+getTelestis2("","")+"\n";
-			
-			for(int i=0;i<miscelanous.size();i++)
-			{
+				s+="<tr>";
 				for(int j=0; j<i;j++)
 				{
-					s+="\t";
+					s+="<td>\t</td>";
 				}
-				s+=getTelestis(miscelanous.get(i),"\t","\t")+"|";
-				
-				if(i==0)
-				{
-					s+=getResult("","");
-				}
-				s+="\n";
+				Number tamp=new Number(Number.mergeDigits(temp));
+				s+=tamp.toString("<td>","</td>","<td>","</td>")+"</tr>";
 			}
 		}
-		System.out.println("Generated Html:<br>"+s);
+		
+		s+="</table></td><td><table rules=\"rows\">"+
+			"<tr style=\"padding:0.25em; border-bottom:1px solid black;\">"+getTelestis2("<td>","</td>")
+			+"</tr><tr>"+getResult("<td>","</td>","<td><font color=\"blue\">","</font></td>")
+			+"</tr></table></td></tr></table>";
+			
 		return s;
 	}
 	
