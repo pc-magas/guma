@@ -204,16 +204,13 @@ public class Number
 	*/
 	public void setDigitPos(int pos)
 	{
-		if(pos>0)
-		{
-			selectedDigit=pos;
-		}
+		setDigitPos(pos,false);
 	}
 	
 	/**
 	*Select a digit relativlely from he end of from the begining
 	*@param: pos: How many digits we want to select
-	*@param fromTheEnd: if wewant to select from the begining or from the end
+	*@param fromTheEnd: if we want to select from the begining or from the end
 	*/
 	public void setDigitPos(int pos,boolean fromTheEnd)
 	{
@@ -228,6 +225,7 @@ public class Number
 				selectedDigit=pos;
 			}
 		}
+		System.out.println("Number length: "+this.length()+" Digit position"+selectedDigit);
 	}
 	
 	/**
@@ -263,6 +261,7 @@ public class Number
 				selectedDigit=firstEndzero;
 			}
 		}
+		System.out.println("Selected Digit:"+selectedDigit); 
 	}
 	
 	
@@ -316,13 +315,20 @@ public class Number
 	*/
 	public boolean setDigit(byte digitValue)
 	{
-		if(selectedDigit>=0 && selectedDigit<digits.length && digitValue>=0)
+		try
 		{
-			digits[selectedDigit]=digitValue;
-			value=mergeDigits(digits);
-			return true;
+			if(digitValue>=0)
+			{
+				digits[selectedDigit]=digitValue;
+				value=mergeDigits(digits);
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
-		else
+		catch(IndexOutOfBoundsException o)
 		{
 			return false;
 		}

@@ -173,7 +173,8 @@ public abstract class AbstractSimulator
 	{
 		if(result!=null)
 		{
-		 return result.toString(front,back,posFront,posBack);
+			System.out.println("Getting the result String");
+			return result.toString(front,back,posFront,posBack);
 		}
 		else
 		{

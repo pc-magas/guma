@@ -38,7 +38,8 @@ public abstract class SimpleSimulator extends guma.simulator.AbstractSimulator
 		super(telestis1,telestis2);
 		
 		int maxLength= (int)((this.telestis1.length()>this.telestis2.length())? this.telestis1.length() : this.telestis2.length());
-		result=new Number(maxLength+1,true);	
+		result=new Number(maxLength+1,true);
+		result.setSelectedDigitToEnd();	
 	}
 
 	/**

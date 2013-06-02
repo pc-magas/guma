@@ -63,33 +63,35 @@ public class MultiplicationSimulator extends AbstractSimulator
 		type=Praxis.MULTIPLICATION;
 		this.spartial=spartial;
 		
-		endiamesa=new Number[this.telestis2.length()];
-		
+		//setting the first intermediate result
+		endiamesoApotelesmaIndex=0;
 
+		int telestis2Zero=this.telestis2.getendZeroCount();
+		apendZeros+=this.telestis1.getendZeroCount()+telestis2Zero;
+		if(apendZeros>0)
+		{
+			this.telestis1.setSelectedDigitToEnd(true);
+			this.telestis1.setSeperator("(");
+				
+			this.telestis2.setSelectedDigitToEnd(true);
+			this.telestis2.setSeperator("(");
+			apendMessage=true;
+		}
+		
+		if(telestis2Zero>0)
+		{
+			endiamesa=new Number[this.telestis2.length()];
+		}
+		else
+		{
+			endiamesa=new Number[this.telestis2.length()-1];
+		}
 		//initilizing the matrix for storing the intermediate results
 		for(int i=0;i<endiamesa.length;i++)
 		{
 			endiamesa[i]=new Number(this.telestis1.length()+i+1,true);
+			endiamesa[i].setSelectedDigitToEnd();
 		}
-		
-		//setting the first intermediate result
-		endiamesoApotelesmaIndex=0;
-
-		apendZeros+=this.telestis1.getendZeroCount()+this.telestis2.getendZeroCount();
-		this.telestis1.setSelectedDigitToEnd(true);
-		this.telestis1.setSeperator("(");
-			
-		this.telestis2.setSelectedDigitToEnd(true);
-		this.telestis2.setSeperator("(");
-			
-		
-		
-		if(apendZeros>0)
-		{
-			apendMessage=true;
-		}
-		
-		
 	}
 	
 	public MultiplicationSimulator(int telestis1,int telestis2)
@@ -149,10 +151,11 @@ public class MultiplicationSimulator extends AbstractSimulator
 			}
 			catch(IndexOutOfBoundsException oo)
 			{
+				System.out.println("Exception Caught");
 				telestis2.previousDigit();//Go to previous Digit
 				
 				//We set selected digit to begin pf telestis 1 until we select all digits of telestis2
-				telestis1.setSelectedDigitToBegin();
+				telestis1.setSelectedDigitToEnd();
 				
 				if(kratoumeno>0)
 				{
@@ -167,7 +170,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 					
 					endiamesoApotelesmaIndex++;
 					endiamesa[endiamesoApotelesmaIndex].setDigit((byte)0);
-					endiamesa[endiamesoApotelesmaIndex].setDigitPos(endiamesoApotelesmaIndex+1,true);//Select One digit from the end
+					endiamesa[endiamesoApotelesmaIndex].setDigitPos(endiamesoApotelesmaIndex,true);//Select One digit from the end
 				}
 				return true;
 			}
@@ -176,6 +179,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 		catch(IndexOutOfBoundsException o)//If we have no mode digits on 
 		{
 			temp=0;
+			System.out.println("Exception Caught");
 			message="Προσθαίτουμε τα ενδιάμεσα αποτελέσματα.\n";
 			
 				for(int i=0;i<endiamesa.length;i++)
