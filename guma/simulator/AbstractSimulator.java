@@ -158,7 +158,15 @@ public abstract class AbstractSimulator
 	*/
 	public String getTelestis2(String front, String back)
 	{
-		return getTelestis2(front,back);
+		return getTelestis2(front,back,front,back);
+	}
+	
+	/**
+	*Reprsents the telestis2 as String Form
+	*/
+	public String getTelestis2()
+	{
+		return getTelestis2("","");
 	}
 	
 	/**

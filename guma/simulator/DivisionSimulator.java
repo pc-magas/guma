@@ -36,12 +36,7 @@ public class DivisionSimulator extends AbstractSimulator
 	*Stores Modulo
 	*/
 	private int modulo=0;
-	
-	/**
-	*Stores temporary the number the second operator  WITHOUT seperated digits
-	*/
-	private int telestis2Full=0;
-	
+
 	/**
 	*Stores temporaly the current number that will be divided with telestis2 
 	*/
@@ -107,7 +102,7 @@ public class DivisionSimulator extends AbstractSimulator
 		try
 		{	
 			//If the selected digits not enough	
-			if(temp2<telestis2Full)
+			if(temp2<telestis2.getValue())
 			{
 				if(temp2==0)
 				{
@@ -117,7 +112,7 @@ public class DivisionSimulator extends AbstractSimulator
 					return true;
 				}
 				
-				message="To "+temp2+" δεν χωράει στο "+telestis2Full+". ";
+				message="To "+temp2+" δεν χωράει στο "+telestis2.getValue()+". ";
 				try
 				{
 					katevazwPsifio();
@@ -135,15 +130,15 @@ public class DivisionSimulator extends AbstractSimulator
 			}
 			
 			//Finding the correct digit of the result
-			temp=temp2/telestis2Full;
-			message="Το "+temp2+" χωράει "+ temp +" φορές στο "+telestis2Full+". ";	
+			temp=temp2/telestis2.getValue();
+			message="Το "+temp2+" χωράει "+ temp +" φορές στο "+telestis2.getValue()+". ";	
 			
 			piliko.add(new Byte((byte)temp));
 			
-			int numr=telestis2Full*temp;
+			int numr=telestis2.getValue()*temp;
 				
 			message+="Αφαιρούμε το "+temp2+" με το "+numr+" (Προέκυψε από τον πολλαπλασιασμό του "+temp + " με τον διεραίτη τον "
-					+telestis2Full+ " )." ;
+					+telestis2.getValue()+ " )." ;
 				
 			temp2-=numr;
 			
