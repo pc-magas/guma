@@ -469,7 +469,8 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 	}
 
 	public void updateUI(UIStatus status)
-	{		
+	{	
+		resultField.setText("");	
 		System.out.println("Updating status:\nPraxisvalue: "+status.praxisValue+"\nRemaining:"+status.praxisRemainingDisplay);
 		praxisLabel.setText(status.praxisValue);
 		remaining.setText(status.praxisRemainingDisplay);
