@@ -46,7 +46,7 @@ public class Number
 	*Tells where is the first zero that is on the end of number.<br> Eg: For the number 100 the value will be 1 
 	*<br>and for 11000 the value will be 2 etc etc  
 	*/
-	private int firstEndzero=0;
+	private int firstEndzero=-1;
 	
 	/**
 	*Interger that tells us a digit that is marked
@@ -254,7 +254,7 @@ public class Number
 		{
 			if(beforeEndZeros && endZeroCount!=0)
 			{
-				selectedDigit=firstEndzero;
+				selectedDigit=firstEndzero-1;
 			}
 			else
 			{				
