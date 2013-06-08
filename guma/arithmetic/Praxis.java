@@ -270,18 +270,18 @@ public abstract class Praxis implements Serializable
 		switch(praxisType)
 		{
 			case Praxis.ADDING: 
-				p=new Prosthesis(maxNum+1);	
+				p=new Prosthesis(maxNum);	
 				break;
 			case Praxis.SUBSTRACTION:
-				p=new Afairesis(maxNum+1);
+				p=new Afairesis(maxNum);
 				break;
 
 			case Praxis.DIVISION:
-				p=new Diairesis(maxNum+1);
+				p=new Diairesis(maxNum);
 				break;
 
 			case Praxis.MULTIPLICATION:
-				p=new Multiplication(maxNum+1);
+				p=new Multiplication(maxNum);
 		}
 		return p;
 	}
