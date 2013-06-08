@@ -78,13 +78,13 @@ public class MultiplicationSimulator extends AbstractSimulator
 			apendMessage=true;
 		}
 		
-		if(telestis2Zero>0)
+		if(apendMessage)
 		{
-			endiamesa=new Number[this.telestis2.length()];
+			endiamesa=new Number[this.telestis2.length()-telestis2Zero];
 		}
 		else
 		{
-			endiamesa=new Number[this.telestis2.length()-1];
+			endiamesa=new Number[this.telestis2.length()];
 		}
 		//initilizing the matrix for storing the intermediate results
 		for(int i=0;i<endiamesa.length;i++)
@@ -108,6 +108,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 		message="";
 		int tempTelestis2;
 		int tempTelestis1;
+		
 		if(apendMessage)
 		{
 			message="Ανγωούμε τα 0 που έχουν στο τέλος οι αριθμοί και εκτελούμε την πράξη του πολλαπλασιαμού από τα μη μηδενικα στοιχεία";
@@ -118,10 +119,12 @@ public class MultiplicationSimulator extends AbstractSimulator
 		try
 		{
 			tempTelestis2=telestis2.getDigit();
-			
+			System.out.println("Selecting "+telestis2.getDigitPos()+" of "+telestis2.length());
 			try
 			{
+				System.out.println("Telesatis1: Selecting "+telestis1.getDigitPos()+" of "+telestis1.length());
 				tempTelestis1=telestis1.getDigit();
+				//System.out.println("Telesatis1: Selecting "+telestis1.getDigitPos()+" of "+telestis1.length());
 				message="Πολλαπλασιάζουμε τα ψηφία "+tempTelestis1+"*"+tempTelestis2;
 				temp=tempTelestis1*tempTelestis2;
 				message+=" και ο πολαπλασιαμός έχει αποτέλεσμα: "+temp;
@@ -147,15 +150,20 @@ public class MultiplicationSimulator extends AbstractSimulator
 								
 				endiamesa[endiamesoApotelesmaIndex].previousDigit();
 				telestis1.previousDigit();
-				return true;	
+				
+				if(telestis2.getDigitPos()==0)
+				{
+					System.out.println("Έκανε πράξεις");
+				}
 			}
 			catch(IndexOutOfBoundsException oo)
 			{
 				System.out.println("Exception Caught");
+				
 				telestis2.previousDigit();//Go to previous Digit
 				
 				//We set selected digit to begin pf telestis 1 until we select all digits of telestis2
-				telestis1.setSelectedDigitToEnd();
+				telestis1.setSelectedDigitToEnd(true);
 				
 				if(kratoumeno>0)
 				{
@@ -164,7 +172,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 				 	kratoumeno=0;
 				}
 				
-				if(telestis2.getDigitPos()>=0 && endiamesoApotelesmaIndex<endiamesa.length)
+				if( telestis2.getDigitPos()>=0 && endiamesoApotelesmaIndex<endiamesa.length)
 				{
 					message+="Βάζουμε ένα 0 κάτω από το "+endiamesa[endiamesoApotelesmaIndex].getDigit(endiamesa[endiamesoApotelesmaIndex].length()-1);
 					
@@ -172,14 +180,13 @@ public class MultiplicationSimulator extends AbstractSimulator
 					endiamesa[endiamesoApotelesmaIndex].setDigit((byte)0);
 					endiamesa[endiamesoApotelesmaIndex].setDigitPos(endiamesoApotelesmaIndex,true);//Select One digit from the end
 				}
-				return true;
 			}
-
+			return true;
 		}
 		catch(IndexOutOfBoundsException o)//If we have no mode digits on 
 		{
 			temp=0;
-			System.out.println("Exception Caught");
+			System.out.println("Exception telestis1: Selecting "+telestis1.getDigitPos()+" of "+telestis1.length());
 			message="Προσθαίτουμε τα ενδιάμεσα αποτελέσματα.\n";
 			
 				for(int i=0;i<endiamesa.length;i++)
@@ -201,23 +208,29 @@ public class MultiplicationSimulator extends AbstractSimulator
 	*/
 	public String toString()
 	{
-		String s="";
+		
+			String s="";
 		
 			s+="<table><tr><td></td>"+getTelestis1("<td>","</td>","<td><font color=\"blue\">","</font></td>")
 							+"</tr><tr><td>"+ type+"</td>"+getTelestis2("<td>","</td>","<td><font color=\"blue\">","</font></td>")+
 							"</tr></table><hr><br><table>";
-		for(int i=0;i<=endiamesoApotelesmaIndex;i++)
-		{
-			s+="<tr>";
-			for(int j=0;j<(endiamesa.length-i);j++)
+			System.out.println("Endiameso apotelesma Index: "+endiamesoApotelesmaIndex+" endiamesa.length: "+endiamesa.length);
+			
+			for(int i=0;i<=endiamesoApotelesmaIndex;i++)
 			{
-				s+="<td>\t</td>";
+				s+="<tr>";
+				
+				for(int j=0;j<(endiamesa.length-i);j++)
+				{
+					s+="<td>\t</td>";
+				}
+
+				s+=endiamesa[i].toString("<td>","</td>","<td><font color=\"blue\">","</font></td>");
+				s+="</tr>";
+
 			}
-			s+=endiamesa[i].toString("<td>","</td>","<td><font color=\"blue\">","</font></td>");
-			s+="</tr>";
-		}
-		s+="</table><hr>"+"<table><tr>"+getResult("<td>","</td>")+"</tr></table>";
-	
-		return s;
+			s+="</table><hr>"+"<table><tr>"+getResult("<td>","</td>")+"</tr></table>";
+			return s;
+
 	}		
 }

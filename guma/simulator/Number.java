@@ -129,29 +129,29 @@ public class Number
 	*/
 	public String toString(String front, String back, String posFront, String posBack)
 	{
-		String s="";
-		String n="";
-		for(int i=0;i<digits.length;i++)
-		{
-			if(i==firstEndzero)
+			String s="";
+			String n="";
+			for(int i=0;i<digits.length;i++)
 			{
-				n=""+zeroSepetator+digits[i];
+				if(i==firstEndzero)
+				{
+					n=""+zeroSepetator+digits[i];
+				}
+				else
+				{
+					n=""+digits[i];
+				}
+				
+				if(i==selectedDigit)
+				{
+					s+=posFront+n+posBack;
+				}
+				else
+				{
+					s+=front+n+back;
+				}
 			}
-			else
-			{
-				n=""+digits[i];
-			}
-			
-			if(i==selectedDigit)
-			{
-				s+=posFront+n+posBack;
-			}
-			else
-			{
-				s+=front+n+back;
-			}
-		}
-		return s;
+			return s;
 	}
 	
 	/**
@@ -246,22 +246,21 @@ public class Number
 	
 	/**
 	*Resets a the digit count
-	*@param 
+	*@param before end zeros: if the number ends with zero digit thet it sets to the last digit that is not non zero 
 	*/
 	public void setSelectedDigitToEnd(boolean beforeEndZeros)
 	{
 		if(digits!=null)
 		{
-			if(!beforeEndZeros)
-			{
-				selectedDigit=digits.length-1;
-			}
-			else
+			if(beforeEndZeros && endZeroCount!=0)
 			{
 				selectedDigit=firstEndzero;
 			}
+			else
+			{				
+				selectedDigit=digits.length-1;
+			}
 		}
-		System.out.println("Selected Digit:"+selectedDigit); 
 	}
 	
 	
