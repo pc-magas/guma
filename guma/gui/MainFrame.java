@@ -37,7 +37,7 @@ import javax.swing.filechooser.*;
 *The Basic Frame of the Game
 *@author pc_magas
 */
-public class MainFrame extends JFrame implements ActionListener,UIUpdater
+public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyListener
 {
 	/**
 	*The Basic menu Bar that it is on the top of the game window
@@ -373,6 +373,9 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 		close.addActionListener(this);
 		saveAs.addActionListener(this);
 		about.addActionListener(this);
+		
+		/*Ading Key LIsteners*/
+		resultField.addKeyListener(this);
 
 		/*Disabling Buttons and options*/
 		nextPraxisButton.setEnabled(false);
@@ -468,6 +471,10 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 		
 	}
 
+	/**
+	*Updates the Gui from a given UIStatus
+	*/
+	@Override
 	public void updateUI(UIStatus status)
 	{	
 		resultField.setText("");	
@@ -477,5 +484,40 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater
 		nextPraxisButton.setEnabled(status.next);
 		saveAs.setEnabled(status.saveAs);
 		saveGameOption.setEnabled(status.save);
+	}
+	
+	@Override
+	public void keyTyped(KeyEvent e) 
+	{
+	}
+	
+	@Override
+	public void keyPressed(KeyEvent e) 
+	{
+	}
+	
+	@Override
+	public void keyReleased(KeyEvent e) 
+	{
+		if ((int)e.getKeyChar()==10)
+		{
+			String s=resultField.getText();
+			if(controller.gameStarted() && !s.isEmpty())
+			{
+				try
+				{
+					UIStatus current=controller.takeResult(Integer.parseInt(s));
+					updateUI(controller.getUIStatus());
+				}	
+				catch(NumberFormatException nfe)//Not a number
+				{
+					JOptionPane.showMessageDialog((Component)resultField,
+									"Δεν δώσατε αριθμιτική τιμή στο αποτέλεσμα.\n"+
+									"Πρέπει να δώσετε αριθμιτική τιμή στο αποτέλεσμα",
+									"Προσπάθησε ξανα",
+									JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		}
 	}
 }
