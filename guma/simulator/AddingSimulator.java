@@ -36,10 +36,8 @@ public class AddingSimulator extends SimpleSimulator
 		type=Praxis.ADDING;
 	}
 
-	/**
-	*@override
-	*/	
-	public boolean next()
+	@Override	
+	public boolean doPraxis()
 	{
 			byte tempTelestis1;
 			byte tempTelestis2;
@@ -70,36 +68,42 @@ public class AddingSimulator extends SimpleSimulator
 					message+="Το κρατούμενο που περίσεψε το βάζω στο αποτέλεσμα.\n";
 					result.setDigit(kratoumeno);
 					kratoumeno=0;
+					addStatus(message);
 					return true;
 				}
 				message+="Τέλος προσομοίωσης";
+				addStatus(message,true);
 				return false;
 			}
 			else
 			{
 				if(kratoumeno==0)//If carry
 				{
-					message+="Προσθέτουμε τα ψηφία. Άν το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
+					message="Προσθέτουμε τα ψηφία. Άν το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
 					temp=tempTelestis1+tempTelestis2;
+					addStatus(message);
 				}
 				else
 				{
 					System.out.println("Adding with carry");
-					message+="Προσθέτουμε τα ψηφία μαζί με το κρατούμενο.\n Άν το άθροισμα των ψηφίων είναι διψήφιος κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
+					message="Προσθέτουμε τα ψηφία μαζί με το κρατούμενο.\n Άν το άθροισμα των ψηφίων είναι διψήφιος κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
 					temp=kratoumeno+tempTelestis1+tempTelestis2;
 					kratoumeno=0;
+					addStatus(message);
 				}
 				
 				if(temp>=10)//if need to take a carry
 				{
-					message+="Το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο";
+					message="Το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο";
 					kratoumeno=1;
 					result.setDigit((byte)(temp-10));
+					addStatus(message);
 				}
 				else
 				{
-					message+="Βάζουμε το άθροισμα των ψηφίων στο αποτέλεσμα";
+					message="Βάζουμε το άθροισμα των ψηφίων στο αποτέλεσμα";
 					result.setDigit((byte)temp);
+					addStatus(message);
 				}
 				result.previousDigit();
 				telestis1.previousDigit();

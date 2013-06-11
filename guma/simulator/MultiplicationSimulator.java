@@ -81,6 +81,8 @@ public class MultiplicationSimulator extends AbstractSimulator
 		if(apendMessage)
 		{
 			endiamesa=new Number[this.telestis2.length()-telestis2Zero];
+			message="Ανγωούμε τα 0 που έχουν στο τέλος οι αριθμοί και εκτελούμε την πράξη του πολλαπλασιαμού από τα μη μηδενικα στοιχεία";
+			addStatus(message);
 		}
 		else
 		{
@@ -103,18 +105,13 @@ public class MultiplicationSimulator extends AbstractSimulator
 	*This Method does the next step of an arithmetic praxis Simulation
 	*Returns true if it has next step to do
 	*/	
-	public boolean next()
+	public boolean doPraxis()
 	{
 		message="";
 		int tempTelestis2;
 		int tempTelestis1;
 		
-		if(apendMessage)
-		{
-			message="Ανγωούμε τα 0 που έχουν στο τέλος οι αριθμοί και εκτελούμε την πράξη του πολλαπλασιαμού από τα μη μηδενικα στοιχεία";
-			apendMessage=false;
-			return true;
-		}
+		
 		
 		try
 		{
@@ -128,19 +125,23 @@ public class MultiplicationSimulator extends AbstractSimulator
 				message="Πολλαπλασιάζουμε τα ψηφία "+tempTelestis1+"*"+tempTelestis2;
 				temp=tempTelestis1*tempTelestis2;
 				message+=" και ο πολαπλασιαμός έχει αποτέλεσμα: "+temp;
+				addStatus(message);
+				
 				if(kratoumeno!=0)
 				{
-					message+="\n Επειδή από την προηγούμενη πράξη έχουμε κρατούμενο το προσθέτουμε στο αποτέλεσμα. ";	
+					message="Επειδή από την προηγούμενη πράξη έχουμε κρατούμενο το προσθέτουμε στο αποτέλεσμα. ";	
 					temp+=kratoumeno;
+					addStatus(message);
 				}
 
 				byte tempM[]=Number.seperateDigits((int)temp);
 				
 				if(tempM.length>1)
 				{
-					message+="\n Η πράξη μας είχε διψήφιο αποτέλεσμα άρα το πρώτο ψηφίο το κρατάμε κρατούμενο. ";
+					message="Η πράξη μας είχε διψήφιο αποτέλεσμα άρα το πρώτο ψηφίο το κρατάμε κρατούμενο. ";
 					kratoumeno=tempM[0];
 					endiamesa[endiamesoApotelesmaIndex].setDigit(tempM[tempM.length-1]);
+					addStatus(message);
 				}
 				else
 				{
@@ -167,9 +168,10 @@ public class MultiplicationSimulator extends AbstractSimulator
 				
 				if(kratoumeno>0)
 				{
-				 	message+="Βάζουμε το κρατούμενο στην αρχή του αποτελέσματος";
+				 	message="Βάζουμε το κρατούμενο στην αρχή του αποτελέσματος";
 				 	endiamesa[endiamesoApotelesmaIndex].setDigit(kratoumeno);
 				 	kratoumeno=0;
+				 	addStatus(message);
 				}
 				
 				if( telestis2.getDigitPos()>=0 && endiamesoApotelesmaIndex<endiamesa.length)
@@ -179,6 +181,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 					endiamesoApotelesmaIndex++;
 					endiamesa[endiamesoApotelesmaIndex].setDigit((byte)0);
 					endiamesa[endiamesoApotelesmaIndex].setDigitPos(endiamesoApotelesmaIndex,true);//Select One digit from the end
+					addStatus(message);
 				}
 			}
 			return true;
@@ -197,15 +200,17 @@ public class MultiplicationSimulator extends AbstractSimulator
 				temp*=(int)Math.pow(10,apendZeros);
 			
 				result=new Number(temp);
+			addStatus(message);
 			
-			message+="Τέλος προσομοίωσης";
+			message="Τέλος προσομοίωσης";
+			addStatus(message,false);
+			
 			return false;
 		}
 	}
 	
-	/**
-	*@override
-	*/
+	
+	@Override
 	public String toString()
 	{
 		
@@ -232,5 +237,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 			s+="</table><hr>"+"<table><tr>"+getResult("<td>","</td>")+"</tr></table>";
 			return s;
 
-	}		
+	}
+	
+			
 }

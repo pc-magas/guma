@@ -22,8 +22,10 @@ package guma.simulator;
 import java.util.*;
 import guma.arithmetic.Praxis;
 import guma.simulator.Number;
+import java.util.ArrayList;
+import guma.simulator.InternalStatus;
 
-public abstract class AbstractSimulator
+public abstract class AbstractSimulator implements  Runnable
 {
 	/**
 	*The first number with seperated Digits that we will simulate the arithmetic operation
@@ -61,7 +63,25 @@ public abstract class AbstractSimulator
 	*/
 	protected char type;
 	
-
+	/**
+	*Linked list of Internal Status
+	*/
+	protected ArrayList<InternalStatus> status= new ArrayList<InternalStatus>();
+	
+	/**
+	*Thread that allows us do arithmetic operations
+	*/
+	protected Thread t=null;
+	
+	/**
+	*Tells us if the simulation ended
+	*/
+	private boolean ended=false;
+	
+	/**
+	*Gives us the selected item of the list
+	*/
+	protected int item=0;
 	
 	/**
 	*Constructor Method
@@ -74,7 +94,8 @@ public abstract class AbstractSimulator
 		this.telestis2=new Number(telestis2);
 		this.telestis1.setSelectedDigitToEnd();
 		this.telestis2.setSelectedDigitToEnd();
-		temp=0;	
+		temp=0;
+		addStatus("");
 	}
 	
 	/**
@@ -253,16 +274,57 @@ public abstract class AbstractSimulator
 		
 		return a;
 	}
+	
+	@Override
+	public void run()
+	{
+		while(doPraxis()){}
+		ended=true;
+	}
 
+	/**
+	*Gets the next step of the operation
+	*/
+	public InternalStatus next()
+	{
+		//If simulation not ended and
+		if((t==null || !t.isAlive())&& !ended)
+		{
+			t=new Thread(this);
+		}
+		
+		InternalStatus status_=status.get(item);
+		item++;
+		
+		return status_;
+	}
+	
+	/**
+	*Adds a status to the simulator
+	*/
+	protected void addStatus(String message,boolean finalStatus)
+	{
+		status.add(new InternalStatus(this.toString(),message,finalStatus));
+	}
+	
+	/**
+	*Adds a  non final status to the simulator
+	*/
+	protected void addStatus(String message)
+	{
+		addStatus(message,false);
+	}
+	
 	/**
 	*This Method does the next step of an arithmetic praxis Simulation
 	*Returns true if it has next step to do
 	*/
-	public abstract boolean next();
+	public abstract boolean doPraxis();
 
 	/**
-	*This method shows tas String the operation of simulator
-	*@param: html: Shows if the utput will be html or not
+	*This method shows as String the operation of simulator by using html
 	*/
 	public abstract String toString();
+	
+	
 }

@@ -54,7 +54,7 @@ public class SubstractionSimulator extends SimpleSimulator
 	*This Method does the next step of an arithmetic praxis Simulation
 	*Returns true if it has next step to do
 	*/
-	public boolean next()
+	public boolean doPraxis()
 	{
 		boolean returnVal;
 		message="";
@@ -63,6 +63,7 @@ public class SubstractionSimulator extends SimpleSimulator
 		{
 			message="H πράξη αυτή δεν μπορεί να γίνει.";
 			returnVal=false;
+			addStatus(message);
 		}
 		else
 		{		
@@ -85,12 +86,13 @@ public class SubstractionSimulator extends SimpleSimulator
 					tempTelestis2+=kratoumeno;
 					message+=tempTelestis2+"\n";
 					kratoumeno=0;
+					addStatus(message);
 				}
 				
 				if(tempTelestis1<tempTelestis2)
 				{
 
-					message+="To "+tempTelestis1+" είναι μικρότερο από το "+tempTelestis2+". Θα χρειαστούμε ένα δανεικό που θα μπεί μπορστά από το "+tempTelestis1+" έτσι το "+tempTelestis1+"θα γίνει 1"+tempTelestis1+". Μετά εκτελούμε την πράξη μεταξύ των ψηφίων 1"+tempTelestis1+"-"+tempTelestis2;
+					message="To "+tempTelestis1+" είναι μικρότερο από το "+tempTelestis2+". Θα χρειαστούμε ένα δανεικό που θα μπεί μπορστά από το "+tempTelestis1+" έτσι το "+tempTelestis1+"θα γίνει 1"+tempTelestis1+". Μετά εκτελούμε την πράξη μεταξύ των ψηφίων 1"+tempTelestis1+"-"+tempTelestis2;
 					
 					result.setDigit((byte)((10+tempTelestis1)-tempTelestis2));
 					
@@ -98,13 +100,14 @@ public class SubstractionSimulator extends SimpleSimulator
 					reduceIndex();
 					
 					returnVal=true;
-					
+					addStatus(message);
 				}
 				else
 				{
 					message="Κάνουμε την αφαίρεση των ψηφίων ";
 					result.setDigit((byte)(tempTelestis1-tempTelestis2));
 					reduceIndex();
+					addStatus(message);
 				}
 				returnVal=true;
 			}
@@ -112,6 +115,7 @@ public class SubstractionSimulator extends SimpleSimulator
 			{
 				message="H πράξη τελείωσε";
 				returnVal=false;
+				addStatus(message,true);
 			}
 		}
 		return returnVal;
