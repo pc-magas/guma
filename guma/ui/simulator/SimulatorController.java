@@ -60,11 +60,12 @@ public class SimulatorController
 			guma.simulator.InternalStatus s=simulator.next();
 			
 				System.out.println("Message "+ s.getMessage());
-				ui.update(s.getMessage(),s.getCarry(),s.getStatusValue(),true);
+				
+				ui.update(s.getMessage(),s.getCarry(),s.getStatusValue(),!s.isFinal());
 		}
 		catch(NullPointerException e)
 		{
-			ui.update("Τέλος Προσομοίωσης",0,"",false);
+			return null;
 
 		}
 		
