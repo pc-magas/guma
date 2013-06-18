@@ -128,7 +128,7 @@ public class SimulatorGui extends JFrame implements ActionListener,UpdateSimulat
 	*/
 	public void updateUI(SimulatorUI u)
 	{
-		System.out.println("Updating UI");
+		System.out.println("Updating UI\n Message"+u.getMessage());
 		next.setEnabled(u.getNext());
 		message.setText("<html><body><center>"+u.getMessage()+"</center></body></html>");
 		carry.setText("<html><body><center>"+u.getCarryList()+"</center></body></html>");

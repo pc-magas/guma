@@ -71,7 +71,7 @@ public class DivisionSimulator extends AbstractSimulator
 			
 			telestis1Zeros=0;
 			telestis2Zeros=0;
-			addStatus(message);
+			addStatus();
 		}
 		
 		
@@ -88,7 +88,7 @@ public class DivisionSimulator extends AbstractSimulator
 		}
 		message+="Κατεβάζουμε από τον διεραιτέο τόσα ψηφία όσα είναι και ο διεραιτης";
 		temp=-1;
-		addStatus(message);
+		addStatus();
 	}
 
 	/**
@@ -115,20 +115,20 @@ public class DivisionSimulator extends AbstractSimulator
 				}
 				
 				message="To "+temp2+" δεν χωράει στο "+telestis2.getValue()+". ";
-				addStatus(message);
+				addStatus();
 				try
 				{
 					katevazwPsifio();
 				
 					message="Γι αυτό κατεβάζουμε και το "+telestis1.getDigit();
-					addStatus(message);
+					addStatus();
 					return true;
 				}
 				catch(IndexOutOfBoundsException out)
 				{
 					message+="Tέλος πράξης το "+temp2+" μένει  σαν υπόλοιπο. Και βάζουμε 0 εις το πιλίκο";
 					piliko.add(new Byte((byte)0));
-					addStatus(message,true);				
+					addStatus(true);				
 					return false;
 				}
 				
@@ -141,7 +141,7 @@ public class DivisionSimulator extends AbstractSimulator
 			piliko.add(new Byte((byte)temp));
 			
 			int numr=telestis2.getValue()*temp;
-			addStatus(message);
+			addStatus();
 				
 			message="Αφαιρούμε το "+temp2+" με το "+numr+" (Προέκυψε από τον πολλαπλασιασμό του "+temp + " με τον διεραίτη τον "
 					+telestis2.getValue()+ " )." ;
@@ -151,13 +151,13 @@ public class DivisionSimulator extends AbstractSimulator
 			tempSeperated=Number.seperateDigits(temp2);
 			
 			katevazwPsifio();
-			addStatus(message);
+			addStatus();
 		}
 		catch(IndexOutOfBoundsException o)
 		{
 				message="Η πράξη τελείωσε";
 				modulo=temp2;
-				addStatus(message,true);
+				addStatus(true);
 				return false;
 		}
 		

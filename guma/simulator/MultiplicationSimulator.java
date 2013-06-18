@@ -82,7 +82,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 		{
 			endiamesa=new Number[this.telestis2.length()-telestis2Zero];
 			message="Ανγωούμε τα 0 που έχουν στο τέλος οι αριθμοί και εκτελούμε την πράξη του πολλαπλασιαμού από τα μη μηδενικα στοιχεία";
-			addStatus(message);
+			addStatus();
 		}
 		else
 		{
@@ -125,13 +125,13 @@ public class MultiplicationSimulator extends AbstractSimulator
 				message="Πολλαπλασιάζουμε τα ψηφία "+tempTelestis1+"*"+tempTelestis2;
 				temp=tempTelestis1*tempTelestis2;
 				message+=" και ο πολαπλασιαμός έχει αποτέλεσμα: "+temp;
-				addStatus(message);
+				addStatus();
 				
 				if(kratoumeno!=0)
 				{
 					message="Επειδή από την προηγούμενη πράξη έχουμε κρατούμενο το προσθέτουμε στο αποτέλεσμα. ";	
 					temp+=kratoumeno;
-					addStatus(message);
+					addStatus();
 				}
 
 				byte tempM[]=Number.seperateDigits((int)temp);
@@ -141,7 +141,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 					message="Η πράξη μας είχε διψήφιο αποτέλεσμα άρα το πρώτο ψηφίο το κρατάμε κρατούμενο. ";
 					kratoumeno=tempM[0];
 					endiamesa[endiamesoApotelesmaIndex].setDigit(tempM[tempM.length-1]);
-					addStatus(message);
+					addStatus();
 				}
 				else
 				{
@@ -171,7 +171,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 				 	message="Βάζουμε το κρατούμενο στην αρχή του αποτελέσματος";
 				 	endiamesa[endiamesoApotelesmaIndex].setDigit(kratoumeno);
 				 	kratoumeno=0;
-				 	addStatus(message);
+				 	addStatus();
 				}
 				
 				if( telestis2.getDigitPos()>=0 && endiamesoApotelesmaIndex<endiamesa.length)
@@ -181,7 +181,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 					endiamesoApotelesmaIndex++;
 					endiamesa[endiamesoApotelesmaIndex].setDigit((byte)0);
 					endiamesa[endiamesoApotelesmaIndex].setDigitPos(endiamesoApotelesmaIndex,true);//Select One digit from the end
-					addStatus(message);
+					addStatus();
 				}
 			}
 			return true;
@@ -200,10 +200,10 @@ public class MultiplicationSimulator extends AbstractSimulator
 				temp*=(int)Math.pow(10,apendZeros);
 			
 				result=new Number(temp);
-			addStatus(message);
+			addStatus();
 			
 			message="Τέλος προσομοίωσης";
-			addStatus(message,false);
+			addStatus(true);
 			
 			return false;
 		}

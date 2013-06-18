@@ -63,7 +63,7 @@ public class SubstractionSimulator extends SimpleSimulator
 		{
 			message="H πράξη αυτή δεν μπορεί να γίνει.";
 			returnVal=false;
-			addStatus(message);
+			addStatus();
 		}
 		else
 		{		
@@ -86,7 +86,7 @@ public class SubstractionSimulator extends SimpleSimulator
 					tempTelestis2+=kratoumeno;
 					message+=tempTelestis2+"\n";
 					kratoumeno=0;
-					addStatus(message);
+					addStatus();
 				}
 				
 				if(tempTelestis1<tempTelestis2)
@@ -100,14 +100,14 @@ public class SubstractionSimulator extends SimpleSimulator
 					reduceIndex();
 					
 					returnVal=true;
-					addStatus(message);
+					addStatus();
 				}
 				else
 				{
 					message="Κάνουμε την αφαίρεση των ψηφίων ";
 					result.setDigit((byte)(tempTelestis1-tempTelestis2));
 					reduceIndex();
-					addStatus(message);
+					addStatus();
 				}
 				returnVal=true;
 			}
@@ -115,7 +115,7 @@ public class SubstractionSimulator extends SimpleSimulator
 			{
 				message="H πράξη τελείωσε";
 				returnVal=false;
-				addStatus(message,true);
+				addStatus(true);
 			}
 		}
 		return returnVal;

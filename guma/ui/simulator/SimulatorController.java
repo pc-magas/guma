@@ -55,14 +55,19 @@ public class SimulatorController
 	*/
 	public SimulatorUI next()
 	{
-		if(simulator.next())
+		try
 		{
-			ui.update(simulator.getMessage(),simulator.getCarry(),simulator.toString(),true);
+			guma.simulator.InternalStatus s=simulator.next();
+			
+				System.out.println("Message "+ s.getMessage());
+				ui.update(s.getMessage(),s.getCarry(),s.getStatusValue(),true);
 		}
-		else
+		catch(NullPointerException e)
 		{
-			ui.update(simulator.getMessage(),simulator.getCarry(),simulator.toString(),false);
+			ui.update("Τέλος Προσομοίωσης",0,"",false);
+
 		}
+		
 		return ui.clone();
 	}
 	

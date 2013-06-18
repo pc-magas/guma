@@ -32,31 +32,51 @@ public class InternalStatus
 	private String status="";
 	
 	/**
-	*Stores the message of the curremt status
+	*Stores the message of the current status
 	*/
 	private String message="";
+	
+	/**
+	*Stores the carry of the operation
+	*/
+	private int carry=0;
 	
 	/**
 	*Creates a Internal Status
 	*@param: status: the status value
 	*@param: message: the message of the current status
+	*@param: carry: stores the carry of the operation
 	*@param: finalStatus: tells if the status if final or not
 	*/
-	public InternalStatus(String status,String message,boolean finalStatus)
+	public InternalStatus(String status,String message,int carry,boolean finalStatus)
 	{
 		this.status=status;
 		this.finalStatus=finalStatus;
+		this.carry=carry;
+		this.message=message;
 	}
 	
 	/**
 	*Creates a non final Status
 	*@param: status: the status value
 	*@param: message: the message of the current status
+	*@param: carry: stores the carry of the operation
+	*/
+	public InternalStatus(String status,String message,int carry)
+	{
+		this(status,message,carry,false);
+	}
+	
+	/**
+	*Creates a non final Status with zero carry
+	*@param: status: the status value
+	*@param: message: the message of the current status
 	*/
 	public InternalStatus(String status,String message)
 	{
-		this(status,message,false);
+		this(status,message,0,false);
 	}
+	
 	
 	/**
 	*Returns the status value
@@ -82,5 +102,12 @@ public class InternalStatus
 	{
 		return message;
 	}
-
+	
+	/**
+	*Returns the carry value
+	*/
+	public int getCarry()
+	{
+		return carry;
+	}
 }

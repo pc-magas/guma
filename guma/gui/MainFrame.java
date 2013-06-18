@@ -286,7 +286,7 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 			/*Creating the Dialog window*/
 			 int option=JOptionPane.showOptionDialog(MainFrame.this,
 								"H πρόοδος δεν έχει αποθηκευτεί. \n"
-								+"Τι να κάνω;",
+								+"Τι θέλετε να κανω πριν να κλείσει το πρόγραμμα;",
 								"Κλείσιμο",
 								JOptionPane.YES_NO_CANCEL_OPTION,
 								    JOptionPane.QUESTION_MESSAGE,

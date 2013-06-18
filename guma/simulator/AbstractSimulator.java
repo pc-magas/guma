@@ -25,7 +25,7 @@ import guma.simulator.Number;
 import java.util.ArrayList;
 import guma.simulator.InternalStatus;
 
-public abstract class AbstractSimulator implements  Runnable
+public abstract class AbstractSimulator 
 {
 	/**
 	*The first number with seperated Digits that we will simulate the arithmetic operation
@@ -67,12 +67,7 @@ public abstract class AbstractSimulator implements  Runnable
 	*Linked list of Internal Status
 	*/
 	protected ArrayList<InternalStatus> status= new ArrayList<InternalStatus>();
-	
-	/**
-	*Thread that allows us do arithmetic operations
-	*/
-	protected Thread t=null;
-	
+
 	/**
 	*Tells us if the simulation ended
 	*/
@@ -95,7 +90,7 @@ public abstract class AbstractSimulator implements  Runnable
 		this.telestis1.setSelectedDigitToEnd();
 		this.telestis2.setSelectedDigitToEnd();
 		temp=0;
-		addStatus("");
+		addStatus();
 	}
 	
 	/**
@@ -211,7 +206,7 @@ public abstract class AbstractSimulator implements  Runnable
 		}
 	}
 	
-		/**
+	/**
 	*Returns the first operator
 	*@param front:  The sting you want to be be th the front of a digit
 	*@param back: The string you want to be at the back of a digit
@@ -275,44 +270,49 @@ public abstract class AbstractSimulator implements  Runnable
 		return a;
 	}
 	
-	@Override
-	public void run()
-	{
-		while(doPraxis()){}
-		ended=true;
-	}
+	
 
 	/**
 	*Gets the next step of the operation
 	*/
 	public InternalStatus next()
 	{
-		//If simulation not ended and
-		if((t==null || !t.isAlive())&& !ended)
+		try
 		{
-			t=new Thread(this);
+			//If simulation not ended and
+			if(!ended)
+			{
+				System.out.println("Starting Thread");
+				while(doPraxis()){}
+				ended=true;
+			}
+		
+			InternalStatus status_=status.get(item);
+			item++;
+		
+			return status_;
 		}
-		
-		InternalStatus status_=status.get(item);
-		item++;
-		
-		return status_;
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 	
 	/**
 	*Adds a status to the simulator
 	*/
-	protected void addStatus(String message,boolean finalStatus)
+	protected void addStatus(boolean finalStatus)
 	{
-		status.add(new InternalStatus(this.toString(),message,finalStatus));
+		System.out.println("Adding Status");
+		status.add(new InternalStatus(this.toString(),this.getMessage(),this.getCarry(),finalStatus));
 	}
 	
 	/**
 	*Adds a  non final status to the simulator
 	*/
-	protected void addStatus(String message)
+	protected void addStatus()
 	{
-		addStatus(message,false);
+		addStatus(false);
 	}
 	
 	/**

@@ -87,6 +87,7 @@ public class SimulatorUI
 	*/
 	public SimulatorUI(String message, String carryList, String operation,boolean next)
 	{
+		System.out.println("UI Message: "+message);
 		setMessage(message);
 		setCarryList(carryList);
 		setOperation(operation);

@@ -26,6 +26,11 @@ public class AddingSimulator extends SimpleSimulator
 {
 
 	/**
+	*Variable that tells what type of operation simulates
+	*/
+	protected char type=Praxis.ADDING;
+	
+	/**
 	*Constructor Method
 	*@param telestis1: the first operator of the number that we will simulate the first operation
 	*@param telestis2: the second operator of the number that we will simulate the first operation
@@ -33,7 +38,6 @@ public class AddingSimulator extends SimpleSimulator
 	public AddingSimulator(int telestis1,int telestis2)
 	{
 		super(telestis1,telestis2);
-		type=Praxis.ADDING;
 	}
 
 	@Override	
@@ -65,14 +69,14 @@ public class AddingSimulator extends SimpleSimulator
 			{
 				if(kratoumeno!=0)//if carry remained
 				{
-					message+="Το κρατούμενο που περίσεψε το βάζω στο αποτέλεσμα.\n";
+					message="Το κρατούμενο που περίσεψε το βάζω στο αποτέλεσμα.\n";
 					result.setDigit(kratoumeno);
 					kratoumeno=0;
-					addStatus(message);
+					addStatus();
 					return true;
 				}
-				message+="Τέλος προσομοίωσης";
-				addStatus(message,true);
+				message="Τέλος προσομοίωσης";
+				addStatus(true);
 				return false;
 			}
 			else
@@ -81,7 +85,7 @@ public class AddingSimulator extends SimpleSimulator
 				{
 					message="Προσθέτουμε τα ψηφία. Άν το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
 					temp=tempTelestis1+tempTelestis2;
-					addStatus(message);
+					addStatus();
 				}
 				else
 				{
@@ -89,7 +93,7 @@ public class AddingSimulator extends SimpleSimulator
 					message="Προσθέτουμε τα ψηφία μαζί με το κρατούμενο.\n Άν το άθροισμα των ψηφίων είναι διψήφιος κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
 					temp=kratoumeno+tempTelestis1+tempTelestis2;
 					kratoumeno=0;
-					addStatus(message);
+					addStatus();
 				}
 				
 				if(temp>=10)//if need to take a carry
@@ -97,13 +101,13 @@ public class AddingSimulator extends SimpleSimulator
 					message="Το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο";
 					kratoumeno=1;
 					result.setDigit((byte)(temp-10));
-					addStatus(message);
+					addStatus();
 				}
 				else
 				{
 					message="Βάζουμε το άθροισμα των ψηφίων στο αποτέλεσμα";
 					result.setDigit((byte)temp);
-					addStatus(message);
+					addStatus();
 				}
 				result.previousDigit();
 				telestis1.previousDigit();
