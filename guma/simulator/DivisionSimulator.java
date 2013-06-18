@@ -204,16 +204,23 @@ public class DivisionSimulator extends AbstractSimulator
 		posFront=(posFront!=null)?posFront:"";
 		posBack=(posBack!=null)?posBack:"";
 		int i=0;
-		for(Byte b:piliko)
+		if(piliko!=null)
 		{
-			if(i==(piliko.size()-1))
+			for(Byte b:piliko)
 			{
-				s+=posFront+b.toString()+posBack;
+				if(i==(piliko.size()-1))
+				{
+					s+=posFront+b.toString()+posBack;
+				}
+				else
+				{
+					s+=front+b.toString()+back;
+				}
 			}
-			else
-			{
-				s+=front+b.toString()+back;
-			}
+		}
+		else
+		{
+			s="";
 		}
 		return s;
 	}
@@ -241,7 +248,8 @@ public class DivisionSimulator extends AbstractSimulator
 		s+="<table rules=\"cols\"> <tr><td style=\"padding:0.25em; border-right:1px solid black;\"><table>"
 			+"<tr>"+getTelestis1("<td>","</td>","<td><font color=\"blue\">","</font></td>")+"</tr></td>";
 		
-		for(int i=0;i<miscelanous.size();i++)
+		
+		for(int i=0;miscelanous!=null && i<miscelanous.size()  ;i++)
 		{
 			byte[] temp=miscelanous.get(i);
 			

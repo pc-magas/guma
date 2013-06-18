@@ -218,23 +218,26 @@ public class MultiplicationSimulator extends AbstractSimulator
 		
 			s+="<table><tr><td></td>"+getTelestis1("<td>","</td>","<td><font color=\"blue\">","</font></td>")
 							+"</tr><tr><td>"+ type+"</td>"+getTelestis2("<td>","</td>","<td><font color=\"blue\">","</font></td>")+
-							"</tr></table><hr><br><table>";
-			System.out.println("Endiameso apotelesma Index: "+endiamesoApotelesmaIndex+" endiamesa.length: "+endiamesa.length);
+							"</tr></table><hr><br>";
 			
-			for(int i=0;i<=endiamesoApotelesmaIndex;i++)
+			if(endiamesa!=null)
 			{
-				s+="<tr>";
-				
-				for(int j=0;j<(endiamesa.length-i);j++)
+				s+="<table>";
+				for(int i=0;i<=endiamesoApotelesmaIndex;i++)
 				{
-					s+="<td>\t</td>";
+					s+="<tr>";
+				
+					for(int j=0;j<(endiamesa.length-i);j++)
+					{
+						s+="<td>\t</td>";
+					}
+
+					s+=endiamesa[i].toString("<td>","</td>","<td><font color=\"blue\">","</font></td>");
+					s+="</tr>";
+
 				}
-
-				s+=endiamesa[i].toString("<td>","</td>","<td><font color=\"blue\">","</font></td>");
-				s+="</tr>";
-
+				s+="</table><hr>"+"<table><tr>"+getResult("<td>","</td>")+"</tr></table>";
 			}
-			s+="</table><hr>"+"<table><tr>"+getResult("<td>","</td>")+"</tr></table>";
 			return s;
 
 	}
