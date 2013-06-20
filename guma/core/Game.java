@@ -175,7 +175,7 @@ public class Game
 		else
 		{
 			System.out.println("Game OVER");
-			throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+score+'/'+p.length);
+			throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+calculateScore()+'/'+p.length);
 		}
 		
 		saved=false;
@@ -206,7 +206,7 @@ public class Game
 		else
 		{
 			
-			throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+(float)((float)score/3)+'/'+p.length);
+			throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+calculateScore()+'/'+p.length);
 
 		}
 		return s;
@@ -253,7 +253,7 @@ public class Game
 		}
 		else
 		{
-			throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+(float)((float)score/3)+'/'+p.length);
+			throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+calculateScore()+'/'+p.length);
 
 		}
 	}
@@ -433,5 +433,13 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 	public boolean isSaved()
 	{
 		return saved;
+	}
+	
+	/**
+	*Calculates the score and brings out the current score with perfect to be the 10
+	*/
+	private float calculateScore()
+	{
+		return (float)Math.round((double)((float)score/3));
 	}
 }
