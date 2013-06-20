@@ -189,18 +189,21 @@ public class MultiplicationSimulator extends AbstractSimulator
 		catch(IndexOutOfBoundsException o)//If we have no mode digits on 
 		{
 			temp=0;
-			System.out.println("Exception telestis1: Selecting "+telestis1.getDigitPos()+" of "+telestis1.length());
-			message="Προσθαίτουμε τα ενδιάμεσα αποτελέσματα.\n";
-			
+
+			if(endiamesa.length>1)
+			{
+				message="Προσθαίτουμε τα ενδιάμεσα αποτελέσματα.\n";
+					
 				for(int i=0;i<endiamesa.length;i++)
 				{
 					int temp1=endiamesa[i].getValue();
 					temp+=temp1;
 				}
 				temp*=(int)Math.pow(10,apendZeros);
-			
+				
 				result=new Number(temp);
-			addStatus();
+				addStatus();
+			}
 			
 			message="Τέλος προσομοίωσης";
 			addStatus(true);
@@ -220,7 +223,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 							+"</tr><tr><td>"+ type+"</td>"+getTelestis2("<td>","</td>","<td><font color=\"blue\">","</font></td>")+
 							"</tr></table><hr><br>";
 			
-			if(endiamesa!=null)
+			try
 			{
 				s+="<table>";
 				for(int i=0;i<=endiamesoApotelesmaIndex;i++)
@@ -236,7 +239,15 @@ public class MultiplicationSimulator extends AbstractSimulator
 					s+="</tr>";
 
 				}
-				s+="</table><hr>"+"<table><tr>"+getResult("<td>","</td>")+"</tr></table>";
+				s+="</table>";
+				if(endiamesa.length>1)
+				{
+					s+="<hr>"+"<table><tr>"+getResult("<td>","</td>")+"</tr></table>";
+				}
+			}
+			catch(NullPointerException e)
+			{
+				return s;
 			}
 			return s;
 
