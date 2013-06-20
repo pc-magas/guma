@@ -1,5 +1,11 @@
 Here are the changes of guma between versions:
 
+Version 1.7 beta5
+*)Changes to Simulator:
+	*)More steps to simulation
+	*)On Multiplication Simulator with the second operans as single digited shows only one result
+*)Changes to result calculation System: More round number for result.
+
 Version 1.7 beta4
 *)Download from web feature
 *)Save game before creating new
