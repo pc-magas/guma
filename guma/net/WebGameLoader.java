@@ -63,27 +63,7 @@ public class WebGameLoader
 		
 		String[] allowed={"text/plain","text/xml","application/xml","application/octet-stream"};
 		
-		d= new Downloader(url,path,allowed,size);
-
-		do
-		{
-			System.out.println("Inside Thread loop");
-
-			status=d.getStatus();
-			if(!status.equalsIgnoreCase("Error"))
-			{
-				//System.out.println("OK");
-				percent = d.getPercent();
-			}
-			else
-			{
-				load=false;
-				//System.err.println("Error");
-				break;
-
-			}
-		}while(!status.equalsIgnoreCase(Downloader.ERROR) && !status.equalsIgnoreCase(Downloader.FINISHED) );
-		load=true;
+		d= new Downloader(url,path,allowed,size,false);
 	}
 	
 	
@@ -101,6 +81,7 @@ public class WebGameLoader
 	*/
 	public guma.core.Game getGame() throws IOException,ClassNotFoundException
 	{
+		download();
 		if(load)
 		{	
 			System.out.println("Can load the Game");
@@ -160,5 +141,30 @@ public class WebGameLoader
 	public Downloader getDownloader()
 	{
 		return d;
+	}
+	
+	/**
+	*Downloads the file
+	*/
+	public void download()
+	{
+		d.download();
+		do
+		{
+			status=d.getStatus();
+			if(!status.equalsIgnoreCase("Error"))
+			{
+				//System.out.println("OK");
+				percent = d.getPercent();
+			}
+			else
+			{
+				load=false;
+				//System.err.println("Error");
+				break;
+
+			}
+		}while(!status.equalsIgnoreCase(Downloader.ERROR) && !status.equalsIgnoreCase(Downloader.FINISHED) );
+		load=true;
 	}
 }

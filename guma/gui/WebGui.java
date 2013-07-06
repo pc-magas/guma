@@ -185,7 +185,8 @@ public class WebGui extends JPanel implements ActionListener
 				{
 					sizev=(long)Float.parseFloat(sizes)*1024;
 				}
-
+				
+				
 				WebGameLoader w=new WebGameLoader(url,sizev);
 				gameToCreate=w.getGame();
 			}
