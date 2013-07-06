@@ -23,7 +23,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 import guma.core.Game;
-import guma.gui.SwingWebLoader;
+import guma.net.WebGameLoader;
 
 public class WebGui extends JPanel implements ActionListener
 {
@@ -185,7 +185,8 @@ public class WebGui extends JPanel implements ActionListener
 				{
 					sizev=(long)Float.parseFloat(sizes)*1024;
 				}
-				SwingWebLoader w=new SwingWebLoader(url,sizev);
+
+				WebGameLoader w=new WebGameLoader(url,sizev);
 				gameToCreate=w.getGame();
 			}
 			catch(java.io.IOException x)
