@@ -24,7 +24,7 @@ import java.util.Date;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class WebGameLoader
+public class WebGameLoader
 {
 	
 	/**
@@ -65,7 +65,6 @@ public abstract class WebGameLoader
 		
 		d= new Downloader(url,path,allowed,size);
 
-		Object progressObject=initProgress();
 		do
 		{
 			System.out.println("Inside Thread loop");
@@ -75,7 +74,6 @@ public abstract class WebGameLoader
 			{
 				//System.out.println("OK");
 				percent = d.getPercent();
-				updateProgress(progressObject,percent);
 			}
 			else
 			{
@@ -155,15 +153,5 @@ public abstract class WebGameLoader
 	{
 		return percent;
 	}
-	
-	/**
-	*Initializes the progressBar Viewer
-	*/
-	protected abstract Object initProgress();
-	
-	/**
-	*Updates the progressbar
-	*/
-	protected abstract void updateProgress(Object o,float progress);
-	
+
 }
