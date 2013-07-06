@@ -82,7 +82,7 @@ public class WebGameLoader
 				break;
 
 			}
-		}while(!status.equalsIgnoreCase("Error") && !status.equalsIgnoreCase("Finished") );
+		}while(!status.equalsIgnoreCase(Downloader.ERROR) && !status.equalsIgnoreCase(Downloader.FINISHED) );
 		load=true;
 	}
 	
@@ -154,4 +154,11 @@ public class WebGameLoader
 		return percent;
 	}
 
+	/**
+	*Returns The Downloader
+	*/
+	public Downloader getDownloader()
+	{
+		return d;
+	}
 }
