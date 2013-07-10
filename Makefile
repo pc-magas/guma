@@ -2,7 +2,7 @@ VERSION=1.7-beta-5
 SOURCE=guma
 CLASSFOLDER=./libs
 JAR1=${CLASSFOLDER}/commons-io-2.4/commons-io-2.4.jar
-JAR2=${CLASSFOLDER}/net/download-1.0.jar
+JAR2=${CLASSFOLDER}/net/download-1.0.1.jar
 CLASSPATH= ${JAR1}:${JAR2}:.
 
 guma: core simulator gui net ${SOURCE}/Main.java
@@ -39,9 +39,7 @@ clean-unessesery:
 	rm -fr guma/*~ && rm -fr guma/*/*~ && rm -fr guma/*/*/*~
 
 javadoc:
-	mkdir -p javadoc/guma && javadoc guma/* && mv ./*.html javadoc && mv guma/*.html javadoc/guma && mv *.css javadoc
-
-build: jar clean
-
+	./javadoc.sh
+	
 tar: build run.bat run.sh Licence.txt CHANGES.TXT
 	tar -cvzf guma-${VERSION}.tar.gz guma-${VERSION}.jar run.sh run.bat Licence.txt CHANGES.TXT libs
