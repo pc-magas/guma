@@ -23,9 +23,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.event.*;
 import guma.core.Game;
-import guma.gui.SwingWebLoader;
+import guma.net.WebGameLoader;
 
-public class WebGui extends JPanel implements ActionListener
+public class WebGui extends JPanel implements ActionListener,Runnable
 {
 	
 	/**
@@ -68,6 +68,16 @@ public class WebGui extends JPanel implements ActionListener
 	*/
 	private JMenuItem cοpy=new JMenuItem("Αντιγραφή");
 	
+	/**
+	*Returns stores the created Game
+	**/
+	private Game gameToCreate=null;
+	
+	/**
+	*Method that does all the dirty job to download the file
+	**/
+	WebGameLoader w=null;
+
 	/**
 	*Consructor Method Initialises a new WebGui
 	*/
@@ -165,7 +175,7 @@ public class WebGui extends JPanel implements ActionListener
 	{
 	
 		String[] options={"OK","Ακύρωση"};
-		Game gameToCreate=null;
+		gameToCreate=null;
 		
 			
 		int returnVal=JOptionPane.showOptionDialog(null,this,"Κατέβασμα παιχνιδιού από το web",
@@ -185,8 +195,23 @@ public class WebGui extends JPanel implements ActionListener
 				{
 					sizev=(long)Float.parseFloat(sizes)*1024;
 				}
-				SwingWebLoader w=new SwingWebLoader(url,sizev);
+				Thread t = new Thread(new Runnable()
+				  						{
+       										 public void run()
+       										 {
+            									JOptionPane.showMessageDialog(null,"Παρακαλώ Περιμένετε",
+            																	"Παρακαλώ Περιμένετε",
+            																JOptionPane.PLAIN_MESSAGE);
+            									while(true){}
+        									}
+    									});
+  				t.start();
+
+
+				w=new WebGameLoader(url,sizev);
 				gameToCreate=w.getGame();
+				JOptionPane.getRootFrame().dispose();
+				t.stop();
 			}
 			catch(java.io.IOException x)
 			{
@@ -212,5 +237,10 @@ public class WebGui extends JPanel implements ActionListener
 		}
 		System.out.println("Before Return");
 		return gameToCreate;
+	}
+	
+	public void run()
+	{
+		
 	}
 }

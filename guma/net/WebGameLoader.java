@@ -24,7 +24,8 @@ import java.util.Date;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class WebGameLoader
+
+public class WebGameLoader
 {
 	
 	/**
@@ -63,29 +64,7 @@ public abstract class WebGameLoader
 		
 		String[] allowed={"text/plain","text/xml","application/xml","application/octet-stream"};
 		
-		d= new Downloader(url,path,allowed,size);
-
-		Object progressObject=initProgress();
-		do
-		{
-			System.out.println("Inside Thread loop");
-
-			status=d.getStatus();
-			if(!status.equalsIgnoreCase("Error"))
-			{
-				//System.out.println("OK");
-				percent = d.getPercent();
-				updateProgress(progressObject,percent);
-			}
-			else
-			{
-				load=false;
-				//System.err.println("Error");
-				break;
-
-			}
-		}while(!status.equalsIgnoreCase("Error") && !status.equalsIgnoreCase("Finished") );
-		load=true;
+		d= new Downloader(url,path,allowed,size,false);
 	}
 	
 	
@@ -103,6 +82,7 @@ public abstract class WebGameLoader
 	*/
 	public guma.core.Game getGame() throws IOException,ClassNotFoundException
 	{
+		download();
 		if(load)
 		{	
 			System.out.println("Can load the Game");
@@ -155,15 +135,39 @@ public abstract class WebGameLoader
 	{
 		return percent;
 	}
+
+	/**
+	*Returns The Downloader
+	*/
+	public Downloader getDownloader()
+	{
+		return d;
+	}
 	
 	/**
-	*Initializes the progressBar Viewer
+	*Downloads the file
 	*/
-	protected abstract Object initProgress();
-	
-	/**
-	*Updates the progressbar
-	*/
-	protected abstract void updateProgress(Object o,float progress);
-	
+	public void download()
+	{
+
+		d.download();
+		do
+		{
+			status=d.getStatus();
+			if(!status.equalsIgnoreCase("Error"))
+			{
+				//System.out.println("OK");
+				percent = d.getPercent();
+			}
+			else
+			{
+				load=false;
+				//System.err.println("Error");
+				break;
+
+			}
+		}while(!status.equalsIgnoreCase(Downloader.ERROR) && !status.equalsIgnoreCase(Downloader.FINISHED) );
+		load=true;
+
+	}
 }

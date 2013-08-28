@@ -432,6 +432,7 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 		{
 			if(askSaveQuestion())
 			{
+				resetUI();
 				controller.loadFromWeb();
 				updateUI(controller.getUIStatus());
 			}
@@ -519,5 +520,10 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 				}
 			}
 		}
+	}
+	
+	private void resetUI()
+	{
+		updateUI(new UIStatus());
 	}
 }
