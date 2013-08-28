@@ -42,4 +42,4 @@ javadoc:
 	./javadoc.sh
 	
 tar: jar run.bat run.sh Licence.txt CHANGES.TXT
-	tar -cvzf guma-${VERSION}.tar.gz guma-${VERSION}.jar run.sh run.bat Licence.txt CHANGES.TXT libs
+	tar -cvzf guma-${VERSION}.tar.gz guma-${VERSION}.jar run.sh run.bat Licence.txt CHANGES.TXT libs && make clean
