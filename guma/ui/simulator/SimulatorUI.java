@@ -29,7 +29,7 @@ public class SimulatorUI
 	/**
 	*Shows the list of caries during an arithmetic operation
 	*/
-	private String carryList="/t";
+	private String carryList="";
 	
 	/**
 	*Stores the operation as String
