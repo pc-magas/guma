@@ -41,5 +41,5 @@ clean-unessesery:
 javadoc:
 	./javadoc.sh
 	
-tar: build run.bat run.sh Licence.txt CHANGES.TXT
+tar: jar run.bat run.sh Licence.txt CHANGES.TXT
 	tar -cvzf guma-${VERSION}.tar.gz guma-${VERSION}.jar run.sh run.bat Licence.txt CHANGES.TXT libs
