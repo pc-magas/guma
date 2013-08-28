@@ -75,9 +75,9 @@ public abstract class GameController
 
 		int resultsNum=paixnidi.getResultsNum();
 		System.out.println("Results Should be taken "+resultsNum);
+
 		int results[]=new int[resultsNum];
 
-		System.out.println("Results to be taken= "+results.length);
 		if(paixnidi!=null && results!=null)
 		{
 			try

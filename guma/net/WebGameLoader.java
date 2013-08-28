@@ -24,6 +24,7 @@ import java.util.Date;
 import java.io.File;
 import java.io.IOException;
 
+
 public class WebGameLoader
 {
 	
@@ -148,6 +149,7 @@ public class WebGameLoader
 	*/
 	public void download()
 	{
+
 		d.download();
 		do
 		{
@@ -166,5 +168,6 @@ public class WebGameLoader
 			}
 		}while(!status.equalsIgnoreCase(Downloader.ERROR) && !status.equalsIgnoreCase(Downloader.FINISHED) );
 		load=true;
+
 	}
 }
