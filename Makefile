@@ -1,4 +1,4 @@
-VERSION=1.7-beta-5
+VERSION=1.7-beta-6
 SOURCE=guma
 CLASSFOLDER=./libs
 JAR1=${CLASSFOLDER}/commons-io-2.4/commons-io-2.4.jar
