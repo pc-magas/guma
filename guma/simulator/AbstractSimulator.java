@@ -287,7 +287,7 @@ public abstract class AbstractSimulator
 				ended=true;
 			}
 			
-			System.out.println("Getting Item: "+item);
+			//System.out.println("Getting Item: "+item);
 			InternalStatus status_=status.get(item);
 			item++;
 		
