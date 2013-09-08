@@ -210,7 +210,7 @@ public class SimulatorUI
 		setNext(next);
 		
 		//Debug Output
-		System.out.println("Updated Status: \nmessage="+this.message+", carryList="+this.carryList+", operation="+this.operation);
+		//System.out.println("Updated Status: \nmessage="+this.message+", carryList="+this.carryList+", operation="+this.operation);
 	}
 	
 	/**
