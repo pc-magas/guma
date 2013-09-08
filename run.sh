@@ -25,4 +25,4 @@ while [ -h "$PRG" ] ; do
       PRG="`dirname $PRG`/$link"
   fi
 done
-java  -Xbootclasspath/a:./libs/commons-io-2.4/commons-io-2.4.jar:./libs/net/download-1.0.1.jar:. -jar `dirname $PRG`/guma-1.7-beta-5.jar "$@"
+java  -Xbootclasspath/a:./libs/commons-io-2.4/commons-io-2.4.jar:./libs/net/download-1.0.1.jar:. -jar `dirname $PRG`/guma-1.7-beta-6.jar "$@"

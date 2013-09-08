@@ -43,6 +43,17 @@ public abstract class SimpleSimulator extends guma.simulator.AbstractSimulator
 	}
 
 	/**
+	*Constructor Method
+	*@param telestis1: the first operator of the number that we will simulate the first operation
+	*@param telestis2: the second operator of the number that we will simulate the first operation
+	*@param type: the type or praxis we simulate
+	*/
+	public SimpleSimulator(int telestis1, int telestis2,char type)
+	{
+		this(telestis1,telestis2);
+		this.type=type;
+	}
+	/**
 	*@override
 	*/
 	public String toString()

@@ -282,7 +282,6 @@ public abstract class AbstractSimulator
 			//If simulation not ended and
 			if(!ended)
 			{
-				System.out.println("Starting Thread");
 				while(doPraxis()){}
 				ended=true;
 			}

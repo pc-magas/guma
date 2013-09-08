@@ -37,7 +37,7 @@ public class AddingSimulator extends SimpleSimulator
 	*/
 	public AddingSimulator(int telestis1,int telestis2)
 	{
-		super(telestis1,telestis2);
+		super(telestis1,telestis2,Praxis.ADDING);
 	}
 
 	@Override	
