@@ -1,7 +1,12 @@
 Here are the changes of guma between versions:
 
-Version 1.7 beta 6
-*)Popupwin with wait message during downloading.
+Versiom 1.7 rc:
+	*)Fixes on Showing the operation Symbol to simulator
+	*)Fixes on Division simulator when 2 operands have zerosn on the end
+	*)Fixes on Division Simulator when a number ends with zero
+
+Version 1.7 beta 6:
+	*)Popup win with wait message during downloading.
 
 Version 1.7 beta5
 	*)Changes to Simulator:
