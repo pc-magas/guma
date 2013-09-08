@@ -214,7 +214,7 @@ public class Number
 	*/
 	public void setDigitPos(int pos,boolean fromTheEnd)
 	{
-		if(pos>0)
+		if(pos>=0)
 		{
 			if(fromTheEnd)
 			{
@@ -225,7 +225,7 @@ public class Number
 				selectedDigit=pos;
 			}
 		}
-		System.out.println("Number length: "+this.length()+" Digit position"+selectedDigit);
+		System.out.println("SELECTED POSITION"+pos+"Number length: "+this.length()+" Digit position"+selectedDigit);
 	}
 	
 	/**
@@ -285,6 +285,14 @@ public class Number
 	}
 	
 	/**
+	*Returns the Last digit
+	*/
+	public int getLastDigit()
+	{
+		return getDigit(length()-1);
+	}
+	
+	/**
 	*Select next digit
 	*/
 	public void nextDigit()
@@ -340,7 +348,7 @@ public class Number
 	{
 		return digits.length;
 	}
-	
+		
 	/**
 	*Sets the sepetator String that seperates the  ending zeros from the rest of the number
 	*@param: seperator: the string that seperate the number from the ending zeros

@@ -59,8 +59,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 	*/
 	public MultiplicationSimulator(int telestis1,int telestis2, boolean spartial)
 	{
-		super(telestis1,telestis2);
-		type=Praxis.MULTIPLICATION;
+		super(telestis1,telestis2,Praxis.MULTIPLICATION);
 		this.spartial=spartial;
 		
 		//setting the first intermediate result
@@ -101,10 +100,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 		this(telestis1,telestis2,false);
 	}
 
-	/**
-	*This Method does the next step of an arithmetic praxis Simulation
-	*Returns true if it has next step to do
-	*/	
+	@Override
 	public boolean doPraxis()
 	{
 		message="";

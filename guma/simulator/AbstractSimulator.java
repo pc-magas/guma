@@ -83,10 +83,11 @@ public abstract class AbstractSimulator
 	*@param telestis1: the first operator of the number that we will simulate the first operation
 	*@param telestis2: the second operator of the number that we will simulate the first operation
 	*/
-	public AbstractSimulator(int telestis1, int telestis2)
+	public AbstractSimulator(int telestis1, int telestis2,char type)
 	{
 		this.telestis1=new Number(telestis1);
 		this.telestis2=new Number(telestis2);
+		this.type=type;
 		this.telestis1.setSelectedDigitToEnd();
 		this.telestis2.setSelectedDigitToEnd();
 		temp=0;
@@ -282,11 +283,11 @@ public abstract class AbstractSimulator
 			//If simulation not ended and
 			if(!ended)
 			{
-				System.out.println("Starting Thread");
 				while(doPraxis()){}
 				ended=true;
 			}
-		
+			
+			//System.out.println("Getting Item: "+item);
 			InternalStatus status_=status.get(item);
 			item++;
 		
@@ -294,6 +295,7 @@ public abstract class AbstractSimulator
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 			return null;
 		}
 	}

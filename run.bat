@@ -1,4 +1,4 @@
 @echo off
-java -Xbootclasspath/a:.\libs\commons-io-2.4\commons-io-2.4.jar;.\libs\net\download-1.0.jar;. -jar guma-1.7-beta-5.jar %1 %2 %3 %4 %5 %6 %7 %8
+java -Xbootclasspath/a:.\libs\commons-io-2.4\commons-io-2.4.jar;.\libs\net\download-1.0.jar;. -jar guma-1.7-rc.jar %1 %2 %3 %4 %5 %6 %7 %8
 
 if errorlevel 1 pause

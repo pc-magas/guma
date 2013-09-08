@@ -54,6 +54,8 @@ public class InternalStatus
 		this.finalStatus=finalStatus;
 		this.carry=carry;
 		this.message=message;
+		
+		//System.out.println("Viewing Internal Status:\nStatus="+this.status+", Message="+this.message+", Carry="+this.carry);
 	}
 	
 	/**

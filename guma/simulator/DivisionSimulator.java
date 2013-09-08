@@ -22,6 +22,7 @@ package guma.simulator;
 import guma.simulator.AbstractSimulator;
 import java.util.ArrayList;
 import java.util.Arrays;
+import guma.arithmetic.Praxis;
 
 public class DivisionSimulator extends AbstractSimulator
 {
@@ -42,10 +43,10 @@ public class DivisionSimulator extends AbstractSimulator
 	*/
 	private byte[] tempSeperated=null;
 	
-	/*
+	/**
 	*Stores miscelanous info (such as intermediate values from the division)
 	*/
-	ArrayList<byte[]> miscelanous=new ArrayList<byte[]>();
+	private ArrayList<byte[]> miscelanous=new ArrayList<byte[]>();
 	
 	/**
 	*Constructor Method
@@ -54,7 +55,7 @@ public class DivisionSimulator extends AbstractSimulator
 	*/
 	public DivisionSimulator(int telestis1,int telestis2)
 	{
-		super(telestis1,telestis2);
+		super(telestis1,telestis2,Praxis.DIVISION);
 		
 		//Counting how many zeros have at the end each number
 		int telestis1Zeros=this.telestis1.getendZeroCount();
@@ -66,50 +67,63 @@ public class DivisionSimulator extends AbstractSimulator
 			int min=Math.min(telestis1Zeros,telestis2Zeros);
 			message="Αρχικά ο Διαρέτης ήταν "+telestis1+" και ο διεραιτέος ήταν."+telestis2+", γι αυτό αφαιρούμε το κοινό αριθμό μηδενικών από το τέλος. ";
 			//We divide with the correct power of 10
-			this.telestis1.removeEndZero(min);
-			this.telestis2.removeEndZero(min);
+			this.telestis1=this.telestis1.removeEndZero(min);
+			this.telestis2=this.telestis2.removeEndZero(min);
 			
 			telestis1Zeros=0;
 			telestis2Zeros=0;
 			addStatus();
+			
+			
 		}
-		
 		
 		this.telestis1.setDigitPos((int)(this.telestis2.length()-1));
 		
+		System.out.println("DIVISION  Telestis 1 Selected Digit= "+this.telestis1.getDigitPos());
+		System.out.println("DIVISION  Telestis 2 Length= "+this.telestis2.length());
+			
 		tempSeperated=new byte[this.telestis2.length()];
-		
 		
 		//Initilizing the number that will participate into division
 		for(int i=0;i<tempSeperated.length;i++)
 		{
-			System.out.println("i val:"+i+" length:"+tempSeperated.length);
+			//System.out.println("i val:"+i+" length:"+tempSeperated.length);
 			tempSeperated[i]=this.telestis1.getDigit(i);
 		}
-		message+="Κατεβάζουμε από τον διεραιτέο τόσα ψηφία όσα είναι και ο διεραιτης";
+		
+		/*System.out.println("++++++++++++++++++++++++PRINTING TEMP SEPERATED+++++++++++++++++++++++");
+		for(int i=0;i<tempSeperated.length;i++)
+		{
+			System.out.print(tempSeperated[i]);
+		}
+		
+		System.out.println("\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");*/
+		
+		message="Κατεβάζουμε από τον διεραιτέο τόσα ψηφία όσα είναι και ο διεραιτης";
 		temp=-1;
 		addStatus();
 	}
 
-	/**
-	*This Method does the next step of an arithmetic praxis Simulation
-	*Returns true if it has next step to do
-	*/	
+	@Override
 	public boolean doPraxis()
 	{
 		message="";
 		int temp2=Number.mergeDigits(tempSeperated);
 		
-		
+		System.out.println("Selected Digit= "+this.telestis1.getDigitPos()+"\n Temp2="+temp2);
 		try
 		{	
+			
 			//If the selected digits not enough	
 			if(temp2<telestis2.getValue())
-			{
+			{	
+				System.out.println("ΜΠΗΚΑ===");
 				if(temp2==0)
 				{
-					message+="Βάζουμε 0 εις το πιλίκο.";
+					System.out.println("=======Κάτι=======");
+					message="Βάζουμε 0 εις το πιλίκο.";
 					piliko.add(new Byte((byte)0));
+					addStatus();
 					katevazwPsifio();
 					return true;
 				}
@@ -119,7 +133,6 @@ public class DivisionSimulator extends AbstractSimulator
 				try
 				{
 					katevazwPsifio();
-				
 					message="Γι αυτό κατεβάζουμε και το "+telestis1.getDigit();
 					addStatus();
 					return true;
@@ -142,23 +155,32 @@ public class DivisionSimulator extends AbstractSimulator
 			
 			int numr=telestis2.getValue()*temp;
 			addStatus();
-				
+
 			message="Αφαιρούμε το "+temp2+" με το "+numr+" (Προέκυψε από τον πολλαπλασιασμό του "+temp + " με τον διεραίτη τον "
 					+telestis2.getValue()+ " )." ;
 				
 			temp2-=numr;
-			
 			tempSeperated=Number.seperateDigits(temp2);
+			addStatus();
 			
 			katevazwPsifio();
-			addStatus();
+
 		}
 		catch(IndexOutOfBoundsException o)
-		{
-				message="Η πράξη τελείωσε";
-				modulo=temp2;
-				addStatus(true);
-				return false;
+		{	
+			System.out.println("END");
+
+			/*if(temp2==0 && telestis1.getLastDigit()==0)
+			{
+				message="Βάζουμε 0 εις το πιλίκο.";
+				piliko.add(new Byte((byte)0));
+				addStatus();
+			}*/
+			
+			modulo=temp2;
+			message="Η πράξη τελείωσε";
+			addStatus(true);
+			return false;
 		}
 		
 		return true;

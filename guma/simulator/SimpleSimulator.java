@@ -27,24 +27,21 @@ import java.util.*;
 public abstract class SimpleSimulator extends guma.simulator.AbstractSimulator
 {
 
-	
 	/**
 	*Constructor Method
 	*@param telestis1: the first operator of the number that we will simulate the first operation
 	*@param telestis2: the second operator of the number that we will simulate the first operation
+	*@param type: the type or praxis we simulate
 	*/
-	public SimpleSimulator(int telestis1, int telestis2)
+	public SimpleSimulator(int telestis1, int telestis2,char type)
 	{
-		super(telestis1,telestis2);
-		
-		int maxLength= (int)((this.telestis1.length()>this.telestis2.length())? this.telestis1.length() : this.telestis2.length());
-		result=new Number(maxLength+1,true);
-		result.setSelectedDigitToEnd();	
+		super(telestis1,telestis2,type);
+		this.result=new guma.simulator.Number((Math.max(this.telestis1.length(),this.telestis2.length())+1),true);
+		result.setSelectedDigitToEnd();
 	}
-
-	/**
-	*@override
-	*/
+	
+	
+	@Override
 	public String toString()
 	{
 		String s="";
