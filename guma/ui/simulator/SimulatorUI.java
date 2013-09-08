@@ -75,6 +75,7 @@ public class SimulatorUI
 	*/
 	public SimulatorUI()
 	{
+		System.out.println("Ui made");
 	}
 	
 	
@@ -207,6 +208,9 @@ public class SimulatorUI
 		setCarryList(carry);
 		setOperation(operation);
 		setNext(next);
+		
+		//Debug Output
+		System.out.println("Updated Status: \nmessage="+this.message+", carryList="+this.carryList+", operation="+this.operation);
 	}
 	
 	/**

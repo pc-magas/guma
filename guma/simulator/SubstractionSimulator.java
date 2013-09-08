@@ -38,8 +38,8 @@ public class SubstractionSimulator extends SimpleSimulator
 	*/
 	public SubstractionSimulator(int telestis1,int telestis2)
 	{
-		super(telestis1,telestis2);
-		type=Praxis.SUBSTRACTION;
+		super(telestis1,telestis2,Praxis.SUBSTRACTION);
+		
 		if(telestis1>telestis2)
 		{
 			canOperate=true;
@@ -50,10 +50,7 @@ public class SubstractionSimulator extends SimpleSimulator
 		}
 	}
 
-	/**
-	*This Method does the next step of an arithmetic praxis Simulation
-	*Returns true if it has next step to do
-	*/
+	@Override
 	public boolean doPraxis()
 	{
 		boolean returnVal;

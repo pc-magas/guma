@@ -55,21 +55,20 @@ public class SimulatorController
 	*/
 	public SimulatorUI next()
 	{
+		System.out.println("Next Called");//Debug Output
 		try
 		{
 			guma.simulator.InternalStatus s=simulator.next();
-			
-				System.out.println("Message "+ s.getMessage());
-				
-				ui.update(s.getMessage(),s.getCarry(),s.getStatusValue(),!s.isFinal());
+			System.out.println("Message "+ s.getMessage());
+			ui.update(s.getMessage(),s.getCarry(),s.getStatusValue(),!s.isFinal());
 		}
 		catch(NullPointerException e)
 		{
+			e.printStackTrace();
 			return null;
-
 		}
 		
-		return ui.clone();
+		return getSimulatorUI();
 	}
 	
 	/**

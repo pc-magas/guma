@@ -24,11 +24,6 @@ import guma.arithmetic.Praxis;
 
 public class AddingSimulator extends SimpleSimulator
 {
-
-	/**
-	*Variable that tells what type of operation simulates
-	*/
-	protected char type=Praxis.ADDING;
 	
 	/**
 	*Constructor Method
@@ -46,7 +41,7 @@ public class AddingSimulator extends SimpleSimulator
 			byte tempTelestis1;
 			byte tempTelestis2;
 			message="";
-			
+				
 			try
 			{
 				tempTelestis1=(byte)telestis1.getDigit();
@@ -114,7 +109,7 @@ public class AddingSimulator extends SimpleSimulator
 				telestis2.previousDigit();
 				temp=-1;
 				return true;
-			}
+			}	
 	}
 		
 }

@@ -22,6 +22,7 @@ package guma.simulator;
 import guma.simulator.AbstractSimulator;
 import java.util.ArrayList;
 import java.util.Arrays;
+import guma.arithmetic.Praxis;
 
 public class DivisionSimulator extends AbstractSimulator
 {
@@ -54,7 +55,7 @@ public class DivisionSimulator extends AbstractSimulator
 	*/
 	public DivisionSimulator(int telestis1,int telestis2)
 	{
-		super(telestis1,telestis2);
+		super(telestis1,telestis2,Praxis.DIVISION);
 		
 		//Counting how many zeros have at the end each number
 		int telestis1Zeros=this.telestis1.getendZeroCount();
@@ -91,10 +92,7 @@ public class DivisionSimulator extends AbstractSimulator
 		addStatus();
 	}
 
-	/**
-	*This Method does the next step of an arithmetic praxis Simulation
-	*Returns true if it has next step to do
-	*/	
+	@Override
 	public boolean doPraxis()
 	{
 		message="";
