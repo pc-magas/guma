@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 package="guma/"
 javadoc="./javadoc/"
 docspackage="$javadoc$package"

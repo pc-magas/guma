@@ -12,6 +12,10 @@
 # That was lended from a start scrict of project argoUML
 #
 #Dimitrios Desyllas (pc_magas): pc_magas@yahoo.gr
+#
+#You are welcome to do whatever you want with this script.
+#You can modify, share or even sell it without any restriction.
+#
 
 PRG=$0
 progname=`basename $0`
@@ -25,4 +29,4 @@ while [ -h "$PRG" ] ; do
       PRG="`dirname $PRG`/$link"
   fi
 done
-java  -Xbootclasspath/a:./libs/commons-io-2.4/commons-io-2.4.jar:./libs/net/download-1.0.1.jar:. -jar `dirname $PRG`/guma-1.7-beta-6.jar "$@"
+java  -Xbootclasspath/a:./libs/commons-io-2.4/commons-io-2.4.jar:./libs/net/download-1.0.1.jar:. -jar `dirname $PRG`/guma-1.7-rc.jar "$@"
