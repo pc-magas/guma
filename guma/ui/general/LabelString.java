@@ -19,7 +19,7 @@
 
 package guma.ui.general;
 
-import java.util.ArrayList;
+import java.util.Hashtable;
 /**
  * This class replaces %number% values with specific String where number is a number
  * @author pcmagas
@@ -28,13 +28,14 @@ import java.util.ArrayList;
 public class LabelString 
 {
 	
-	private ArrayList<String> labelvalues=null;
+	private Hashtable<Integer,String> labelvalues=null;
 
 	/**
 	 * Making a LabelString Object without labels
 	 */
 	public LabelString()
 	{
+		labelvalues=new Hashtable<Integer,String>();
 	}
 	
 	/**
@@ -59,7 +60,7 @@ public class LabelString
 	 */
 	public void setLabel(int label, String value)
 	{
-		labelvalues.add(label,value);
+		labelvalues.put(label,value);
 	}
 	
 	/**
@@ -80,9 +81,10 @@ public class LabelString
 	public String toString(String labeled)
 	{
 		String returnVal=labeled;
-		for(int i=0;i<labelvalues.size();i++)
+		for(int i=1;i<=labelvalues.size();i++)
 		{
-			returnVal.replace("%"+i+"%",labelvalues.get(i));
+			System.out.println("HashTable Value "+i+": "+labelvalues.get(i));
+			returnVal=returnVal.replaceAll("%"+i+"%",labelvalues.get(i));
 		}
 		return returnVal;
 	}
