@@ -1,6 +1,6 @@
 /**
 *GUMA a simple math game for elementary school students
-*	Copyright (C) 2012-2013  Dimitrios Desyllas (pc_magas)
+*	Copyright (C) 2013-2014  Dimitrios Desyllas (pc_magas)
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -14,6 +14,7 @@
 *
 *    You should have received a copy of the GNU General Public License
 *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*    
 *Contact with me by main at thes address: pc_magas@yahoo.gr
 */
 package guma.simulator;

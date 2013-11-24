@@ -19,9 +19,8 @@
 
 package guma.simulator;
 
-import guma.simulator.AbstractSimulator;
-import java.lang.Math;
 import guma.arithmetic.Praxis;
+import guma.ui.general.UTFResourceBundle;
 
 public class SubstractionSimulator extends SimpleSimulator
 {
@@ -30,6 +29,7 @@ public class SubstractionSimulator extends SimpleSimulator
 	*Shows if you can do the arithmetic operation
 	*/
 	private boolean canOperate=true;
+	private UTFResourceBundle u=null;
 
 	/**
 	*Constructor Method
@@ -39,7 +39,7 @@ public class SubstractionSimulator extends SimpleSimulator
 	public SubstractionSimulator(int telestis1,int telestis2)
 	{
 		super(telestis1,telestis2,Praxis.SUBSTRACTION);
-		
+		u=new UTFResourceBundle("messages.substraction");
 		if(telestis1>telestis2)
 		{
 			canOperate=true;
@@ -58,7 +58,7 @@ public class SubstractionSimulator extends SimpleSimulator
 		
 		if(!canOperate)
 		{
-			message="H πράξη αυτή δεν μπορεί να γίνει.";
+			message=u.getString("cannot");//"H πράξη αυτή δεν μπορεί να γίνει.";
 			returnVal=false;
 			addStatus();
 		}
@@ -79,9 +79,11 @@ public class SubstractionSimulator extends SimpleSimulator
 				
 				if(kratoumeno>0)
 				{
-					message="Προσθέτουμε το δανεικό στο "+tempTelestis2+" και έτσι θα γίνει ";
+					u.addLabel(1,tempTelestis2);
+					//message="Προσθέτουμε το δανεικό στο "+tempTelestis2+" και έτσι θα γίνει ";
 					tempTelestis2+=kratoumeno;
-					message+=tempTelestis2+"\n";
+					u.addLabel(2,tempTelestis2);
+					message=u.getString("addCarry");//tempTelestis2+"\n";
 					kratoumeno=0;
 					addStatus();
 				}

@@ -19,11 +19,13 @@
 
 package guma.simulator;
 
-import guma.simulator.AbstractSimulator;
 import guma.arithmetic.Praxis;
+import guma.ui.general.UTFResourceBundle ;
 
 public class AddingSimulator extends SimpleSimulator
 {
+
+	private UTFResourceBundle messages= null;
 	
 	/**
 	*Constructor Method
@@ -33,6 +35,7 @@ public class AddingSimulator extends SimpleSimulator
 	public AddingSimulator(int telestis1,int telestis2)
 	{
 		super(telestis1,telestis2,Praxis.ADDING);
+		messages=new UTFResourceBundle("messages.addingsimulator");
 	}
 
 	@Override	
@@ -64,52 +67,64 @@ public class AddingSimulator extends SimpleSimulator
 			{
 				if(kratoumeno!=0)//if carry remained
 				{
-					message="Το κρατούμενο που περίσεψε το βάζω στο αποτέλεσμα.\n";
+					//message="Το κρατούμενο που περίσεψε το βάζω στο αποτέλεσμα.\n";
+						
+					message=messages.getString("putCarry");
+
 					result.setDigit(kratoumeno);
 					kratoumeno=0;
 					addStatus();
 					return true;
 				}
-				message="Τέλος προσομοίωσης";
+					
+				message=messages.getString("end");
+				//message="Τέλος προσομοίωσης";	
 				addStatus(true);
 				return false;
 			}
 			else
 			{
-				if(kratoumeno==0)//If carry
-				{
-					message="Προσθέτουμε τα ψηφία. Άν το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
-					temp=tempTelestis1+tempTelestis2;
-					addStatus();
-				}
-				else
-				{
-					System.out.println("Adding with carry");
-					message="Προσθέτουμε τα ψηφία μαζί με το κρατούμενο.\n Άν το άθροισμα των ψηφίων είναι διψήφιος κρατάμε κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
-					temp=kratoumeno+tempTelestis1+tempTelestis2;
-					kratoumeno=0;
-					addStatus();
-				}
-				
-				if(temp>=10)//if need to take a carry
-				{
-					message="Το άθροισμα των ψηφίων είναι μεγαλύτερο του 10 κρατάμε κρατούμενο";
-					kratoumeno=1;
-					result.setDigit((byte)(temp-10));
-					addStatus();
-				}
-				else
-				{
-					message="Βάζουμε το άθροισμα των ψηφίων στο αποτέλεσμα";
-					result.setDigit((byte)temp);
-					addStatus();
-				}
-				result.previousDigit();
-				telestis1.previousDigit();
-				telestis2.previousDigit();
-				temp=-1;
-				return true;
-			}	
-	}
-		
+					if(kratoumeno==0)//If carry
+					{
+						//message="Προσθέτουμε τα ψηφία. Άν το άθροισμα των ψηφίων είναι διψήφιο τότε κρατάμε για κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
+						
+						message=messages.getString("makeCarry");
+						
+						temp=tempTelestis1+tempTelestis2;
+						addStatus();
+					}
+					else
+					{
+						System.out.println("Adding with carry");
+						message=messages.getString("addWithCarry");
+						
+						temp=kratoumeno+tempTelestis1+tempTelestis2;
+						kratoumeno=0;
+						addStatus();
+					}
+					
+					if(temp>=10)//if need to take a carry
+					{
+						
+						message=messages.getString("keepCarry");
+						
+						kratoumeno=1;
+						result.setDigit((byte)(temp-10));
+						addStatus();
+					}
+					else
+					{
+						//message="Βάζουμε το άθροισμα των ψηφίων στο αποτέλεσμα";
+						
+						message=messages.getString("putResult");
+						result.setDigit((byte)temp);
+						addStatus();
+					}
+					result.previousDigit();
+					telestis1.previousDigit();
+					telestis2.previousDigit();
+					temp=-1;
+					return true;
+			}			
+		}	
 }

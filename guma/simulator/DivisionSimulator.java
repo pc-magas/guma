@@ -99,7 +99,7 @@ public class DivisionSimulator extends AbstractSimulator
 		
 		System.out.println("\n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");*/
 		
-		message="Κατεβάζουμε από τον διεραιτέο τόσα ψηφία όσα είναι και ο διεραιτης";
+		message="Κατεβάζουμε από τον διεραιτέο τόσα ψηφία όσα είναι και ο διεραίτης";
 		temp=-1;
 		addStatus();
 	}
@@ -139,7 +139,7 @@ public class DivisionSimulator extends AbstractSimulator
 				}
 				catch(IndexOutOfBoundsException out)
 				{
-					message+="Tέλος πράξης το "+temp2+" μένει  σαν υπόλοιπο. Και βάζουμε 0 εις το πιλίκο";
+					message+="Tέλος πράξης το "+temp2+" μένει  σαν υπόλοιπο. Μετά βάζουμε 0 εις το πιλίκο";
 					piliko.add(new Byte((byte)0));
 					addStatus(true);				
 					return false;

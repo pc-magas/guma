@@ -47,13 +47,14 @@ public class UTFResourceBundle
 	{
 		String s=resource.getString(item);
 		try
-		{
-				s=new String(s.getBytes("ISO-8859-1"),encoding);
-				
+		{				
 				if(l!=null)
 				{
+					System.out.println("Replacing Labels");
 					s=l.toString(s);
 				}
+				s=new String(s.getBytes("ISO-8859-1"),encoding);
+
 		}
 		catch(Exception e)
 		{
@@ -118,7 +119,7 @@ public class UTFResourceBundle
 	 */
 	public void addLabel(int label, int value)
 	{
-		addlabel(label,String.valueOf(value));
+		addLabel(label,String.valueOf(value));
 	}
 
 }
