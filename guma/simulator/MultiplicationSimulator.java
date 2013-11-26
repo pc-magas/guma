@@ -20,8 +20,9 @@
 package guma.simulator;
 
 import guma.simulator.AbstractSimulator;
-import java.util.Arrays;
+//import java.util.Arrays;
 import guma.arithmetic.Praxis;
+import guma.ui.general.UTFResourceBundle;
 
 public class MultiplicationSimulator extends AbstractSimulator
 {
@@ -52,6 +53,16 @@ public class MultiplicationSimulator extends AbstractSimulator
 	private boolean spartial=true;
 	
 	/**
+	 * ResourceBundle to get messages
+	 */
+	private UTFResourceBundle u= new UTFResourceBundle("messages.multiplicationsimulator");
+	
+	/**
+	 * Flag to print the final result
+	 */
+	private boolean flag=false;
+	
+	/**
 	*Constructor Method
 	*@param telestis1: the first operator of the number that we will simulate the first operation
 	*@param telestis2: the second operator of the number that we will simulate the second operation
@@ -80,7 +91,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 		if(apendMessage)
 		{
 			endiamesa=new Number[this.telestis2.length()-telestis2Zero];
-			message="Ανγωούμε τα 0 που έχουν στο τέλος οι αριθμοί και εκτελούμε την πράξη του πολλαπλασιαμού από τα μη μηδενικα στοιχεία";
+			message=u.getString("ignoreZeros");//"Ανγωούμε τα 0 που έχουν στο τέλος οι αριθμοί και εκτελούμε την πράξη του πολλαπλασιαμού από τα μη μηδενικα στοιχεία";
 			addStatus();
 		}
 		else
@@ -107,8 +118,6 @@ public class MultiplicationSimulator extends AbstractSimulator
 		int tempTelestis2;
 		int tempTelestis1;
 		
-		
-		
 		try
 		{
 			tempTelestis2=telestis2.getDigit();
@@ -118,9 +127,10 @@ public class MultiplicationSimulator extends AbstractSimulator
 				System.out.println("Telesatis1: Selecting "+telestis1.getDigitPos()+" of "+telestis1.length());
 				tempTelestis1=telestis1.getDigit();
 				//System.out.println("Telesatis1: Selecting "+telestis1.getDigitPos()+" of "+telestis1.length());
-				message="Πολλαπλασιάζουμε τα ψηφία "+tempTelestis1+"*"+tempTelestis2;
+				//"Πολλαπλασιάζουμε τα ψηφία "+tempTelestis1+"*"+tempTelestis2;
 				temp=tempTelestis1*tempTelestis2;
-				message+=" και ο πολαπλασιαμός έχει αποτέλεσμα: "+temp;
+				//message+=" και ο πολαπλασιαμός έχει αποτέλεσμα: "+temp;
+				message=u.getString("multiply",new int[]{tempTelestis1,tempTelestis2,temp});
 				addStatus();
 				
 				if(kratoumeno!=0)
@@ -134,7 +144,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 				
 				if(tempM.length>1)
 				{
-					message="Η πράξη μας είχε διψήφιο αποτέλεσμα άρα το πρώτο ψηφίο το κρατάμε κρατούμενο. ";
+					message=u.getString("keepCarry");//"Η πράξη μας είχε διψήφιο αποτέλεσμα άρα το πρώτο ψηφίο το κρατάμε κρατούμενο. ";
 					kratoumeno=tempM[0];
 					endiamesa[endiamesoApotelesmaIndex].setDigit(tempM[tempM.length-1]);
 					addStatus();
@@ -164,7 +174,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 				
 				if(kratoumeno>0)
 				{
-				 	message="Βάζουμε το κρατούμενο στην αρχή του αποτελέσματος";
+				 	message=u.getString("putCarryOnTheFront");//"Βάζουμε το κρατούμενο στην αρχή του αποτελέσματος";
 				 	endiamesa[endiamesoApotelesmaIndex].setDigit(kratoumeno);
 				 	kratoumeno=0;
 				 	addStatus();
@@ -172,7 +182,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 				
 				if( telestis2.getDigitPos()>=0 && endiamesoApotelesmaIndex<endiamesa.length)
 				{
-					message+="Βάζουμε ένα 0 κάτω από το "+endiamesa[endiamesoApotelesmaIndex].getDigit(endiamesa[endiamesoApotelesmaIndex].length()-1);
+					message+=u.getString("putZero",new int[]{endiamesa[endiamesoApotelesmaIndex].getDigit(endiamesa[endiamesoApotelesmaIndex].length()-1)});//"Βάζουμε ένα 0 κάτω από το "+endiamesa[endiamesoApotelesmaIndex].getDigit(endiamesa[endiamesoApotelesmaIndex].length()-1);
 					
 					endiamesoApotelesmaIndex++;
 					endiamesa[endiamesoApotelesmaIndex].setDigit((byte)0);
@@ -186,22 +196,32 @@ public class MultiplicationSimulator extends AbstractSimulator
 		{
 			temp=0;
 
+			for(int i=0;i<endiamesa.length;i++)
+			{
+				int temp1=endiamesa[i].getValue();
+				temp+=temp1;
+			}	
+		
+			result=new Number(temp);	
+
 			if(endiamesa.length>1)
 			{
-				message="Προσθαίτουμε τα ενδιάμεσα αποτελέσματα.\n";
-					
-				for(int i=0;i<endiamesa.length;i++)
-				{
-					int temp1=endiamesa[i].getValue();
-					temp+=temp1;
-				}
-				temp*=(int)Math.pow(10,apendZeros);
-				
-				result=new Number(temp);
+				message=u.getString("addIntermediate");
 				addStatus();
 			}
 			
-			message="Τέλος προσομοίωσης";
+			if(apendZeros>0)
+			{	
+				//temp*=(int)Math.pow(10,apendZeros);
+				message=u.getString("addendZeros",new int[]{apendZeros});
+				result.appendZeros(apendZeros);//=new Number(temp);
+				System.out.println("Add Zeros, Final result "+result.getValue()+" Temp:"+temp);
+				flag=true;
+				//addStatus();
+			}
+			addStatus();
+			
+			message=u.getString("end");
 			addStatus(true);
 			
 			return false;
@@ -222,28 +242,36 @@ public class MultiplicationSimulator extends AbstractSimulator
 			try
 			{
 				s+="<table>";
-				for(int i=0;i<=endiamesoApotelesmaIndex;i++)
-				{
-					s+="<tr>";
 				
-					for(int j=0;j<(endiamesa.length-i);j++)
+				flag=(telestis2.length(true)>1)?false:flag;
+						
+				if(!flag)
+				{
+					for(int i=0;i<=endiamesoApotelesmaIndex;i++)
 					{
-						s+="<td>\t</td>";
+						s+="<tr>";
+				
+						for(int j=0;j<(endiamesa.length-i);j++)
+						{
+							s+="<td>\t</td>";
+						}
+
+						s+=endiamesa[i].toString("<td>","</td>","<td><font color=\"blue\">","</font></td>");
+						s+="</tr>";
+
 					}
-
-					s+=endiamesa[i].toString("<td>","</td>","<td><font color=\"blue\">","</font></td>");
-					s+="</tr>";
-
+					s+="</table>";
 				}
-				s+="</table>";
-				if(endiamesa.length>1)
+				
+				if(flag || telestis2.length(true)>1)
 				{
 					s+="<hr>"+"<table><tr>"+getResult("<td>","</td>")+"</tr></table>";
 				}
 			}
 			catch(NullPointerException e)
 			{
-				return s;
+				System.err.println(e.getMessage());
+				//return s;
 			}
 			return s;
 

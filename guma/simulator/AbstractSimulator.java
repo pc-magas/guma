@@ -188,7 +188,7 @@ public abstract class AbstractSimulator
 	
 	/**
 	*Returns the first operator
-	*@param front:  The sting you want to be be th the front of a digit
+	*@param front:  The sting you want to be the front of a digit
 	*@param back: The string you want to be at the back of a digit
 	*@param pos: select a specified position that will have seperate texnt on the front and back
 	*@param posFront: The sting you want to be on the front of a digit at specified positions, given by pos paramenter
@@ -209,7 +209,7 @@ public abstract class AbstractSimulator
 	
 	/**
 	*Returns the first operator
-	*@param front:  The sting you want to be be th the front of a digit
+	*@param front:  The sting you want to be the front of a digit
 	*@param back: The string you want to be at the back of a digit
 	*@param pos: select a specified position that will have seperate texnt on the front and back
 	*/
@@ -227,7 +227,7 @@ public abstract class AbstractSimulator
 	}
 	
 	/**
-	*Creates a Simulator Bazed on the praxisType is given on Praxis Type
+	*Creates a Simulator Based on the praxisType is given on Praxis Type
 	*@param telestis1: the first operator (depending in the operation) of the operation we want to simulate
 	*@param telesits2: the second operator (depending in the operation) of the operation we want to simulate
 	*@param praxisType: The type of Operation that tells what kind of simulator we want
