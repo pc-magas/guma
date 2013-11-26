@@ -83,9 +83,8 @@ public class Number
 	*/
 	public Number(int value)
 	{
-		this.value=value;
-		digits=Number.seperateDigits(value);
-		zeroEndCount();
+		setValue(value);
+		
 	}
 	
 	/**
@@ -94,12 +93,16 @@ public class Number
 	*/
 	public static byte[] seperateDigits(int number)
 	{
-		byte[] intermediate=new byte[String.valueOf(number).length()];
-		
+		String numbers=String.valueOf(number);
+		byte[] intermediate=new byte[numbers.length()];
+				
 		for(int i=0;i<intermediate.length;i++)
 		{
-			intermediate[intermediate.length-1-i]=(byte)(number%10);
-			number/=10;
+			//intermediate[intermediate.length-1-i]=(byte)(number%10);
+			//number/=10;
+			intermediate[i]=(byte)(numbers.charAt(i)-'0');
+			
+			System.out.println("intermediate["+i+"]="+intermediate[i]);
 		}		
 		return intermediate;
 	}
@@ -131,6 +134,9 @@ public class Number
 	{
 			String s="";
 			String n="";
+			
+			System.out.println("Digits length:"+digits.length);
+			
 			for(int i=0;i<digits.length;i++)
 			{
 				if(i==firstEndzero)
@@ -150,6 +156,7 @@ public class Number
 				{
 					s+=front+n+back;
 				}
+				System.out.println("S now is"+s);
 			}
 			return s;
 	}
@@ -246,7 +253,7 @@ public class Number
 	
 	/**
 	*Resets a the digit count
-	*@param before end zeros: if the number ends with zero digit thet it sets to the last digit that is not non zero 
+	*@param before end zeros: if the number ends with zero digit then it sets to the last digit that is not non zero 
 	*/
 	public void setSelectedDigitToEnd(boolean beforeEndZeros)
 	{
@@ -346,9 +353,21 @@ public class Number
 	*/
 	public int length()
 	{
+		return length(false);
+	}
+	
+	/**
+	 * Returns the length without the end zeros
+	 */
+	public int length(boolean ingorezeros)
+	{
+		if(ingorezeros)
+		{
+			return digits.length-endZeroCount;
+		}
 		return digits.length;
 	}
-		
+	
 	/**
 	*Sets the sepetator String that seperates the  ending zeros from the rest of the number
 	*@param: seperator: the string that seperate the number from the ending zeros
@@ -365,4 +384,26 @@ public class Number
 	{
 		return digits;
 	}
+	
+	/**
+	 * Adds zeros to the end
+	 * @param zeronum the number of zeros we want to add to the end
+	 */
+	public void appendZeros(int zeronum)
+	{
+		this.setValue(this.getValue()*(int)Math.pow(10,zeronum));
+	}
+	
+	/**
+	 * Sets the value of a number
+	 * @param value
+	 */
+	public void setValue(int value)
+	{
+		this.value=value;
+		digits=Number.seperateDigits(value);
+		zeroEndCount();
+	}
+	
+	
 }
