@@ -23,6 +23,7 @@ import guma.simulator.AbstractSimulator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import guma.arithmetic.Praxis;
+import guma.ui.general.UTFResourceBundle;
 
 public class DivisionSimulator extends AbstractSimulator
 {
@@ -49,6 +50,11 @@ public class DivisionSimulator extends AbstractSimulator
 	private ArrayList<byte[]> miscelanous=new ArrayList<byte[]>();
 	
 	/**
+	 * Resource Bundle that loads the corect localization file
+	 */
+	private UTFResourceBundle u=new UTFResourceBundle("messages.divisionsimulator");
+	
+	/**
 	*Constructor Method
 	*@param telestis1: the first operator of the number that we will simulate the first operation
 	*@param telestis2: the second operator of the number that we will simulate the second operation
@@ -56,6 +62,8 @@ public class DivisionSimulator extends AbstractSimulator
 	public DivisionSimulator(int telestis1,int telestis2)
 	{
 		super(telestis1,telestis2,Praxis.DIVISION);
+		
+		
 		
 		//Counting how many zeros have at the end each number
 		int telestis1Zeros=this.telestis1.getendZeroCount();
@@ -65,7 +73,7 @@ public class DivisionSimulator extends AbstractSimulator
 		if(telestis1Zeros>0 && telestis2Zeros>0)
 		{
 			int min=Math.min(telestis1Zeros,telestis2Zeros);
-			message="Αρχικά ο Διαρέτης ήταν "+telestis1+" και ο διεραιτέος ήταν."+telestis2+", γι αυτό αφαιρούμε το κοινό αριθμό μηδενικών από το τέλος. ";
+			message=u.getString("endZeros",new int[]{telestis1,telestis2});//"Αρχικά ο Διαρέτης ήταν "+telestis1+" και ο διεραιτέος ήταν."+telestis2+", γι αυτό αφαιρούμε το κοινό αριθμό μηδενικών από το τέλος. ";
 			//We divide with the correct power of 10
 			this.telestis1=this.telestis1.removeEndZero(min);
 			this.telestis2=this.telestis2.removeEndZero(min);
@@ -121,25 +129,25 @@ public class DivisionSimulator extends AbstractSimulator
 				if(temp2==0)
 				{
 					System.out.println("=======Κάτι=======");
-					message="Βάζουμε 0 εις το πιλίκο.";
+					message=u.getString("zeropiliko");//"Βάζουμε 0 εις το πιλίκο.";
 					piliko.add(new Byte((byte)0));
 					addStatus();
 					katevazwPsifio();
 					return true;
 				}
 				
-				message="To "+temp2+" δεν χωράει στο "+telestis2.getValue()+". ";
+				message=u.getString("notfits",new int[]{temp2,telestis2.getValue()});//"To "+temp2+" δεν χωράει στο "+telestis2.getValue()+". ";
 				addStatus();
 				try
 				{
 					katevazwPsifio();
-					message="Γι αυτό κατεβάζουμε και το "+telestis1.getDigit();
+					message=u.getString("getDigit",new int[]{telestis1.getDigit()});//"Γι αυτό κατεβάζουμε και το "+telestis1.getDigit();
 					addStatus();
 					return true;
 				}
 				catch(IndexOutOfBoundsException out)
 				{
-					message+="Tέλος πράξης το "+temp2+" μένει  σαν υπόλοιπο. Μετά βάζουμε 0 εις το πιλίκο";
+					message+=u.getString("endRemaining",new int[]{temp2});//"Tέλος πράξης το "+temp2+" μένει σαν υπόλοιπο. Μετά βάζουμε 0 εις το πιλίκο";
 					piliko.add(new Byte((byte)0));
 					addStatus(true);				
 					return false;
@@ -156,8 +164,7 @@ public class DivisionSimulator extends AbstractSimulator
 			int numr=telestis2.getValue()*temp;
 			addStatus();
 
-			message="Αφαιρούμε το "+temp2+" με το "+numr+" (Προέκυψε από τον πολλαπλασιασμό του "+temp + " με τον διεραίτη τον "
-					+telestis2.getValue()+ " )." ;
+			message=u.getString("do",new int[]{temp2,numr,temp,telestis2.getValue()});
 				
 			temp2-=numr;
 			tempSeperated=Number.seperateDigits(temp2);
@@ -169,16 +176,9 @@ public class DivisionSimulator extends AbstractSimulator
 		catch(IndexOutOfBoundsException o)
 		{	
 			System.out.println("END");
-
-			/*if(temp2==0 && telestis1.getLastDigit()==0)
-			{
-				message="Βάζουμε 0 εις το πιλίκο.";
-				piliko.add(new Byte((byte)0));
-				addStatus();
-			}*/
 			
 			modulo=temp2;
-			message="Η πράξη τελείωσε";
+			message=u.getString("end");//"Η πράξη τελείωσε";
 			addStatus(true);
 			return false;
 		}
