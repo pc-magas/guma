@@ -39,7 +39,7 @@ public class SubstractionSimulator extends SimpleSimulator
 	public SubstractionSimulator(int telestis1,int telestis2)
 	{
 		super(telestis1,telestis2,Praxis.SUBSTRACTION);
-		u=new UTFResourceBundle("messages.substraction");
+		u=new UTFResourceBundle("messages.substractionsimulator");
 		if(telestis1>telestis2)
 		{
 			canOperate=true;
@@ -90,8 +90,10 @@ public class SubstractionSimulator extends SimpleSimulator
 				
 				if(tempTelestis1<tempTelestis2)
 				{
-
-					message="To "+tempTelestis1+" είναι μικρότερο από το "+tempTelestis2+". Θα χρειαστούμε ένα δανεικό που θα μπεί μπορστά από το "+tempTelestis1+" έτσι το "+tempTelestis1+"θα γίνει 1"+tempTelestis1+". Μετά εκτελούμε την πράξη μεταξύ των ψηφίων 1"+tempTelestis1+"-"+tempTelestis2;
+					
+					//u.addlabel(1,tempTelestis1);
+					//u.addlabel
+					message=u.getString("addCarry1",new String[]{String.valueOf(tempTelestis1),String.valueOf(tempTelestis2)});//"To "+tempTelestis1+" είναι μικρότερο από το "+tempTelestis2+". Θα χρειαστούμε ένα δανεικό που θα μπεί μπορστά από το "+tempTelestis1+" έτσι το "+tempTelestis1+"θα γίνει 1"+tempTelestis1+". Μετά εκτελούμε την πράξη μεταξύ των ψηφίων 1"+tempTelestis1+"-"+tempTelestis2;
 					
 					result.setDigit((byte)((10+tempTelestis1)-tempTelestis2));
 					
@@ -103,7 +105,7 @@ public class SubstractionSimulator extends SimpleSimulator
 				}
 				else
 				{
-					message="Κάνουμε την αφαίρεση των ψηφίων ";
+					message=u.getString("sub");//"Κάνουμε την αφαίρεση των ψηφίων ";
 					result.setDigit((byte)(tempTelestis1-tempTelestis2));
 					reduceIndex();
 					addStatus();
@@ -112,7 +114,7 @@ public class SubstractionSimulator extends SimpleSimulator
 			}
 			catch(IndexOutOfBoundsException o)
 			{
-				message="H πράξη τελείωσε";
+				message=u.getString("end");//"H πράξη τελείωσε";
 				returnVal=false;
 				addStatus(true);
 			}
