@@ -121,5 +121,37 @@ public class UTFResourceBundle
 	{
 		addLabel(label,String.valueOf(value));
 	}
-
+	
+	/**
+	 * Get a bundle as UTF 8 with labels replaced
+	 * @param item the item we want to get from ResourceBundle
+	 * @param labels The labels to be replaced. if not null it makes a new object or labels
+	 * @return A string from resource bundle with as UTF-8 with labels replaced
+	 */
+	public String getString(String item, String encoding ,int[] labels)
+	{
+		String[] labelstring=new String[labels.length];
+		
+		if(labels!=null)
+		{
+			for(int i=0;i<labels.length;i++)
+			{
+				labelstring[i]=String.valueOf(labels[i]);
+			}
+		}
+		
+		return getString(item,encoding,labelstring);
+	}
+	
+	/**
+	 * Get a bundle as UTF 8 with labels replaced
+	 * @param item the item we want to get from ResourceBundle
+	 * @param labels The labels to be replaced. if not null it makes a new object or labels
+	 * @return A string from resource bundle with as UTF-8 with labels replaced
+	 */
+	public String getString(String item, int[] labels)
+	{
+		return getString(item,"UTF-8",labels);
+	}
+	
 }

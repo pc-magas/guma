@@ -44,11 +44,12 @@ public class LabelString
 	 */
 	public LabelString(String[] labels)
 	{
+		this();
 		if(labels!=null && labels.length>0)
 		{
 			for(int i=0;i<labels.length;i++)
 			{
-				setLabel(i,labels[i]);
+				setLabel(i+1,labels[i]);
 			}
 		}
 	}
