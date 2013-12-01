@@ -20,8 +20,8 @@
 package guma.core;
 
 import guma.arithmetic.*;
+import guma.ui.general.UTFResourceBundle;
 import java.util.Random;
-import java.lang.*;
 
 import java.io.*;
 import java.io.IOException;
@@ -34,8 +34,8 @@ import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.DocumentBuilder;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
+//import org.xml.sax.SAXException;
+//import org.xml.sax.SAXParseException;
 
 /**
 *Basic Game Class
@@ -80,6 +80,11 @@ public class Game
 	*Boollean that helps us out to check what kind of error we will throw
 	*/
 	private boolean end=false;
+	
+	/**
+	 * Resource Bundle for interlocalization
+	 */
+	static private  UTFResourceBundle u=new UTFResourceBundle("messages.game");
 
 	/**
 	*Creator method
@@ -159,23 +164,22 @@ public class Game
 					if(praksisCounter>0)
 					{
 						tries=3;
-						/*Throw the correct error*/
-						throw new TriesEndException("Δώσατε Λάθος αποτέλεσμα 3 φορές.\n"+p[praksisCounter--].toFullString()+"\nΤο πρόγραμμα μεταβαίνει στην επόμενη πράξη.");
+						
 					}
 					else
 					{
 						System.out.println("Tries End");
 						end=true;
-						throw new TriesEndException("Δώσατε Λάθος αποτέλεσμα 3 φορές.\n"+p[praksisCounter--].toFullString()+"\nΤο πρόγραμμα μεταβαίνει στην επόμενη πράξη.");
-						
 					}
+					/*Throw the correct error*/
+					throw new TriesEndException(triesEndMessage());
 				}
 			}
 		}	
 		else
 		{
 			System.out.println("Game OVER");
-			throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+calculateScore()+'/'+p.length);
+			throw new GameOverException(gameOverMessage());
 		}
 		
 		saved=false;
@@ -206,7 +210,7 @@ public class Game
 		else
 		{
 			
-			throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+calculateScore()+'/'+p.length);
+			throw new GameOverException(gameOverMessage());
 
 		}
 		return s;
@@ -253,7 +257,7 @@ public class Game
 		}
 		else
 		{
-			throw new GameOverException("Τέλος Παιχνιδιού \n Σκόρ: "+calculateScore()+'/'+p.length);
+			throw new GameOverException(gameOverMessage());
 
 		}
 	}
@@ -289,9 +293,9 @@ public class Game
 		catch(IOException e)/*Error Ocurred*/
 		{
 			e.printStackTrace();
-			throw new 
-IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν είναι δυνατόν να αποθηκεύσεται στον κατάλογο:\n"+f.getAbsolutePath()+"\n Μπορείτε να δοκιμάσετε με ένα άλλο αρχείο η να ρυθμίσετε τα δικαιόματα στον κατάλογο αυτό");/*Shows the Correct message as an exception*/
-
+			//"Το αρχείο δεν είναι προσβάσιμο ή δεν είναι δυνατόν να αποθηκεύσεται στον κατάλογο:\n"+f.getAbsolutePath()+"\n Μπορείτε να δοκιμάσετε με ένα άλλο αρχείο η να ρυθμίσετε τα δικαιόματα στον κατάλογο αυτό");/*Shows the Correct message as an exception*/
+			throw new IOException(u.getString("storeError",new String[]{f.getAbsolutePath()}));
+			
 		}
 	}
 
@@ -337,10 +341,10 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 			
 						p=new Praxis[praxisList.getLength()];
 
-						if(p==null)
+						/*if(p==null)
 						{
-							throw new ClassNotFoundException("Το αρχείο δεν περιέχει σωστά δεδομένα");
-						}
+							throw loadError();
+						}*/
 
 						for(int i=0;i<praxisList.getLength();i++)
 						{
@@ -349,7 +353,7 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 							p[i]= Praxis.makePraxis(tempS2[1].charAt(0),Integer.parseInt(tempS2[0]),Integer.parseInt(tempS2[2]));
 							if(p[i]==null)
 							{
-								throw new ClassNotFoundException("Το αρχείο δεν περιέχει σωστά δεδομένα");
+								throw loadError();//new ClassNotFoundException("Το αρχείο δεν περιέχει σωστά δεδομένα");
 							}
 							else
 							{
@@ -369,8 +373,7 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 		catch(Exception e)/*If a file IO error occured*/
 		{
 			e.printStackTrace();
-			throw new 
-IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν είναι δυνατόν να αναγνωστεί. \n Μπορείτε να δοκιμάσετε με ένα άλλο αρχείο");
+			throw new IOException(u.getString("cannotRead"));//"Το αρχείο δεν είναι προσβάσιμο ή δεν είναι δυνατόν να αναγνωστεί. \n Μπορείτε να δοκιμάσετε με ένα άλλο αρχείο");
 		}
 		return new Game(p,praxisCounter,wrongResultPos,tries,score);
 
@@ -441,5 +444,31 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 	private float calculateScore()
 	{
 		return (float)Math.round((double)((float)score/3));
+	}
+	
+	/**
+	 * 
+	 * @return The tries end Message Localized
+	 */
+	private String triesEndMessage()
+	{
+		return u.getString("triesEnd",new String[]{p[praksisCounter--].toFullString()});
+	}
+	
+	/**
+	 * 
+	 * @return the message when a game ends
+	 */
+	private String gameOverMessage()
+	{
+		return u.getString("gameOver")+' '+calculateScore()+'/'+p.length;
+	}
+	
+	/**
+	 * @return A localized Class not found exception
+	 */
+	static private ClassNotFoundException loadError()
+	{
+		return new ClassNotFoundException(u.getString("loadError"));
 	}
 }
