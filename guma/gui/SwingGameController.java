@@ -27,6 +27,7 @@ import guma.ui.main.GameController;
 import guma.gui.SimulatorGui;
 import guma.arithmetic.Praxis;
 import guma.gui.WebGui;
+import guma.ui.general.UTFResourceBundle;
 import java.io.IOException;
 
 /**
@@ -35,6 +36,8 @@ import java.io.IOException;
 public class SwingGameController extends GameController
 {
 
+	private UTFResourceBundle u=new UTFResourceBundle("messages.gui.gameContoller");
+	
 	/**
 	*Make the Controller
 	*/
@@ -58,10 +61,7 @@ public class SwingGameController extends GameController
 	*/
 	protected int getExtraResult()
 	{
-			String praxisResults=(String)JOptionPane.showInputDialog(null,"Η διαίρεση αυτή έχει Υπόλοιπο"+
-																								"\nΠαρακαλώ εισάγεται το υπόλοιπο",
-																								"Απαιτείται υπόλοιπό",
-																								JOptionPane.PLAIN_MESSAGE);
+			String praxisResults=(String)JOptionPane.showInputDialog(null,u.getString("moduloContent"),u.getString("moduloTitle"),JOptionPane.PLAIN_MESSAGE);
 		return Integer.parseInt(praxisResults);
 	}
 
@@ -86,7 +86,7 @@ public class SwingGameController extends GameController
 	*/
 	public void triesEndMessage(String title, String message)
 	{
-		String[] options={"Προσομοίωση πράξης","OK"};
+		String[] options={u.getString("simulationButton"),"OK"};
 		int returnVal= JOptionPane.showOptionDialog(null,message,title,JOptionPane.OK_CANCEL_OPTION,JOptionPane.QUESTION_MESSAGE,null,
 									options,options[1]);
 		if(returnVal==JOptionPane.OK_OPTION)

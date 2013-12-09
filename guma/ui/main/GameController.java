@@ -24,6 +24,7 @@ import guma.core.*;
 import guma.arithmetic.Praxis;
 import java.io.File;
 import java.io.IOException;
+import guma.ui.general.UTFResourceBundle;
 /**
 *A class that allows you to interact with the game
 */
@@ -40,6 +41,10 @@ public abstract class GameController
 	*/
 	protected UIStatus current=new UIStatus();
 
+	/**
+	 * Interlocalization method
+	 */
+	protected UTFResourceBundle u= new UTFResourceBundle("messages.GameController");
 	
 	/**
 	*Constructor method that allows you to make the communicatio between UI and core (Game)
@@ -96,7 +101,7 @@ public abstract class GameController
 					}
 					catch(GameOverException gend)//Game Ended
 					{
-						displayMessage("Τέλος Παιχνιδιού",gend.getMessage());
+						displayMessage(u.getString("gameOver"),gend.getMessage());
 						current.next=false;
 						paixnidi=null;
 						current.praxisValue="x+y=";
@@ -112,26 +117,25 @@ public abstract class GameController
 						{
 							do
 							{
-								displayError("Προσπάθησε ξανα","Λάθος τιμή υπολοίπου\nEναπομένουσες προσπάθειες: "
-											+paixnidi.getTries());
+								wrongResultError(true);
 								results[1]=getExtraResult();
 							}while(!paixnidi.checkApotelesma(results));
 									
 						}
 						else
 						{
-								displayError("Προσπάθησε ξανα","Λάθος αποτέλεσμα!\nEναπομένουσες προσπάθειες: "
-													+paixnidi.getTries());		
+							wrongResultError(false);
+									
 						}
 
 				}
-				current.praxisRemainingDisplay="Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum();
+				updatePraxis();
 				System.out.println("Inside take result remaining praxis: "+current.praxisRemainingDisplay);
 				current.save=true;
 			}
 			catch(GameOverException gend)//Game Ended
 			{
-				displayMessage("Τέλος Παιχνιδιού",gend.getMessage());
+				displayMessage(u.getString("gameOver"),gend.getMessage());
 				current.next=false;
 				paixnidi=null;
 				current.praxisValue="x+y=";
@@ -140,14 +144,14 @@ public abstract class GameController
 			}
 			catch(TriesEndException tend)//Tries Ended
 			{
-				triesEndMessage("Τέλος προσπαθειών",tend.getMessage());
+				triesEndMessage(u.getString("triesEnd"),tend.getMessage());
 				try
 				{
 					current.praxisValue=paixnidi.toString();
 				}
 				catch(GameOverException gend)
 				{
-					displayMessage("Τέλος Παιχνιδιού",gend.getMessage());
+					displayMessage(u.getString("gameOver"),gend.getMessage());
 					current.next=false;
 					paixnidi=null;
 					current.praxisValue="x+y=";
@@ -188,7 +192,8 @@ public abstract class GameController
 		else
 		{	
 			current.praxisValue=paixnidi.toString();
-			current.praxisRemainingDisplay="Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum();
+			//current.praxisRemainingDisplay=//"Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum();
+			updatePraxis();
 			current.saveAs=true;
 			current.save=false;
 			return current.clone();
@@ -222,7 +227,7 @@ public abstract class GameController
 	}
 
 	/**
-	*Shiows if the game has saves even onece
+	*Shiows if the game has saves even once
 	*/
 	public boolean gameSaved()
 	{
@@ -272,7 +277,8 @@ public abstract class GameController
 				this.current.save=true;
 				this.current.saveAs=true;
 				this.current.praxisValue=paixnidi.toString();
-				this.current.praxisRemainingDisplay="Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum();
+				//this.current.praxisRemainingDisplay="Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum();
+				updatePraxis();
 			}
 			else
 			{
@@ -280,7 +286,7 @@ public abstract class GameController
 				this.current.save=false;
 				this.current.saveAs=false;
 				this.current.praxisValue="x+y=";
-				this.current.praxisRemainingDisplay="Πράξεις:";
+				updatePraxis(true);
 			}
 			System.out.println("Inside new game: "+current.praxisRemainingDisplay);	
 	}
@@ -305,7 +311,7 @@ public abstract class GameController
 				this.current.save=true;
 				this.current.saveAs=true;
 				this.current.praxisValue=paixnidi.toString();
-				this.current.praxisRemainingDisplay="Πράξεις:"+paixnidi.getRemainingPraxis()+'/'+paixnidi.getPraxisNum();
+				updatePraxis();
 			}
 			else
 			{
@@ -313,8 +319,37 @@ public abstract class GameController
 				this.current.save=false;
 				this.current.saveAs=false;
 				this.current.praxisValue="x+y=";
-				this.current.praxisRemainingDisplay="Πράξεις:";
+				//this.current.praxisRemainingDisplay="Πράξεις:";
+				updatePraxis(true);
 			}
 			System.out.println("Inside new game: "+current.praxisRemainingDisplay);	
 	}
+	
+	/**
+	 * Displays the Error message when the user enters wrong Result
+	 */
+	protected void wrongResultError(boolean modulo)
+	{
+		String moduloOrResult= (modulo)?u.getString("modulo"):u.getString("result");
+		displayError(u.getString("tryAgainTitle"),u.getString("tryAgainMessage",new String[]{moduloOrResult})+paixnidi.getTries());
+	}
+	
+	/**
+	 * Updates the field of remaining praxis
+	 * @param clean returns the praxis message without showing any operations
+	 */
+	protected void updatePraxis(boolean clean)
+	{
+		this.current.praxisRemainingDisplay=u.getString("praxis")+((!clean)?paixnidi.getRemainingPraxis()+"/"+paixnidi.getPraxisNum():"");
+	}
+	
+	/**
+	 * Updates the field of remaining praxis
+	 * @param clean returns the praxis message without showing any operations
+	 */
+	protected void updatePraxis()
+	{
+		updatePraxis(false);
+	}
+	
 }

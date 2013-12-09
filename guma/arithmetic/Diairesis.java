@@ -87,7 +87,8 @@ public class Diairesis extends Praxis
 	*/
 	public String toFullString()
 	{
-		return (toString()+' '+apotelesma[0]+' '+"Υπόλοιπο Διαίρεσης:"+' '+apotelesma[1]);
+		guma.ui.general.UTFResourceBundle u= new guma.ui.general.UTFResourceBundle("messages.Division");
+		return (toString()+' '+apotelesma[0]+' '+u.getString("modulo")+' '+apotelesma[1]);
 	}
 
 	

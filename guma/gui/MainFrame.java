@@ -24,6 +24,7 @@ import guma.gui.*;
 
 import guma.core.*;
 import guma.ui.main.*;
+import guma.ui.general.UTFResourceBundle;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,42 +48,42 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 	/**
 	*The Menu "File"
 	*/
-	private JMenu fileMenu= new JMenu("Αρχείο");
+	private JMenu fileMenu= null;// new JMenu("Αρχείο");
 	
 	/**
 	*The menu Help
 	*/
-	private JMenu help=new JMenu("Βοήθεια");	
+	private JMenu help=null;//new JMenu("Βοήθεια");	
 	
 	/**
 	*The MenuItem that the user clicks for a new game 
 	*/
-	private JMenuItem newGameOption = new JMenuItem("Νέο Παιχνίδι");
+	private JMenuItem newGameOption =null;// new JMenuItem("Νέο Παιχνίδι");
 
 	/**
 	*The MenuItem in which the user select file to load progress
 	*/
-	private JMenuItem loadGameOption= new JMenuItem("Άνοιγμα");
+	private JMenuItem loadGameOption=null;// new JMenuItem("Άνοιγμα");
 	
 	/**
 	*Option that allows you to open from the web a Game
 	*/
-	private JMenuItem loadWebOption= new JMenuItem("Άνοιγμα από το διαδικτυο");
+	private JMenuItem loadWebOption=null;// new JMenuItem("Άνοιγμα από το διαδικτυο");
 	
 	/**
 	*The MenuItem in which the user select file to load progress
 	*/
-	private JMenuItem saveGameOption= new JMenuItem("Αποθήκευση");
+	private JMenuItem saveGameOption=null; //new JMenuItem("Αποθήκευση");
 
 	/**
 	*The menu Iten that creates a new save game
 	*/
-	private JMenuItem saveAs = new JMenuItem("Αποθήκευση Ως");
+	private JMenuItem saveAs =null;// new JMenuItem("Αποθήκευση Ως");
 
 	/**
 	*The menu Iten that shows the credits
 	*/
-	private JMenuItem about= new JMenuItem("Σχετικά με το GUMA");
+	private JMenuItem about=null;// new JMenuItem("Σχετικά με το GUMA");
 	/**
 	*Panel for placing the Buttons Here
 	*/
@@ -91,12 +92,12 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 	/**
 	*Button for checking result and going to next arithmetic praxis
 	*/
-	private JButton nextPraxisButton=new JButton("Επόμενη Πράξη>>");
+	private JButton nextPraxisButton=null;//new JButton("Επόμενη Πράξη>>");
 	
 	/**
 	*Button for closing the window
 	*/
-	private JButton close=new JButton("Κλείσιμο");
+	private JButton close=null;//new JButton(u.getString("close"));
 
 	/**
 	*Layout that use the Jpanels
@@ -131,7 +132,12 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 	/**
 	*That shows the remaining arithmetic Operations
 	*/
-	private JLabel remaining=new JLabel("Πράξεις:");
+	private JLabel remaining=null;//new JLabel("Δημιουργήστε νέο παιχνίδι");
+	
+	/**
+	 * 
+	 */
+	private UTFResourceBundle u=new UTFResourceBundle("messages.gui.mainview"); 
 	
 	/**
 	*Inner class that handles what to do when the window closes
@@ -171,6 +177,25 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 				nextPraxisButton.setEnabled(true);
 			}
 		} 
+	}
+	
+	/**
+	 * Initilizes the Environment
+	 */
+	private void init()
+	{
+		fileMenu= new JMenu(u.getString("file"));
+		help=new JMenu(u.getString("help"));	
+		newGameOption =new JMenuItem(u.getString("newgame"));
+		loadGameOption=new JMenuItem(u.getString("open"));
+		loadWebOption=new JMenuItem(u.getString("openweb"));
+		saveGameOption=new JMenuItem(u.getString("save"));
+		saveAs =new JMenuItem(u.getString("saveAs"));
+		about=new JMenuItem(u.getString("about"));
+		nextPraxisButton=new JButton(u.getString("next"));
+		close=new JButton(u.getString("close"));
+		remaining=new JLabel(u.getString("remaining"));
+		this.setTitle(u.getString("title"));
 	}
 
 	/**
@@ -219,27 +244,22 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 					
 					if(f.exists())
 					{
-						int option=JOptionPane.showConfirmDialog((Component)file,"To αρχείο "+f.getName() +" όπου επιλέξατε"+ 										"υπάρχει AΝΤΙΚΑΤΑΣΤΑΣΗ?",
-											"Αντικατάσταση αρχείου",
+						int option=JOptionPane.showConfirmDialog((Component)file,u.getString("replacefileMessage",new String[]{f.getName()}),
+											u.getString("replaceFileTitle"),
 											JOptionPane.YES_NO_OPTION,
 										JOptionPane.WARNING_MESSAGE );
 
 						if(option==JOptionPane.NO_OPTION)
 						{
-							JOptionPane.showConfirmDialog((Component)file,
-								"Το αρχείο όπου επιλέξατε ΔΕΝ θα αντικατασταθεί",
-								"Περι αντικατάστασης αρχείου",
-								JOptionPane.ERROR_MESSAGE);
 							return;
 						}
-						else
+						/*else
 						{
 							JOptionPane.showMessageDialog((Component)file
 									,"Το αρχείο όπου επιλέξατε ΘΑ αντικατασταθεί",
 										"Περι αντικατάστασης αρχείου",
 										JOptionPane.ERROR_MESSAGE);
-						}
-					
+						}*/
 					}
 					controller.save(f);
 				}
@@ -252,19 +272,19 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 					}
 					else
 					{
-							JOptionPane.showMessageDialog((Component)file,"Το αρχείο που επιλέξατε δεν μπορεί να φορτωθεί",
-																	"Πρόβλημα με το αρχείο",JOptionPane.ERROR_MESSAGE);
+							JOptionPane.showMessageDialog((Component)file,u.getString("fileErrorMessage"),
+																	u.getString("fileErrorTitle"),JOptionPane.ERROR_MESSAGE);
 					}
 				}
 
 			}
 			catch(IOException e)
 			{
-				JOptionPane.showMessageDialog((Component)file,e.getMessage(),"Πρόβλημα με το αρχείο",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog((Component)file,e.getMessage(),u.getString("fileErrorTitle"),JOptionPane.ERROR_MESSAGE);
 			}
 			catch(ClassNotFoundException c)
 			{
-				JOptionPane.showMessageDialog((Component)file,c.getMessage(),"Πρόβλημα με το αρχείο",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog((Component)file,c.getMessage(),u.getString("fileErrorTitle"),JOptionPane.ERROR_MESSAGE);
 			}
 			
 		}
@@ -281,13 +301,12 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 		{
 		
 			/*The String of each option we have*/
-			String [] options={"Aποθήκευση","Χωρίς αποθήκευση","Ακύρωση"};
+			String [] options={u.getString("save"),u.getString("noSave"),u.getString("cancel")};
 				
 			/*Creating the Dialog window*/
 			 int option=JOptionPane.showOptionDialog(MainFrame.this,
-								"H πρόοδος δεν έχει αποθηκευτεί. \n"
-								+"Τι θέλετε να κανω πριν να κλείσει το πρόγραμμα;",
-								"Κλείσιμο",
+					 			u.getString("closeMessage"),
+								u.getString("close"),
 								JOptionPane.YES_NO_CANCEL_OPTION,
 								    JOptionPane.QUESTION_MESSAGE,
 								null,
@@ -327,13 +346,13 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 	public MainFrame()
 	{
 		/*Basic settings of the frame*/
-		super("GUMA: Μια  εκπαιδευτική εφαρμογή  αριθμιτικής ελευθέρου λογισμικού");
+		super();
 		setSize(330,200);
 		setResizable(true);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowCloser());
 		setLayout(new BorderLayout());
-
+		init();
 		/*Adding the bar*/
 		setJMenuBar(panwBar);
 		panwBar.add(fileMenu);
@@ -359,9 +378,9 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 		/*Adding Buttons*/
 		buttonsPanel.setLayout(panelLayout);
 		buttonsPanel.add(close);
-		close.setToolTipText("Κάνε κλικ για να κλείσεις το πρόγραμμα.");
+		close.setToolTipText(u.getString("closeToolTip"));
 		buttonsPanel.add(nextPraxisButton);
-		nextPraxisButton.setToolTipText("Κάνε κλικ για να πας στην επόμενη πράξη.");
+		nextPraxisButton.setToolTipText(u.getString("nextOperationTooltip"));
 		add(buttonsPanel,BorderLayout.SOUTH);
 		
 		/*Adding Action Listeners*/
@@ -402,7 +421,7 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 				}
 				catch(IOException x)
 				{
-					JOptionPane.showMessageDialog((Component)option,x.getMessage(),"Πρόβλημα με το αρχείο",JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog((Component)option,x.getMessage(),u.getString("fileErrorTitle"),JOptionPane.ERROR_MESSAGE);
 				}
 			}
 			else
@@ -447,23 +466,14 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 			}	
 			catch(NumberFormatException nfe)//Not a number
 			{
-				JOptionPane.showMessageDialog((Component)resultField,
-								"Δεν δώσατε αριθμιτική τιμή στο αποτέλεσμα.\n"+
-								"Πρέπει να δώσετε αριθμιτική τιμή στο αποτέλεσμα",
-								"Προσπάθησε ξανα",
+				JOptionPane.showMessageDialog((Component)resultField,u.getString("notNumericMessage"),u.getString("notNumericTitle"),
 								JOptionPane.ERROR_MESSAGE);
 			}
 			
 		}
 		else if(option==about)
 		{
-			JOptionPane.showMessageDialog((Component)about,
-					"GUMA: Εφαρμογή εκμάνθησης αριθμιτικών πράξεων για μαθητές δημοτικού\n\n"+
-									"To GUMA είναι project ελευθέρου λογισμικού ύπο"+
-									" την άδεια GNU GPLv3\n\n"+
-									"Δημιουργός: Δεσύλλας Δημήτριος (pc_magas)\n"+
-									"email: pc_magas@yahoo.gr",
-									"Σχετικά:",JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog((Component)about,u.getString("aboutMessage"),u.getString("about"),JOptionPane.INFORMATION_MESSAGE);
 		}
 		else if(option==close)//Select to close
 		{
@@ -512,11 +522,8 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 				}	
 				catch(NumberFormatException nfe)//Not a number
 				{
-					JOptionPane.showMessageDialog((Component)resultField,
-									"Δεν δώσατε αριθμιτική τιμή στο αποτέλεσμα.\n"+
-									"Πρέπει να δώσετε αριθμιτική τιμή στο αποτέλεσμα",
-									"Προσπάθησε ξανα",
-									JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog((Component)resultField,u.getString("notNumericMessage"),u.getString("notNumericTitle"),
+							JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		}
