@@ -24,19 +24,20 @@ import java.awt.event.*;
 import javax.swing.event.*;
 import guma.core.Game;
 import guma.net.WebGameLoader;
+import guma.ui.general.UTFResourceBundle;
 
-public class WebGui extends JPanel implements ActionListener,Runnable
+public class WebGui extends JPanel implements ActionListener
 {
 	
 	/**
 	*Shows the Label for seting the size of downloaded file
 	*/
-	private JLabel sizeLabel= new JLabel("Μέγεθος Αρχείου σε Kilobytes");
+	private JLabel sizeLabel=null;// new JLabel("Μέγεθος Αρχείου σε Kilobytes");
 	
 	/**
 	*Shows the Label for seting the url of Downloaded file
 	*/
-	private JLabel urlLabel= new JLabel("Url παιχνιδιού στο διαδίκτυο");
+	private JLabel urlLabel=null;// new JLabel("Url παιχνιδιού στο διαδίκτυο");
 	
 	/**
 	*Input of Url
@@ -56,17 +57,17 @@ public class WebGui extends JPanel implements ActionListener,Runnable
 	/**
 	*Showing the paste MenuItem
 	*/
-	private JMenuItem paste=new JMenuItem("Επικόληση");
+	private JMenuItem paste=null;//new JMenuItem("Επικόληση");
 	
 	/**
 	*Showing the cut MenuItem
 	*/
-	private JMenuItem cut=new JMenuItem("Αποκοπή");
+	private JMenuItem cut=null;//new JMenuItem("Αποκοπή");
 	
 	/**
 	*Showing the cut MenuItem
 	*/
-	private JMenuItem cοpy=new JMenuItem("Αντιγραφή");
+	private JMenuItem cοpy=null//new JMenuItem("Αντιγραφή");
 	
 	/**
 	*Returns stores the created Game
@@ -79,11 +80,21 @@ public class WebGui extends JPanel implements ActionListener,Runnable
 	WebGameLoader w=null;
 
 	/**
+	 * Mechanism to lad the messages
+	 */
+	private UTFResourceBundle u=new UTFResourceBundle("messages.gui.webgui");
+	/**
 	*Consructor Method Initialises a new WebGui
 	*/
 	public WebGui()
 	{
 		super();
+		
+		sizeLabel= new JLabel(u.getString("sizelabel"));
+		urlLabel= new JLabel(u.getString("urlLabel"));
+		paste=new JMenuItem(u.getString("paste"));
+		cut=new JMenuItem(u.getString("cut"));
+		cοpy=new JMenuItem(u.getString("copy"));
 		
 		/*Setting right Click menu*/
 		cut.addActionListener(this);
@@ -174,11 +185,11 @@ public class WebGui extends JPanel implements ActionListener,Runnable
 	public Game getGame()
 	{
 	
-		String[] options={"OK","Ακύρωση"};
+		String[] options={"OK",u.getString("cancel")};
 		gameToCreate=null;
 		
 			
-		int returnVal=JOptionPane.showOptionDialog(null,this,"Κατέβασμα παιχνιδιού από το web",
+		int returnVal=JOptionPane.showOptionDialog(null,this,u.getString("title"),
 							JOptionPane.OK_CANCEL_OPTION,
 							JOptionPane.QUESTION_MESSAGE,
 							null,(Object[])options,
@@ -199,8 +210,8 @@ public class WebGui extends JPanel implements ActionListener,Runnable
 				  						{
        										 public void run()
        										 {
-            									JOptionPane.showMessageDialog(null,"Παρακαλώ Περιμένετε",
-            																	"Παρακαλώ Περιμένετε",
+            									JOptionPane.showMessageDialog(null,u.getString("pleasewait"),
+            																		u.getString("pleasewait"),
             																JOptionPane.PLAIN_MESSAGE);
             									while(true){}
         									}
@@ -216,18 +227,18 @@ public class WebGui extends JPanel implements ActionListener,Runnable
 			catch(java.io.IOException x)
 			{
 				x.printStackTrace();
-				JOptionPane.showMessageDialog(null,"Σφάλμα","Η διεύθυνση δικτύου δεν αντιστοιχεί σε παιχνίδι",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,u.getString("errortitle"),u.getString("downloadError"),JOptionPane.ERROR_MESSAGE);
 				return null;
 			}
 			catch(ClassNotFoundException c)
 			{
 				c.printStackTrace();
-				JOptionPane.showMessageDialog(null,"Σφάλμα","Το αρχείο δεν αντιστοιχεί σε παιχνίδι",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,u.getString("errortitle"),u.getString("fileError"),JOptionPane.ERROR_MESSAGE);
 				return null;
 			}
 			catch(Exception e)
 			{
-				JOptionPane.showMessageDialog(null,"Σφάλμα","Δεν δώσατε αριθμιτική τιμή στο μέγεθος",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,u.getString("errortitle"),u.getString("numericException"),JOptionPane.ERROR_MESSAGE);
 				return this.getGame();
 			}
 		}
@@ -235,12 +246,6 @@ public class WebGui extends JPanel implements ActionListener,Runnable
 		{
 			 gameToCreate=null;
 		}
-		System.out.println("Before Return");
 		return gameToCreate;
-	}
-	
-	public void run()
-	{
-		
 	}
 }
