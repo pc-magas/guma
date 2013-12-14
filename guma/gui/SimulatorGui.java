@@ -26,6 +26,7 @@ import java.awt.event.*;
 import guma.core.*;
 import guma.arithmetic.Praxis;
 import guma.ui.simulator.*;
+import guma.ui.general.UTFResourceBundle;
 
 public class SimulatorGui extends JFrame implements ActionListener,UpdateSimulatorUI
 {
@@ -33,16 +34,16 @@ public class SimulatorGui extends JFrame implements ActionListener,UpdateSimulat
 	*Button Panel
 	*/
 	private JPanel butonPanel=new JPanel();
-		
+	
 	/**
 	*Button that allows you to move on the next step of Operation Simulation
 	*/
-	private JButton next= new JButton("Επόμενο Βήμα");
+	private JButton next=null;
 	
 	/**
 	*Close Window Button
 	*/
-	private JButton close=new JButton("Κλείσιμο");
+	private JButton close=null;
 	
 	/**
 	*Panel for havinh together the area that shows the carry and the label
@@ -52,7 +53,7 @@ public class SimulatorGui extends JFrame implements ActionListener,UpdateSimulat
 	/**
 	*Label that shows the a value for carry column
 	*/
-	private JLabel carryLabel=new JLabel("Κρατούμενα/Δανεικά:");
+	private JLabel carryLabel=null;
 	
 	/**
 	*Showing the Carry
@@ -75,6 +76,11 @@ public class SimulatorGui extends JFrame implements ActionListener,UpdateSimulat
 	private SimulatorController s=null;
 	
 	/**
+	 * Stores the messages of Localization
+	 */
+	private UTFResourceBundle u=new UTFResourceBundle("mesages.gui.simulatorgui");
+	
+	/**
 	*Constructor
 	*@param telestis1: the first operator of the operation we want to simulate
 	*@param telestis2: the second operator of the operation we want to simulate
@@ -83,8 +89,13 @@ public class SimulatorGui extends JFrame implements ActionListener,UpdateSimulat
 	public SimulatorGui(int telestis1, int telestis2, char praxisType)
 	{
 		super();
+		
+		next=new JButton(u.getString("nextstep"));
+		close=new JButton(u.getString("close"));
+		carryLabel=new JLabel(u.getString("carry"));
+				
 		setSize(500,345);
-		setTitle("Προσομοίωση Πράξης");
+		setTitle(u.getString("title"));
 		setLayout(new BorderLayout());
 		add(butonPanel,BorderLayout.SOUTH);
 		butonPanel.setLayout(new FlowLayout());
