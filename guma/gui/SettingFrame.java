@@ -25,7 +25,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import guma.core.*;
 import guma.arithmetic.Praxis;
-
+import guma.ui.general.UTFResourceBundle;
 
 /**
 *This class allows me to set the settings of a new Game
@@ -36,27 +36,27 @@ public class SettingFrame extends JPanel implements ItemListener
 	/**
 	*Checkbox for selecting the arithmetic praxis of adding
 	*/
-	private JCheckBox pros8esiCheck = new JCheckBox("Πρόσθεση");
+	private JCheckBox pros8esiCheck =null;
 	
 	/**
 	*Checkbox for selecting the arithmetic praxis of substraction
 	*/
-	private JCheckBox afairesiCheck = new JCheckBox("Αφαίρεση");
+	private JCheckBox afairesiCheck = null;
 	
 	/**
 	*Checkbox for selecting the arithmetic praxis of multiplication
 	*/
-	private JCheckBox pollaplasiasmosCheck = new JCheckBox("Πολλαπλασιασμός");
+	private JCheckBox pollaplasiasmosCheck = null;
 
 	/**
 	*
 	*/
-	private JCheckBox divisionCheck=new JCheckBox("Διαίρεση");
+	private JCheckBox divisionCheck=null;
 
 	/**
 	*Label that describes what we choose with the JCheckloxes
 	*/
-	private JLabel praxisTypeLabel=new JLabel("Επιλέξτε είδος πράξεων");
+	private JLabel praxisTypeLabel=null;
 
 	
 	/**
@@ -67,7 +67,7 @@ public class SettingFrame extends JPanel implements ItemListener
 	/**
 	*JLabel for describing what we set with JSpinner pli8osPraxewn
 	*/
-	private JLabel pli8osLabel=new JLabel("Πλήθος Πράξεων:");
+	private JLabel pli8osLabel=null;
 
 
 	/**
@@ -78,7 +78,7 @@ public class SettingFrame extends JPanel implements ItemListener
 	/**
 	*JLabel that describes what we set with JSPinner maxNum
 	*/
-	private JLabel maxNumLabel=new JLabel("Μεγιστη τιμή όρου μιας πράξης:");
+	private JLabel maxNumLabel=null;
 	
 	
 	/**
@@ -92,15 +92,19 @@ public class SettingFrame extends JPanel implements ItemListener
 	*/
 	private ArrayList<Character> praxeis=new ArrayList<Character>(3);
 	
-
+	/**
+	 * Interlocalization method
+	 */
+	private UTFResourceBundle u=new UTFResourceBundle("messages.gui.gameSettings");
+	
 	/**
 	*Returns the game that the frame created
 	*/	
 	public Game getGame(Component parent)
 	{
-		String[] options={"OK","Ακύρωση"};
+		String[] options={"OK",u.getString("cancel")};
 
-		int returnVal=JOptionPane.showOptionDialog((Component)parent,this,"Επιλογές Παιχνιδιού",
+		int returnVal=JOptionPane.showOptionDialog((Component)parent,this,u.getString("title"),
 							JOptionPane.OK_CANCEL_OPTION,
 							JOptionPane.QUESTION_MESSAGE,
 							null,(Object[])options,
@@ -119,10 +123,8 @@ public class SettingFrame extends JPanel implements ItemListener
 			}
 			if(praxeis.isEmpty())
 			{
-				JOptionPane.showMessageDialog((Component)praxisTypeLabel,"Δεν επιλέξατε πράξη.\n"
-									+"Παρακαλώ επαναλάβεται την διαδικασία και"+
-									" επιλέξτε πράξη.",
-									"Σφάλμα",
+				JOptionPane.showMessageDialog((Component)praxisTypeLabel,u.getString("errormsg"),
+									u.getString("error"),
 									JOptionPane.ERROR_MESSAGE);
 
 				gameToCreate=getGame(parent);
@@ -148,6 +150,17 @@ public class SettingFrame extends JPanel implements ItemListener
 	{
 		/*Setting the Frame*/
 		super();
+		
+		/*Setting the label messagess*/
+		pros8esiCheck = new JCheckBox(u.getString("adding"));
+		afairesiCheck = new JCheckBox(u.getString("substraction"));
+		pollaplasiasmosCheck = new JCheckBox(u.getString("multiplication"));
+		divisionCheck=new JCheckBox(u.getString("division"));
+		praxisTypeLabel=new JLabel(u.getString("type"));
+		pli8osLabel=new JLabel(u.getString("pli8os"));
+		maxNumLabel=new JLabel(u.getString("maxval"));
+
+		
 		setSize(500,345);
 		GridBagLayout gridbag= new GridBagLayout();
 			GridBagConstraints c=new GridBagConstraints();//This  variable helps us out in making the gui 

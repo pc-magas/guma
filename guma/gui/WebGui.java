@@ -67,7 +67,7 @@ public class WebGui extends JPanel implements ActionListener
 	/**
 	*Showing the cut MenuItem
 	*/
-	private JMenuItem cοpy=null//new JMenuItem("Αντιγραφή");
+	private JMenuItem cοpy=null;//new JMenuItem("Αντιγραφή");
 	
 	/**
 	*Returns stores the created Game
@@ -221,24 +221,24 @@ public class WebGui extends JPanel implements ActionListener
 
 				w=new WebGameLoader(url,sizev);
 				gameToCreate=w.getGame();
-				JOptionPane.getRootFrame().dispose();
 				t.stop();
+				JOptionPane.getRootFrame().dispose();
 			}
 			catch(java.io.IOException x)
 			{
 				x.printStackTrace();
-				JOptionPane.showMessageDialog(null,u.getString("errortitle"),u.getString("downloadError"),JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,u.getString("downloadError"),u.getString("errortitle"),JOptionPane.ERROR_MESSAGE);
 				return null;
 			}
 			catch(ClassNotFoundException c)
 			{
 				c.printStackTrace();
-				JOptionPane.showMessageDialog(null,u.getString("errortitle"),u.getString("fileError"),JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,u.getString("fileError"),u.getString("errortitle"),JOptionPane.ERROR_MESSAGE);
 				return null;
 			}
 			catch(Exception e)
 			{
-				JOptionPane.showMessageDialog(null,u.getString("errortitle"),u.getString("numericException"),JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null,u.getString("numericException"),u.getString("errortitle"),JOptionPane.ERROR_MESSAGE);
 				return this.getGame();
 			}
 		}
