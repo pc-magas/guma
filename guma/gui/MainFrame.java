@@ -83,7 +83,8 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 	/**
 	*The menu Iten that shows the credits
 	*/
-	private JMenuItem about=null;// new JMenuItem("Σχετικά με το GUMA");
+	private JMenuItem about=null;
+	
 	/**
 	*Panel for placing the Buttons Here
 	*/
@@ -92,12 +93,12 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 	/**
 	*Button for checking result and going to next arithmetic praxis
 	*/
-	private JButton nextPraxisButton=null;//new JButton("Επόμενη Πράξη>>");
+	private JButton nextPraxisButton=null;
 	
 	/**
 	*Button for closing the window
 	*/
-	private JButton close=null;//new JButton(u.getString("close"));
+	private JButton close=null;
 
 	/**
 	*Layout that use the Jpanels
@@ -132,7 +133,7 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 	/**
 	*That shows the remaining arithmetic Operations
 	*/
-	private JLabel remaining=null;//new JLabel("Δημιουργήστε νέο παιχνίδι");
+	private JLabel remaining=null;
 	
 	/**
 	 * 
@@ -251,15 +252,9 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 
 						if(option==JOptionPane.NO_OPTION)
 						{
+							fileLoadAndSave(save);
 							return;
 						}
-						/*else
-						{
-							JOptionPane.showMessageDialog((Component)file
-									,"Το αρχείο όπου επιλέξατε ΘΑ αντικατασταθεί",
-										"Περι αντικατάστασης αρχείου",
-										JOptionPane.ERROR_MESSAGE);
-						}*/
 					}
 					controller.save(f);
 				}
@@ -348,7 +343,16 @@ public class MainFrame extends JFrame implements ActionListener,UIUpdater,KeyLis
 		/*Basic settings of the frame*/
 		super();
 		setSize(330,200);
-		setResizable(true);
+		try
+		{
+			setIconImage(Toolkit.getDefaultToolkit().getImage("."+File.separator+"pics"+File.separator+"icons"+File.separator+"icon_small.png"));
+		}
+		catch(Exception e)
+		{
+			System.err.println(e.getMessage());
+			e.printStackTrace();
+		}
+		setResizable(false);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		addWindowListener(new WindowCloser());
 		setLayout(new BorderLayout());

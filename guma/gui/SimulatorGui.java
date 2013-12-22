@@ -78,7 +78,7 @@ public class SimulatorGui extends JFrame implements ActionListener,UpdateSimulat
 	/**
 	 * Stores the messages of Localization
 	 */
-	private UTFResourceBundle u=new UTFResourceBundle("mesages.gui.simulatorgui");
+	private UTFResourceBundle u=new UTFResourceBundle("messages.gui.simulatorgui");
 	
 	/**
 	*Constructor
