@@ -1,5 +1,4 @@
 /**
-
 *GUMA a simple math game for elementary school students
 *	Copyright (C) 2011-1012  Dimitrios Desyllas (pc_magas)
 *
