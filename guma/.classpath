@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="gui"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/pcmagas/Kwdikas/java/GUMA/guma/libs/commons-io-2.4/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="/home/pcmagas/Kwdikas/java/GUMA/guma/libs/net/download-1.0.1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

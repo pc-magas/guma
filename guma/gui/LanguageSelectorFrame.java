@@ -1,6 +1,6 @@
 /**
 *GUMA a simple math game for elementary school students
-*	Copyright (C) 2013-2014  Dimitrios Desyllas (pc_magas)
+*	Copyright (C) 2011-1012  Dimitrios Desyllas (pc_magas)
 *
 *    This program is free software: you can redistribute it and/or modify
 *    it under the terms of the GNU General Public License as published by
@@ -14,40 +14,30 @@
 *
 *    You should have received a copy of the GNU General Public License
 *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*Contact with me by main at thes address: pc_magas@yahoo.gr
+*Contact with me by main at this address: pc_magas@yahoo.gr
 */
-package guma;
 
-import guma.gui.MainFrame;
+package guma.gui;
 
-public class Main extends guma.ui.general.ExecutionEnviroment
+import guma.gui.*;
+
+import guma.core.*;
+import guma.ui.main.*;
+import guma.ui.general.UTFResourceBundle;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.event.*;
+
+public class LanguageSelectorFrame extends JPanel implements ItemListener
 {
-	
-	MainFrame efarmogi=null;
-	
-	@Override
-	protected void initLoco()
-	{
-	}
-	
-	@Override
-	protected void initGui()
-	{
-		efarmogi=new MainFrame();
-	}
-
-	@Override
-	public void excecute()
-	{
-		efarmogi.setVisible(true);
-	}
-		
 	/**
-	*The main function of the program
-	*/
-	public static void main(String[] args)
-	{
-		Main m=new Main();
-		m.run(args);
-	}
+	*Label that tells us to select the desired Language
+	**/
+	private JLabel languageLabel=new JLabel("Please Select the your Local Language");
+
+	/**
+	*
+	**/	
 }
