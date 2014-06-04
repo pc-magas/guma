@@ -50,11 +50,6 @@ public class DivisionSimulator extends AbstractSimulator
 	private ArrayList<byte[]> miscelanous=new ArrayList<byte[]>();
 	
 	/**
-	 * Resource Bundle that loads the corect localization file
-	 */
-	private UTFResourceBundle u=new UTFResourceBundle("messages.divisionsimulator");
-	
-	/**
 	*Constructor Method
 	*@param telestis1: the first operator of the number that we will simulate the first operation
 	*@param telestis2: the second operator of the number that we will simulate the second operation

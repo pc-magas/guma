@@ -20,12 +20,10 @@
 package guma.simulator;
 
 import guma.arithmetic.Praxis;
-import guma.ui.general.UTFResourceBundle ;
+
 
 public class AddingSimulator extends SimpleSimulator
 {
-
-	private UTFResourceBundle messages= null;
 	
 	/**
 	*Constructor Method
@@ -35,7 +33,6 @@ public class AddingSimulator extends SimpleSimulator
 	public AddingSimulator(int telestis1,int telestis2)
 	{
 		super(telestis1,telestis2,Praxis.ADDING);
-		messages=new UTFResourceBundle("messages.addingsimulator");
 	}
 
 	@Override	
@@ -65,11 +62,11 @@ public class AddingSimulator extends SimpleSimulator
 			
 			if(telestis1.getDigitPos()<0 && telestis2.getDigitPos()<0)//run out of digits
 			{
-				if(kratoumeno!=0)//if carry remained
+				if(kratoumeno!=0)//if AddCarry remained
 				{
 					//message="Το κρατούμενο που περίσεψε το βάζω στο αποτέλεσμα.\n";
 						
-					message=messages.getString("putCarry");
+					message=u.getString("putAddCarry");
 
 					result.setDigit(kratoumeno);
 					kratoumeno=0;
@@ -77,18 +74,18 @@ public class AddingSimulator extends SimpleSimulator
 					return true;
 				}
 					
-				message=messages.getString("end");
+				message=u.getString("end");
 				//message="Τέλος προσομοίωσης";	
 				addStatus(true);
 				return false;
 			}
 			else
 			{
-					if(kratoumeno==0)//If carry
+					if(kratoumeno==0)//If AddCarry
 					{
 						//message="Προσθέτουμε τα ψηφία. Άν το άθροισμα των ψηφίων είναι διψήφιο τότε κρατάμε για κρατούμενο το πρώτο ψηφίο του αθροίσματος.";
 						
-						message=messages.getString("makeCarry");
+						message=u.getString("makeAddCarry");
 						
 						temp=tempTelestis1+tempTelestis2;
 						addStatus();
@@ -96,17 +93,17 @@ public class AddingSimulator extends SimpleSimulator
 					else
 					{
 						System.out.println("Adding with carry");
-						message=messages.getString("addWithCarry");
+						message=u.getString("addWithAddCarry");
 						
 						temp=kratoumeno+tempTelestis1+tempTelestis2;
 						kratoumeno=0;
 						addStatus();
 					}
 					
-					if(temp>=10)//if need to take a carry
+					if(temp>=10)//if need to take a AddCarry
 					{
 						
-						message=messages.getString("keepCarry");
+						message=u.getString("keepAddCarry");
 						
 						kratoumeno=1;
 						result.setDigit((byte)(temp-10));
@@ -116,7 +113,7 @@ public class AddingSimulator extends SimpleSimulator
 					{
 						//message="Βάζουμε το άθροισμα των ψηφίων στο αποτέλεσμα";
 						
-						message=messages.getString("putResult");
+						message=u.getString("putResult");
 						result.setDigit((byte)temp);
 						addStatus();
 					}

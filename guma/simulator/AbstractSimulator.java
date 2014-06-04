@@ -24,6 +24,7 @@ import guma.arithmetic.Praxis;
 import guma.simulator.Number;
 import java.util.ArrayList;
 import guma.simulator.InternalStatus;
+import guma.ui.general.UTFResourceBundle;
 
 public abstract class AbstractSimulator 
 {
@@ -77,6 +78,11 @@ public abstract class AbstractSimulator
 	*Gives us the selected item of the list
 	*/
 	protected int item=0;
+	
+	/**
+	*Loads the messages from resource bundle
+	*/
+	protected UTFResourceBundle u= new UTFResourceBundle("messages.simulator");
 	
 	/**
 	*Constructor Method

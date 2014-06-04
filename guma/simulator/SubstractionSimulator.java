@@ -29,7 +29,6 @@ public class SubstractionSimulator extends SimpleSimulator
 	*Shows if you can do the arithmetic operation
 	*/
 	private boolean canOperate=true;
-	private UTFResourceBundle u=null;
 
 	/**
 	*Constructor Method
@@ -39,7 +38,7 @@ public class SubstractionSimulator extends SimpleSimulator
 	public SubstractionSimulator(int telestis1,int telestis2)
 	{
 		super(telestis1,telestis2,Praxis.SUBSTRACTION);
-		u=new UTFResourceBundle("messages.substractionsimulator");
+
 		if(telestis1>telestis2)
 		{
 			canOperate=true;
@@ -83,7 +82,7 @@ public class SubstractionSimulator extends SimpleSimulator
 					//message="Προσθέτουμε το δανεικό στο "+tempTelestis2+" και έτσι θα γίνει ";
 					tempTelestis2+=kratoumeno;
 					u.addLabel(2,tempTelestis2);
-					message=u.getString("addCarry");//tempTelestis2+"\n";
+					message=u.getString("addSubCarry");//tempTelestis2+"\n";
 					kratoumeno=0;
 					addStatus();
 				}
@@ -93,7 +92,7 @@ public class SubstractionSimulator extends SimpleSimulator
 					
 					//u.addlabel(1,tempTelestis1);
 					//u.addlabel
-					message=u.getString("addCarry1",new String[]{String.valueOf(tempTelestis1),String.valueOf(tempTelestis2)});//"To "+tempTelestis1+" είναι μικρότερο από το "+tempTelestis2+". Θα χρειαστούμε ένα δανεικό που θα μπεί μπορστά από το "+tempTelestis1+" έτσι το "+tempTelestis1+"θα γίνει 1"+tempTelestis1+". Μετά εκτελούμε την πράξη μεταξύ των ψηφίων 1"+tempTelestis1+"-"+tempTelestis2;
+					message=u.getString("addSubCarry1",new String[]{String.valueOf(tempTelestis1),String.valueOf(tempTelestis2)});//"To "+tempTelestis1+" είναι μικρότερο από το "+tempTelestis2+". Θα χρειαστούμε ένα δανεικό που θα μπεί μπορστά από το "+tempTelestis1+" έτσι το "+tempTelestis1+"θα γίνει 1"+tempTelestis1+". Μετά εκτελούμε την πράξη μεταξύ των ψηφίων 1"+tempTelestis1+"-"+tempTelestis2;
 					
 					result.setDigit((byte)((10+tempTelestis1)-tempTelestis2));
 					

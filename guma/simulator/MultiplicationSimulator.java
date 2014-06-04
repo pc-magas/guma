@@ -53,11 +53,6 @@ public class MultiplicationSimulator extends AbstractSimulator
 	private boolean spartial=true;
 	
 	/**
-	 * ResourceBundle to get messages
-	 */
-	private UTFResourceBundle u= new UTFResourceBundle("messages.multiplicationsimulator");
-	
-	/**
 	 * Flag to print the final result
 	 */
 	private boolean flag=false;
@@ -144,7 +139,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 				
 				if(tempM.length>1)
 				{
-					message=u.getString("keepCarry");//"Η πράξη μας είχε διψήφιο αποτέλεσμα άρα το πρώτο ψηφίο το κρατάμε κρατούμενο. ";
+					message=u.getString("keepMulCarry");//"Η πράξη μας είχε διψήφιο αποτέλεσμα άρα το πρώτο ψηφίο το κρατάμε κρατούμενο. ";
 					kratoumeno=tempM[0];
 					endiamesa[endiamesoApotelesmaIndex].setDigit(tempM[tempM.length-1]);
 					addStatus();
@@ -174,7 +169,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 				
 				if(kratoumeno>0)
 				{
-				 	message=u.getString("putCarryOnTheFront");//"Βάζουμε το κρατούμενο στην αρχή του αποτελέσματος";
+				 	message=u.getString("putMulCarryOnTheFront");//"Βάζουμε το κρατούμενο στην αρχή του αποτελέσματος";
 				 	endiamesa[endiamesoApotelesmaIndex].setDigit(kratoumeno);
 				 	kratoumeno=0;
 				 	addStatus();
