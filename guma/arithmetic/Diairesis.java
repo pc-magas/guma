@@ -18,6 +18,10 @@
 */
 package guma.arithmetic;
 import java.util.Random;
+
+/**
+*Class that simulates division between integers
+*/
 public class Diairesis extends Praxis
 {
 
