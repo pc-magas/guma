@@ -21,7 +21,7 @@
 
 package guma.ui.elements;
 
-public abstract class UIDescription
+public class UIDescription
 {
 	
 	/**
@@ -55,6 +55,11 @@ public abstract class UIDescription
 	protected byte type=0;
 	
 	/**
+	*Storing the title of this UIDescription. Many frames need to have a title
+	*/
+	protected string title="";	
+	
+	/**
 	*Creates a plain UIDescription Object
 	*/
 	public UIDescription()
@@ -66,17 +71,13 @@ public abstract class UIDescription
 	/**
 	*
 	*/
-	public UIDescription(byte type,String use)
+	public UIDescription(byte type,String use,String title)
 	{
 		setType(type);
 		setUse(use);
+		setTitle(title);
 	}
-	
-	/**
-	*Clones the instance of UIDescription 
-	*/
-	public abstract class UIdescription clone();
-	
+		
 	/**
 	*Method that sets a Type to the UIElement
 	*@param type: the type of UIElement we want to.
@@ -116,5 +117,22 @@ public abstract class UIDescription
 	public String getUse()
 	{
 		return use;
+	}
+	
+	/**
+	*Setting the tyitle of this UIDescritpion
+	*@param title: the title of this UIDescription
+	*/
+	public void setTitle(String title)
+	{
+		this.title=title;
+	}
+	
+	/**
+	*Getting the title of this UIDescritpion
+	*/
+	public String getTitle()
+	{
+		return title;
 	}
 }
