@@ -21,10 +21,11 @@
 
 package guma.ui.main;
 
+import guma.ui.elements;
 /**
 *A class that describes the currest status of basic elements of the user interface.
 */
-public class UIStatus
+public class UIStatus extends UIDescription
 {
 	/**
 	*Show what value will the UI display for the remaining operations.
@@ -70,6 +71,7 @@ public class UIStatus
 							boolean saveAs,
 							boolean save)
 	{
+		super(UIDescription.)
 		this.praxisRemainingDisplay=praxisRemainingDisplay;
 		this.praxisValue=praxisValue;
 		this.next=next;
@@ -102,10 +104,8 @@ public class UIStatus
 		this.save=other.save;
 	}
 
-	/**
-	*Clones this UIStatus
-	*/
-	public UIStatus clone()
+	@Override
+	public UIDescription clone()
 	{
 		return new UIStatus(this);
 	}

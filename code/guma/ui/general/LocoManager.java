@@ -23,6 +23,9 @@ import java.util.Locale;
 
 public class LocoManager 
 {
+	/**
+	*Stores Ui LanguageS
+	*/
 
 	private static Locale loco=null;
 	
