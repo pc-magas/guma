@@ -1,5 +1,5 @@
 /**
-*GUMA a simple math game for elementary school students
+*	GUMA a simple math game for elementary school students
 *	Copyright (C) 2011-1012  Dimitrios Desyllas (pc_magas)
 *
 *    This program is free software: you can redistribute it and/or modify
@@ -19,20 +19,22 @@
 
 package guma.arithmetic;
 
+import guma.enums.PraxisType;
+
 /**
-*Class that simulates adding between prosthesis
+*Class that simulates multiplication between integers
 */
-public class Prosthesis extends Praxis
+public class Multiplication extends Praxis
 {
 	
 	/**
 	*Constructor methos that Creates a random Adding arithmetic praxis
 	*@param maxNum: The maximum number that can have an arithmetic praxis
 	*/
-	public Prosthesis(int maxNum)
+	public Multiplication(int maxNum)
 	{
 		super(maxNum);
-		praxistype=ADDING;
+		praxistype=PraxisType.MULTIPLICATION;
 	}
 	
 	/**
@@ -40,10 +42,10 @@ public class Prosthesis extends Praxis
 	*@param telestis1: The first operator of an arithmetic praxis
 	*@param telestis2: The seciond operator on an arithmetic praxis
 	*/
-	public Prosthesis(int telestis1, int telestis2)
+	public Multiplication(int telestis1, int telestis2)
 	{
 		super(telestis1,telestis2);
-		praxistype=ADDING;
+		praxistype=PraxisType.MULTIPLICATION;
 	}
 
 	/**
@@ -51,7 +53,7 @@ public class Prosthesis extends Praxis
 	*/
 	public String toString()
 	{
-		return String.valueOf(getTelestis1())+" + "+String.valueOf(getTelestis2())+" =";
+		return String.valueOf(getTelestis1())+" * "+String.valueOf(getTelestis2())+" =";
 	}
 
 	/**
@@ -61,12 +63,13 @@ public class Prosthesis extends Praxis
 	{
 		return toString()+' '+String.valueOf(apotelesma[0]);
 	}
+
 	/**
 	*@override
 	*This method executes the arithmetic praxis 
 	*/
 	protected void doPraxis()
 	{
-		super.apotelesma[0]=super.getTelestis1()+super.getTelestis2();
+		apotelesma[0]=getTelestis1()*getTelestis2();
 	}	
 }

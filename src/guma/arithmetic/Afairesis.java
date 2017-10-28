@@ -19,6 +19,8 @@
 
 package guma.arithmetic;
 
+import guma.enums.PraxisType;
+
 /**
 *Class that simulates substraction between integers
 */
@@ -32,7 +34,7 @@ public class Afairesis extends Praxis
 	public Afairesis(int maxNum)
 	{
 		super(maxNum);
-		praxistype=SUBSTRACTION;
+		praxistype=PraxisType.SUBSTRACTION;
 	}
 	
 	/**
@@ -43,7 +45,7 @@ public class Afairesis extends Praxis
 	public Afairesis(int telestis1, int telestis2)
 	{
 		super(telestis1,telestis2);
-		praxistype=SUBSTRACTION;
+		praxistype=PraxisType.SUBSTRACTION;
 	}
 
 	/**

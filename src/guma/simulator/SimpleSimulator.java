@@ -21,6 +21,8 @@ package guma.simulator;
 
 import java.util.*;
 
+import guma.enums.PraxisType;
+
 /**
 *A Simple simulator that works as base for Adding and Substraction
 */
@@ -33,7 +35,7 @@ public abstract class SimpleSimulator extends guma.simulator.AbstractSimulator
 	*@param telestis2: the second operator of the number that we will simulate the first operation
 	*@param type: the type or praxis we simulate
 	*/
-	public SimpleSimulator(int telestis1, int telestis2,char type)
+	public SimpleSimulator(int telestis1, int telestis2,PraxisType type)
 	{
 		super(telestis1,telestis2,type);
 		this.result=new guma.simulator.Number((Math.max(this.telestis1.length(),this.telestis2.length())+1),true);

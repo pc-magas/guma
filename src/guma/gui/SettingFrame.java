@@ -92,6 +92,27 @@ public class SettingFrame extends JPanel implements ItemListener
 	*/
 	private ArrayList<Character> praxeis=new ArrayList<Character>(3);
 	
+	/**
+	*The symbol of ADDING
+	*/
+	private static final char ADDING='+';
+	
+	/**
+	*The symbol of Substraction
+	*/
+	private static final char SUBSTRACTION='-';
+
+	/**
+	*The symbol of multiplication
+	*/
+	private static final char MULTIPLICATION='*';
+
+	/**
+	*The symbol of division
+	*/
+	private static final char DIVISION='/';
+
+	
 
 	/**
 	*Returns the game that the frame created
@@ -203,19 +224,19 @@ public class SettingFrame extends JPanel implements ItemListener
 		/*We find out what type is selected*/
 		if(source==pros8esiCheck)
 		{
-			praxis=Praxis.ADDING;
+			praxis= ADDING;
 		}
 		else if(source==afairesiCheck)
 		{
-			praxis=Praxis.SUBSTRACTION;
+			praxis=SUBSTRACTION;
 		}
 		else if(source==divisionCheck)
 		{
-			praxis=Praxis.DIVISION;
+			praxis=DIVISION;
 		}
 		else
 		{
-			praxis=Praxis.MULTIPLICATION;
+			praxis=MULTIPLICATION;
 		}
 
 		/*If Selected or Deselected item what to do*/

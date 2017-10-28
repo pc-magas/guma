@@ -24,6 +24,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import guma.core.*;
+import guma.enums.PraxisType;
 import guma.arithmetic.Praxis;
 import guma.ui.simulator.*;
 
@@ -80,7 +81,7 @@ public class SimulatorGui extends JFrame implements ActionListener,UpdateSimulat
 	*@param telestis2: the second operator of the operation we want to simulate
 	*@param praxisType: the type of operation we want to simulate
 	*/
-	public SimulatorGui(int telestis1, int telestis2, char praxisType)
+	public SimulatorGui(int telestis1, int telestis2, PraxisType praxisType)
 	{
 		super();
 		setSize(500,345);

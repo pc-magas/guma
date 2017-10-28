@@ -18,6 +18,8 @@
 */
 package guma.arithmetic;
 import java.util.Random;
+
+import guma.enums.PraxisType;
 public class Diairesis extends Praxis
 {
 
@@ -42,7 +44,7 @@ public class Diairesis extends Praxis
 		{
 			results=2;
 		}
-		praxistype=DIVISION;
+		praxistype=PraxisType.DIVISION;
 	}
 
 	/**
@@ -62,7 +64,7 @@ public class Diairesis extends Praxis
 		{
 			results=2;
 		}
-		praxistype=DIVISION;
+		praxistype=PraxisType.DIVISION;
 	}
 
 	/**

@@ -20,6 +20,9 @@
 package guma.core;
 
 import guma.arithmetic.*;
+
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import java.lang.*;
 
@@ -28,6 +31,7 @@ import java.io.IOException;
 import java.io.File;
 import guma.core.GameOverException;
 import guma.core.TriesEndException;
+import guma.enums.PraxisType;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.*;
@@ -80,6 +84,20 @@ public class Game
 	*Boollean that helps us out to check what kind of error we will throw
 	*/
 	private boolean end=false;
+	
+	final private static Map<Character,PraxisType> praxisTypeMap = new HashMap<Character,PraxisType>();
+	{
+		praxisTypeMap.put('+', PraxisType.ADDING);
+		praxisTypeMap.put('-', PraxisType.SUBSTRACTION);
+		praxisTypeMap.put('*', PraxisType.MULTIPLICATION);
+		praxisTypeMap.put('/', PraxisType.SUBSTRACTION);
+	}
+	
+	public static PraxisType getPraxisType(char c){
+		return praxisTypeMap.get(c);
+	}
+
+
 
 	/**
 	*Creator method
@@ -96,7 +114,9 @@ public class Game
 		{
 			do
 			{
-				p[i]=Praxis.makePraxis(praxisType[r.nextInt(praxisType.length)],maxNum+1);	
+				char praxisChar = praxisType[r.nextInt(praxisType.length)];
+				
+				p[i]=Praxis.makePraxis(getPraxisType(praxisChar),maxNum+1);	
 			}
 			while(p[i]==null);
 
@@ -346,7 +366,8 @@ IOException("Το αρχείο δεν είναι προσβάσιμο ή δεν 
 						{
 							
 							String tempS2[]=praxisList.item(i).getTextContent().split(" ");
-							p[i]= Praxis.makePraxis(tempS2[1].charAt(0),Integer.parseInt(tempS2[0]),Integer.parseInt(tempS2[2]));
+							char praxisChar = tempS2[1].charAt(0);
+							p[i]= Praxis.makePraxis(getPraxisType(praxisChar),Integer.parseInt(tempS2[0]),Integer.parseInt(tempS2[2]));
 							if(p[i]==null)
 							{
 								throw new ClassNotFoundException("Το αρχείο δεν περιέχει σωστά δεδομένα");

@@ -23,6 +23,7 @@ import guma.simulator.AbstractSimulator;
 import java.util.ArrayList;
 import java.util.Arrays;
 import guma.arithmetic.Praxis;
+import guma.enums.PraxisType;
 
 public class DivisionSimulator extends AbstractSimulator
 {
@@ -55,7 +56,7 @@ public class DivisionSimulator extends AbstractSimulator
 	*/
 	public DivisionSimulator(int telestis1,int telestis2)
 	{
-		super(telestis1,telestis2,Praxis.DIVISION);
+		super(telestis1,telestis2,PraxisType.DIVISION);
 		
 		//Counting how many zeros have at the end each number
 		int telestis1Zeros=this.telestis1.getendZeroCount();

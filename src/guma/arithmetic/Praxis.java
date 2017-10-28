@@ -21,8 +21,13 @@
 package guma.arithmetic;
 
 import java.util.Random;
+
+import guma.enums.PraxisType;
+
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
 *A class that simulates a basic Arithmetic Praxis
@@ -49,25 +54,6 @@ public abstract class Praxis implements Serializable
 
 	protected int results=1;
 
-	/**
-	*The symbol of ADDING
-	*/
-	public static final char ADDING='+';
-	
-	/**
-	*The symbol of Substraction
-	*/
-	public static final char SUBSTRACTION='-';
-
-	/**
-	*The symbol of multiplication
-	*/
-	public static final char MULTIPLICATION='*';
-
-	/**
-	*The symbol of division
-	*/
-	public static final char DIVISION='/';
 
 	/**
 	*Modulo Position
@@ -77,7 +63,12 @@ public abstract class Praxis implements Serializable
 	/**
 	*Returns the praxis type
 	*/	
-	protected char praxistype;
+	protected PraxisType praxistype;
+	
+	private Map<Character,PraxisType> praxisTypeMap = new HashMap<Character,PraxisType>();
+	{
+		praxisTypeMap.put('+', PraxisType.ADDING);
+	}
 	
 	/**
 	*Constructor method that creates a random arithmetic praxis eg 2+2
@@ -213,7 +204,7 @@ public abstract class Praxis implements Serializable
 	/**
 	*Returns the operationSymbol
 	*/
-	public char getPraxisType()
+	public PraxisType getPraxisType()
 	{
 		return praxistype;
 	}
@@ -239,24 +230,9 @@ public abstract class Praxis implements Serializable
 	*@param telestis1: This param tells you the first numper that will participate into this Operation
 	*@param telestis2: This param tells you the second number that will participate into this Operation
 	*/
-	public static Praxis makePraxis(char praxisType,int telestis1, int telestis2)
+	public static Praxis makePraxis(PraxisType praxisType,int telestis1, int telestis2)
 	{
-		Praxis p=null;
-		switch(praxisType)
-		{
-			case Praxis.ADDING: 
-			p=new Prosthesis(telestis1,telestis2);	
-			break;
-			case Praxis.SUBSTRACTION:
-			p=new Afairesis(telestis1,telestis2);
-			break;
-			case Praxis.DIVISION:
-			p=new Diairesis(telestis1,telestis2);
-			break;
-			case Praxis.MULTIPLICATION:
-			p=new Multiplication(telestis1,telestis2);
-		}
-		return p;
+		return praxisType.getPraxis(telestis1, telestis2);
 	}
 
 	/**
@@ -264,25 +240,8 @@ public abstract class Praxis implements Serializable
 	*@param praxistype: This param tells us what kind of arithmetic Operation you want to have
 	*@param telestis1: This param tells you the first numbers that will participate into this Operation
 	*/
-	public static Praxis makePraxis(char praxisType,int maxNum)
+	public static Praxis makePraxis(PraxisType praxisType,int maxNum)
 	{
-		Praxis p=null;
-		switch(praxisType)
-		{
-			case Praxis.ADDING: 
-				p=new Prosthesis(maxNum);	
-				break;
-			case Praxis.SUBSTRACTION:
-				p=new Afairesis(maxNum);
-				break;
-
-			case Praxis.DIVISION:
-				p=new Diairesis(maxNum);
-				break;
-
-			case Praxis.MULTIPLICATION:
-				p=new Multiplication(maxNum);
-		}
-		return p;
+		return praxisType.getPraxis(maxNum);
 	}
 }
