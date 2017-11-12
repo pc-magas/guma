@@ -19,6 +19,7 @@
 
 package guma.ui.simulator;
 
+import guma.enums.PraxisType;
 import guma.simulator.*;
 import guma.ui.simulator.SimulatorUI; 
 
@@ -44,7 +45,7 @@ public class SimulatorController
 	*@param praxisType: What kind of operation we want to simulate
 	*@param html: configures it we need html output or not
 	*/
-	public SimulatorController(int telestis1,int telestis2,char praxisType)
+	public SimulatorController(int telestis1,int telestis2,PraxisType praxisType)
 	{
 		simulator= AbstractSimulator.makeSimulator(telestis1,telestis2,praxisType);
 		ui=new SimulatorUI();

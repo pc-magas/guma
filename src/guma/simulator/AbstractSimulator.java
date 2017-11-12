@@ -21,6 +21,7 @@ package guma.simulator;
 
 import java.util.*;
 import guma.arithmetic.Praxis;
+import guma.enums.PraxisType;
 import guma.simulator.Number;
 import java.util.ArrayList;
 import guma.simulator.InternalStatus;
@@ -61,7 +62,7 @@ public abstract class AbstractSimulator
 	/**
 	*Variable that tells what type of operation simulates
 	*/
-	protected char type;
+	protected PraxisType type;
 	
 	/**
 	*Linked list of Internal Status
@@ -83,7 +84,7 @@ public abstract class AbstractSimulator
 	*@param telestis1: the first operator of the number that we will simulate the first operation
 	*@param telestis2: the second operator of the number that we will simulate the first operation
 	*/
-	public AbstractSimulator(int telestis1, int telestis2,char type)
+	public AbstractSimulator(int telestis1, int telestis2,PraxisType type)
 	{
 		this.telestis1=new Number(telestis1);
 		this.telestis2=new Number(telestis2);
@@ -232,15 +233,15 @@ public abstract class AbstractSimulator
 	*@param telesits2: the second operator (depending in the operation) of the operation we want to simulate
 	*@param praxisType: The type of Operation that tells what kind of simulator we want
 	*/
-	public static AbstractSimulator makeSimulator(int telestis1, int telestis2,char praxisType)
+	public static AbstractSimulator makeSimulator(int telestis1, int telestis2,PraxisType praxisType)
 	{
 		AbstractSimulator a=null;
 		switch(praxisType)
 		{
-			case Praxis.ADDING: a= new AddingSimulator(telestis1,telestis2);
+			case ADDING: a= new AddingSimulator(telestis1,telestis2);
 			break;
 			
-			case Praxis.SUBSTRACTION:
+			case SUBSTRACTION:
 				if(telestis1>telestis2)
 				{
 					a= new SubstractionSimulator(telestis1,telestis2);
@@ -251,7 +252,7 @@ public abstract class AbstractSimulator
 				}
 			break;
 			
-			case Praxis.DIVISION:
+			case DIVISION:
 				if(telestis1>telestis2)
 				{
 					a= new DivisionSimulator(telestis1,telestis2);
@@ -262,7 +263,7 @@ public abstract class AbstractSimulator
 				}
 				break;
 			
-			case Praxis.MULTIPLICATION: a= new MultiplicationSimulator(telestis1,telestis2,false);
+			case MULTIPLICATION: a= new MultiplicationSimulator(telestis1,telestis2,false);
 			break;
 			
 			default: a=null;		

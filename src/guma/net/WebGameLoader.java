@@ -64,7 +64,7 @@ public class WebGameLoader
 		
 		String[] allowed={"text/plain","text/xml","application/xml","application/octet-stream"};
 		
-		d= new Downloader(url,path,allowed,size,false);
+		d= new Downloader(url,path,allowed,size);
 	}
 	
 	

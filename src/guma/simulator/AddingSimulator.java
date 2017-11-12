@@ -21,6 +21,7 @@ package guma.simulator;
 
 import guma.simulator.AbstractSimulator;
 import guma.arithmetic.Praxis;
+import guma.enums.PraxisType;
 
 public class AddingSimulator extends SimpleSimulator
 {
@@ -32,7 +33,7 @@ public class AddingSimulator extends SimpleSimulator
 	*/
 	public AddingSimulator(int telestis1,int telestis2)
 	{
-		super(telestis1,telestis2,Praxis.ADDING);
+		super(telestis1,telestis2,PraxisType.ADDING);
 	}
 
 	@Override	

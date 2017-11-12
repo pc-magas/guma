@@ -22,6 +22,7 @@ package guma.simulator;
 import guma.simulator.AbstractSimulator;
 import java.lang.Math;
 import guma.arithmetic.Praxis;
+import guma.enums.PraxisType;
 
 public class SubstractionSimulator extends SimpleSimulator
 {
@@ -38,7 +39,7 @@ public class SubstractionSimulator extends SimpleSimulator
 	*/
 	public SubstractionSimulator(int telestis1,int telestis2)
 	{
-		super(telestis1,telestis2,Praxis.SUBSTRACTION);
+		super(telestis1,telestis2,PraxisType.SUBSTRACTION);
 		
 		if(telestis1>telestis2)
 		{

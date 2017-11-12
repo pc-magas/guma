@@ -22,6 +22,7 @@ package guma.simulator;
 import guma.simulator.AbstractSimulator;
 import java.util.Arrays;
 import guma.arithmetic.Praxis;
+import guma.enums.PraxisType;
 
 public class MultiplicationSimulator extends AbstractSimulator
 {
@@ -59,7 +60,7 @@ public class MultiplicationSimulator extends AbstractSimulator
 	*/
 	public MultiplicationSimulator(int telestis1,int telestis2, boolean spartial)
 	{
-		super(telestis1,telestis2,Praxis.MULTIPLICATION);
+		super(telestis1,telestis2,PraxisType.MULTIPLICATION);
 		this.spartial=spartial;
 		
 		//setting the first intermediate result
